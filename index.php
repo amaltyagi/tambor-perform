@@ -5,35 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="styles/logo_style.css">
     <link rel="stylesheet" type="text/css" href="styles/style.css">
   </head>
 
   <body class="no-select">
     <div class="home-divs">
       <div class="left-div">
-        <div class="logo-div">
+      <img class="tambor-perform-logo" id="home-logo" src="assets/Tambor_Perform_Logo.png" alt="tambor-perform-logo">
+        <!-- <div class="logo-div">
           <div class="logo-parentheses">
             <h1 id="l-parentheses">(</h1>
             <h1 id="r-parentheses">)</h1>
           </div>
           <h1 id="logo-product">Perform</h1>
           <h3 id="logo-company">by Tambor</h3>
-        </div>
+        </div> -->
         <h1 id="left1">Collaborative,</h1>
         <h1 id="left2">Customizable,</h1>
         <h1 id="left3">Curated instruments.</h1>
       </div>
       <div class="right-div">
         <div id="login">
-          <!-- <h1><a href="/login" class="btn btn-primary" id="login-spotify-btn"><h1 class="login-text">Login</h1></a> with <img class="spotify-logo" src="Spotify_Logo_RGB_White.png" alt="spotify-logo"></h1> -->
           <h1><a href="/keyboard.php" class="btn btn-primary" id="login-tambor-btn"><h1 class="login-text">Login</h1></a> with Tambor</h1>
-        </div>
-        <div id="loggedin">
-          <div id="user-profile">
-          </div>
-          <div id="oauth">
-          </div>
-          <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
         </div>
       </div>
     </div>

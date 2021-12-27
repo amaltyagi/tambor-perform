@@ -7,10 +7,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/13.0.1/Tone.min.js"></script>
   <script src="scripts/Rhythm.js"></script>
   <script src="scripts/script.js"></script>
+  <!-- <link rel="stylesheet" type="text/css" href="styles/logo_style.css"> -->
   <link rel="stylesheet" type="text/css" href="styles/keyboard_style.css" />
 </head>
 
 <body>
+    <div class="logo-div">
+        <img class="tambor-perform-logo" id="keyboard-logo" src="assets/Tambor_Perform_Logo.png" alt="tambor-perform-logo">
+    </div>
     <?php 
         $qwerty_keys = ["1234567890-=","qwertyuiop[]","asdfghjkl;'","zxcvbnm,./"];
         $EDO_layouts = array(

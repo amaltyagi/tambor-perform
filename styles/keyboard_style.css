@@ -1,474 +1,480 @@
-
 body {
-    /* background-color: aliceblue; */
-    font-family: helvetica, sans-serif;
-  }
-  
-  nav {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  nav a {
-    color: black;
-    background-color: rgb(90, 185, 71, .4);
-    padding: 2px 4px 2px 4px;
-    text-decoration: none;
-    margin-left: 5px;
-    margin-right: 5px;
-  }
-  
-  nav a:hover, .curr {
-    background-color: rgb(90, 185, 71, .7);
-  }
-  
-  .rand_chords {
-    margin-left: 46vw;
-  }
-  
-  .rand_chords:hover {
-    background-color: rgb(90, 185, 71, .4);
-  }
-  
-  .instrument-div {
-    padding-top: 20px;
-    text-align: center;
-  }
-  
-  .instrument {
-    font-size: medium;
-  }
-  
-  .qwerty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .qwerty-key {
-    background-color: rgba(115,115,115,1);
-    color: white;
-    border-radius: 2px;
-    border: 1px solid black;
-    margin: 5px 5px 0px 0px;
-    width: 50px;
-    height: 25px;
-    text-align: center;
-    cursor: default;
-    padding-top: 30px;
-  }
-  
-  .qwerty-row, .bottom-row {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .black-key:hover, .arrow-key:hover, .snare:hover, .daw-track-remove:hover, .daw-track-new:hover {
-    background-color: rgba(140,140,140,1);
-  }
-  
-  .white-key:hover, .space-key:hover {
-    background-color: rgba(200,200,200,1);
-  }
-  
-  .qwerty-key::selection {
-    /* cursor: pointer; */
-    color: none;
-    background: none;
-  }
-  
-  #row2 {
-    padding-right: 40px;
-  }
-  
-  #row3 {
-    padding-right: 65px;
-  }
-  
-  .bottom-row {
-    justify-content: center;
-    /* margin-left: -48px; */
-  }
-  
-  .space-key {
-    background-color: white;
-    color: white;
-    border-radius: 2px;
-    border: 1px solid black;
-    /* margin: 5px 0px 0px 15px; */
-    width: 278px;
-    margin-top: 5px;
-    margin-right: 5px;
-    height: 25px;
-    text-align: center;
-    cursor: default;
-    padding-top: 30px;
-  }
-  
-  .playing {
-    transform:scale(1.1);
-    border-color:rgba(255,215,0);
-    box-shadow: 0 0 10px #ffc600;
-  }
-  
-  .black-key {
-    background-color: black;
-  }
-  
-  .white-key {
-    background-color: white;
-    color: black;
-  }
-  
-  .arc-key {
-    background-color: navy;
-  }
-  
-  .arc-key-2 {
-    background-color: royalblue;
-  }
-  
-  .disabled {
-    opacity: .3;
-  }
-  
-  .vol-slider, .metal-env-slider, .kick-env-slider {
-    margin-top: 10px;
-    margin-bottom: 5px;
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .vol-slider {
-    justify-content: center;
-  }
-  
-  .vol-box {
-    width: 70px;
-    font-size: medium;
-    text-align: center;
-  }
-  
-  .osc-div {
-    margin-top: 40px;
-    margin-right: 40px;
-    text-align: center;
-    justify-content: center;
-  }
-  
-  .osc, .osc-option {
-    font-size: medium;
-  }
-  
-  .osc-div {
-    margin-top: 20px;
-  }
-  
-  .synth-basefreq, .pluck-basefreq, .metal-basefreq, .kick-basefreq, .partial {
-    margin-bottom: 15px;
-  }
-  
-  .synth-basefreq-slider, .pluck-basefreq-slider, .metal-basefreq-slider, .kick-basefreq-slider, .partial-slider {
-    margin-bottom: 5px;
-  }
-  
-  .synth-basefreq-box, .pluck-basefreq-box, .metal-basefreq-box, .kick-basefreq-box, .partial-box {
-    width: 70px;
-    font-size: medium;
-    text-align: center;
-  }
-  
-  .synth-basefreq-input, .pluck-basefreq-input, .metal-basefreq-input, .kick-basefreq-input, .partial-input {
-    margin-bottom: -5px;
-    margin-right: -2px;
-  }
-  
-  .synth-env, .pluck-env, .metal-env, .kick-env {
-    margin-left: 40px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  .env-slider, .metal-env-slider, .metal-harmonicity-slider, .metal-modulation-slider, .metal-resonance-slider, .metal-octaves-slider, .kick-env-slider, .kick-pitch-decay-slider, .kick-octaves-slider {
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .env-box, .metal-env-box, .metal-harmonicity-box, .metal-modulation-box, .metal-resonance-box, .metal-octaves-box, .kick-env-box, .kick-pitch-decay-box, .kick-octaves-box {
-    width: 40px;
-    font-size: medium;
-    text-align: center;
-  }
-  
-  .env-box, .metal-env-box, .kick-env-box {
-    margin-top: 15px;
-  }
-  
-  .metal-modulation-box {
-    margin: 20px 0px 0px 60px;
-  }
-  
-  .metal-harmonicity-box, .metal-resonance-box, .metal-octaves-box, .kick-pitch-decay-box, .kick-octaves-box {
-    margin: 20px 0px 0px 100px;
-    font-size: medium;
-    text-align: center;
-  }
-  
-  .env-label, .metal-env-label, .metal-harmonicity-label, .metal-modulation-label, .metal-resonance-label, .metal-octaves-label, .kick-env-label, .kick-pitch-decay-label, .kick-octaves-label {
-    margin-top: 5px;
-    font-size: large;
-  }
-  
-  .metal-env-1, .kick-env-1 {
-    margin-right: 20px;
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .metal-env-2, .kick-env-2 {
-    margin-left: 20px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .cover-all {
-    margin-top: 15px;
-    text-align: center;
-  }
-  
-  .pluck-env {
-    margin-right: 35px;
-  }
-  
-  .attack-noise, .dampening, .pluck-resonance {
-    text-align: center;
-    margin-right: 30px;
-    /* margin-bottom: 100px; */
-  }
-  
-  .attack-noise-box, .dampening-box, .pluck-resonance-box {
-    font-size: medium;
-    text-align: center;
-    width: 70px;
-    margin: 20px 0px 5px -55px;
-  }
-  
-  .attack-noise-input, .dampening-input, .pluck-resonance-input {
-    margin: 0px 0px 30px 45px;
-  }
-  
-  .attack-noise-label, .dampening-label, .pluck-resonance-label {
-    margin-left: 15px;
-  }
-  
-  .drumkit-div-1, .drumkit-div-2 {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-right: 20px;
-  }
-  
-  .drumkit-div-2 {
-    margin-left: -220px;
-  }
-  
-  .drum {
-    border: solid 1px;
-    border-radius: 100%;
-    border-color: black;
-    background-color: white;
-  }
-  
-  .cymbal {
-    border: solid 1px;
-    border-radius: 50%;
-    border-color: black;
-    background-color: rgb(240, 200, 110);
-  }
-  
-  #snare {
-    height: 150px;
-    width: 150px;
-    margin-left: -200px;
-    margin-right: -200px;
-  }
-  
-  #high-tom {
-    height: 125px;
-    width: 125px;
-    margin-top: 25px;
-    margin-left: 200px;
-    margin-right: -400px;
-  }
-  
-  #mid-tom {
-    height: 135px;
-    width: 135px;
-    margin-top: 15px;
-    margin-left: -113px;
-    margin-right: 100px;
-  }
-  
-  #low-tom {
-    height: 190px;
-    width: 190px;
-    margin-left: 275px;
-  }
-  
-  #kick {
-    height: 50px;
-    width: 250px;
-    margin-left: 380px;
-    margin-right: -150px;
-  }
-  
-  #crash-cymbal {
-    height: 175px;
-    width: 175px;
-    margin-top: -30px;
-    margin-left: 120px;
-    margin-right: 215px;
-  }
-  
-  #hi-hat {
-    height: 175px;
-    width: 175px;
-    margin-top: -25px;
-    margin-left: -100px;
-  }
-  
-  #ride-cymbal {
-    height: 200px;
-    width: 200px;
-    margin-top: -25px;
-    margin-left: -120px;
-    margin-bottom: -70px;
-    z-index: 1;
-  }
-  
-  .daw {
-    margin-top: 25px;
-  }
-  
-  .daw-nav {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .daw-curr {
-    background-color:rgba(255,215,0);
-  }
-  
-  .daw-nav-item {
-    text-align: center;
-    border: 1px solid black;
-    border-radius: 2px;
-    padding-top: 15px;
-    height: 30px;
-    width: 140px;
-  }
-  
-  .daw-nav-item:hover {
-    background-color:rgba(255,215,0, .5);
-    /* box-shadow: 0 0 10px #ffc600; */
-  
-  }
-  
-  .daw-track {
-    display: flex;
-    flex-direction: row;
-    border: solid black 1px;
-    height: 120px;
-    margin-bottom: -1px;
-  }
-  
-  .track-selected {
-    background-color: rgba(200,200,200,1);
-  }
-  
-  .daw-track-left {
-    display: flex;
-    flex-direction: column;
-    border-right: solid black 1px;
-    width: 140px;
-  }
-  
-  .daw-track-left-top {
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .daw-track-remove {
-    border: solid black 1px;
-    margin: -1px 0px 0px -1px;
-    width: 20px;
-    text-align: center;
-  }
-  
-  .daw-track-name {
-    width: 110px;
-  }
-  
-  .daw-track-vol, .daw-track-pan {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  .daw-track-vol {
-    margin-top: -5px;
-    margin-bottom: -25px;
-  }
-  
-  .daw-track-pan {
-    
-  }
-  
-  .daw-track-vol-slider, .daw-track-pan-slider {
-    display: flex;
-    flex-direction: row;
-    width: 100px;
-    margin-left: 6px;
-    margin-right: 6px;
-  }
-  
-  .daw-track-pan {
-    margin-top: 5px;
-    margin-bottom: -5px;
-  }
-  
-  .daw-track-mute-solo {
-    margin-top: 0px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  .daw-track-mute, .daw-track-solo {
-    border: solid black 1px;
-    text-align: center;
-    padding-top: 5px;
-    margin-left: 5px;
-    margin-right: 5px;
-    justify-content: center;
-    width: 20px;
-    height: 18px;
-  }
-  
-  .daw-track-flat {
-    /* margin-top: 60px;
-    position: relative;
-    width: calc(); */
-  }
-  
-  .daw-track-new {
-    border: solid black 1px;
-    margin-top: -1px;
-    margin-bottom: 35px;
-    width: 20px;
-    height: 20px;
-    text-align: center;
-  }
+  /* background-color: aliceblue; */
+  font-family: helvetica, sans-serif;
+}
+
+.tambor-perform-logo {
+  padding: 5px 0px 0px 3.5px;
+  height: 10vw;
+  width: auto;
+  margin-bottom: -40px;
+}
+
+nav {
+  margin-top: 20px;
+  text-align: center;
+}
+
+nav a {
+  color: black;
+  background-color: rgb(90, 185, 71, .4);
+  padding: 2px 4px 2px 4px;
+  text-decoration: none;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+nav a:hover, .curr {
+  background-color: rgb(90, 185, 71, .7);
+}
+
+.rand_chords {
+  margin-left: 46vw;
+}
+
+.rand_chords:hover {
+  background-color: rgb(90, 185, 71, .4);
+}
+
+.instrument-div {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.instrument {
+  font-size: medium;
+}
+
+.qwerty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.qwerty-key {
+  background-color: rgba(115,115,115,1);
+  color: white;
+  border-radius: 2px;
+  border: 1px solid black;
+  margin: 5px 5px 0px 0px;
+  width: 50px;
+  height: 25px;
+  text-align: center;
+  cursor: default;
+  padding-top: 30px;
+}
+
+.qwerty-row, .bottom-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.black-key:hover, .arrow-key:hover, .snare:hover, .daw-track-remove:hover, .daw-track-new:hover {
+  background-color: rgba(140,140,140,1);
+}
+
+.white-key:hover, .space-key:hover {
+  background-color: rgba(200,200,200,1);
+}
+
+.qwerty-key::selection {
+  /* cursor: pointer; */
+  color: none;
+  background: none;
+}
+
+#row2 {
+  padding-right: 40px;
+}
+
+#row3 {
+  padding-right: 65px;
+}
+
+.bottom-row {
+  justify-content: center;
+  /* margin-left: -48px; */
+}
+
+.space-key {
+  background-color: white;
+  color: white;
+  border-radius: 2px;
+  border: 1px solid black;
+  /* margin: 5px 0px 0px 15px; */
+  width: 278px;
+  margin-top: 5px;
+  margin-right: 5px;
+  height: 25px;
+  text-align: center;
+  cursor: default;
+  padding-top: 30px;
+}
+
+.playing {
+  transform:scale(1.1);
+  border-color:rgba(255,215,0);
+  box-shadow: 0 0 10px #ffc600;
+}
+
+.black-key {
+  background-color: black;
+}
+
+.white-key {
+  background-color: white;
+  color: black;
+}
+
+.arc-key {
+  background-color: navy;
+}
+
+.arc-key-2 {
+  background-color: royalblue;
+}
+
+.disabled {
+  opacity: .3;
+}
+
+.vol-slider, .metal-env-slider, .kick-env-slider {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+}
+
+.vol-slider {
+  justify-content: center;
+}
+
+.vol-box {
+  width: 70px;
+  font-size: medium;
+  text-align: center;
+}
+
+.osc-div {
+  margin-top: 40px;
+  margin-right: 40px;
+  text-align: center;
+  justify-content: center;
+}
+
+.osc, .osc-option {
+  font-size: medium;
+}
+
+.osc-div {
+  margin-top: 20px;
+}
+
+.synth-basefreq, .pluck-basefreq, .metal-basefreq, .kick-basefreq, .partial {
+  margin-bottom: 15px;
+}
+
+.synth-basefreq-slider, .pluck-basefreq-slider, .metal-basefreq-slider, .kick-basefreq-slider, .partial-slider {
+  margin-bottom: 5px;
+}
+
+.synth-basefreq-box, .pluck-basefreq-box, .metal-basefreq-box, .kick-basefreq-box, .partial-box {
+  width: 70px;
+  font-size: medium;
+  text-align: center;
+}
+
+.synth-basefreq-input, .pluck-basefreq-input, .metal-basefreq-input, .kick-basefreq-input, .partial-input {
+  margin-bottom: -5px;
+  margin-right: -2px;
+}
+
+.synth-env, .pluck-env, .metal-env, .kick-env {
+  margin-left: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.env-slider, .metal-env-slider, .metal-harmonicity-slider, .metal-modulation-slider, .metal-resonance-slider, .metal-octaves-slider, .kick-env-slider, .kick-pitch-decay-slider, .kick-octaves-slider {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.env-box, .metal-env-box, .metal-harmonicity-box, .metal-modulation-box, .metal-resonance-box, .metal-octaves-box, .kick-env-box, .kick-pitch-decay-box, .kick-octaves-box {
+  width: 40px;
+  font-size: medium;
+  text-align: center;
+}
+
+.env-box, .metal-env-box, .kick-env-box {
+  margin-top: 15px;
+}
+
+.metal-modulation-box {
+  margin: 20px 0px 0px 60px;
+}
+
+.metal-harmonicity-box, .metal-resonance-box, .metal-octaves-box, .kick-pitch-decay-box, .kick-octaves-box {
+  margin: 20px 0px 0px 100px;
+  font-size: medium;
+  text-align: center;
+}
+
+.env-label, .metal-env-label, .metal-harmonicity-label, .metal-modulation-label, .metal-resonance-label, .metal-octaves-label, .kick-env-label, .kick-pitch-decay-label, .kick-octaves-label {
+  margin-top: 5px;
+  font-size: large;
+}
+
+.metal-env-1, .kick-env-1 {
+  margin-right: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.metal-env-2, .kick-env-2 {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cover-all {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.pluck-env {
+  margin-right: 35px;
+}
+
+.attack-noise, .dampening, .pluck-resonance {
+  text-align: center;
+  margin-right: 30px;
+  /* margin-bottom: 100px; */
+}
+
+.attack-noise-box, .dampening-box, .pluck-resonance-box {
+  font-size: medium;
+  text-align: center;
+  width: 70px;
+  margin: 20px 0px 5px -55px;
+}
+
+.attack-noise-input, .dampening-input, .pluck-resonance-input {
+  margin: 0px 0px 30px 45px;
+}
+
+.attack-noise-label, .dampening-label, .pluck-resonance-label {
+  margin-left: 15px;
+}
+
+.drumkit-div-1, .drumkit-div-2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.drumkit-div-2 {
+  margin-left: -220px;
+}
+
+.drum {
+  border: solid 1px;
+  border-radius: 100%;
+  border-color: black;
+  background-color: white;
+}
+
+.cymbal {
+  border: solid 1px;
+  border-radius: 50%;
+  border-color: black;
+  background-color: rgb(240, 200, 110);
+}
+
+#snare {
+  height: 150px;
+  width: 150px;
+  margin-left: -200px;
+  margin-right: -200px;
+}
+
+#high-tom {
+  height: 125px;
+  width: 125px;
+  margin-top: 25px;
+  margin-left: 200px;
+  margin-right: -400px;
+}
+
+#mid-tom {
+  height: 135px;
+  width: 135px;
+  margin-top: 15px;
+  margin-left: -113px;
+  margin-right: 100px;
+}
+
+#low-tom {
+  height: 190px;
+  width: 190px;
+  margin-left: 275px;
+}
+
+#kick {
+  height: 50px;
+  width: 250px;
+  margin-left: 380px;
+  margin-right: -150px;
+}
+
+#crash-cymbal {
+  height: 175px;
+  width: 175px;
+  margin-top: -30px;
+  margin-left: 120px;
+  margin-right: 215px;
+}
+
+#hi-hat {
+  height: 175px;
+  width: 175px;
+  margin-top: -25px;
+  margin-left: -100px;
+}
+
+#ride-cymbal {
+  height: 200px;
+  width: 200px;
+  margin-top: -25px;
+  margin-left: -120px;
+  margin-bottom: -70px;
+  z-index: 1;
+}
+
+.daw {
+  margin-top: 25px;
+}
+
+.daw-nav {
+  display: flex;
+  flex-direction: row;
+}
+
+.daw-curr {
+  background-color:rgba(255,215,0);
+}
+
+.daw-nav-item {
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 2px;
+  padding-top: 15px;
+  height: 30px;
+  width: 140px;
+}
+
+.daw-nav-item:hover {
+  background-color:rgba(255,215,0, .5);
+  /* box-shadow: 0 0 10px #ffc600; */
+
+}
+
+.daw-track {
+  display: flex;
+  flex-direction: row;
+  border: solid black 1px;
+  height: 120px;
+  margin-bottom: -1px;
+}
+
+.track-selected {
+  background-color: rgba(200,200,200,1);
+}
+
+.daw-track-left {
+  display: flex;
+  flex-direction: column;
+  border-right: solid black 1px;
+  width: 140px;
+}
+
+.daw-track-left-top {
+  display: flex;
+  flex-direction: row;
+}
+
+.daw-track-remove {
+  border: solid black 1px;
+  margin: -1px 0px 0px -1px;
+  width: 20px;
+  text-align: center;
+}
+
+.daw-track-name {
+  width: 110px;
+}
+
+.daw-track-vol, .daw-track-pan {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.daw-track-vol {
+  margin-top: -5px;
+  margin-bottom: -25px;
+}
+
+.daw-track-pan {
+  
+}
+
+.daw-track-vol-slider, .daw-track-pan-slider {
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  margin-left: 6px;
+  margin-right: 6px;
+}
+
+.daw-track-pan {
+  margin-top: 5px;
+  margin-bottom: -5px;
+}
+
+.daw-track-mute-solo {
+  margin-top: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.daw-track-mute, .daw-track-solo {
+  border: solid black 1px;
+  text-align: center;
+  padding-top: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  justify-content: center;
+  width: 20px;
+  height: 18px;
+}
+
+.daw-track-flat {
+  /* margin-top: 60px;
+  position: relative;
+  width: calc(); */
+}
+
+.daw-track-new {
+  border: solid black 1px;
+  margin-top: -1px;
+  margin-bottom: 35px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+}

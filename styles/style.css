@@ -138,7 +138,7 @@
   font-size: 40pt;
 }
 
-@media screen and (max-width: 820px) and (min-width: 450px) {
+@media screen and (max-width: 820px) {
   .home-divs {
     flex-direction: column;
   }
@@ -172,12 +172,5 @@
 
   .spotify-logo {
     margin-top: -5px;
-  }
-}
-
-@media screen and (max-width: 450px) and (max-height: 600px) {
-  #left1 {
-    /* padding-top: 4vh; */
-    /* margin-top: -30px; */
   }
 }

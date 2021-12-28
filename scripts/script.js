@@ -792,8 +792,8 @@ $(document).ready(function() {
         new_base_freq = Math.pow(2, semitones/n)*prev_base_freq;
         prev_base_freq = new_base_freq.toFixed(1);
         keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n);
-        $(".basefreq-input").val(prev_base_freq);
-        $(".basefreq-box").val(prev_base_freq);
+        $(".synth-basefreq-input").val(prev_base_freq);
+        $(".synth-basefreq-box").val(prev_base_freq);
     }
 
     function pressPedal() {
@@ -882,17 +882,22 @@ $(document).ready(function() {
         }
     }
 
-    $(".daw-track-audio").hide();
-    stop_btn = document.querySelector(".full-stop-btn");
-    stop_btn.classList.add("disabled");
-    $(".full-record-btn").on("click", function() {
-        record_btn = document.querySelector(".full-record-btn");
-        record_btn.classList.add("disabled");
-        stop_btn = document.querySelector(".full-stop-btn");
-        stop_btn.classList.remove("disabled");
+    $(document).on("click", ".daw-track", function() {
+        $(".track-selected").removeClass("track-selected");
+        $(this).addClass("track-selected");
+    });
+
+    // $(".daw-track-audio").hide();
+    $(document).on("click", ".full-record-btn", function() {
+        
+        $(this).addClass("disabled");
+        var closest_stop_btn = $(this).next(".full-stop-btn");
+        closest_stop_btn.removeClass("disabled");
+
+        // const audio = $(this).next(".daw-track-audio");
         const audio = document.querySelector("audio");
+        console.log(audio);
         const actx = Tone.context;
-        console.log(actx);
         const dest = actx.createMediaStreamDestination();
         const recorder = new MediaRecorder(dest.stream);
 
@@ -901,33 +906,62 @@ $(document).ready(function() {
         recorder.start();
         recorder.ondataavailable = evt => chunks.push(evt.data);
 
-        $(".full-stop-btn").on("click", function() {
-            $(".daw-track-circle-btns").hide();
-            $(".daw-track-audio").show();
-            console.log('stopped');
+        closest_stop_btn.on("click", function() {
+            $(this).closest(".daw-track-circle-btns").hide();
+            audio.classList.remove("hidden");
+            // audio.removeClass("hidden");
+            
             recorder.stop();
             recorder.onstop = evt => {
-                console.log(evt);
                 let blob = new Blob(chunks, {type: 'audio/ogg; codecs=opus'});
                 audio.src = URL.createObjectURL(blob);
+                console.log(audio);
             }
-        })
-
+        });
     });
 
+    // $(".full-record-btn").on("click", function() {
+    //     record_btn = document.querySelector(".full-record-btn");
+    //     record_btn.classList.add("disabled");
+    //     stop_btn = document.querySelector(".full-stop-btn");
+    //     stop_btn.classList.remove("disabled");
+    //     const audio = document.querySelector("audio");
+    //     const actx = Tone.context;
+    //     console.log(actx);
+    //     const dest = actx.createMediaStreamDestination();
+    //     const recorder = new MediaRecorder(dest.stream);
+
+    //     defaultSynth.connect(dest);
+    //     const chunks = [];
+    //     recorder.start();
+    //     recorder.ondataavailable = evt => chunks.push(evt.data);
+
+    //     $(".full-stop-btn").on("click", function() {
+    //         $(".daw-track-circle-btns").hide();
+    //         $(".daw-track-audio").show();
+    //         console.log('stopped');
+    //         recorder.stop();
+    //         recorder.onstop = evt => {
+    //             console.log(evt);
+    //             let blob = new Blob(chunks, {type: 'audio/ogg; codecs=opus'});
+    //             audio.src = URL.createObjectURL(blob);
+    //         }
+    //     })
+    // });
+
+    var tracks = 0;
     $(".daw-track-new").on("click", function () {
-        $(".daw").append($(".daw-track-wrapper").html());
+        // $(".daw").append($(".daw-track-wrapper").html());
+        tracks++;
+        tracks_s = tracks.toString();
+        document.getElementById("daw").innerHTML += '<div class="daw-track" id="track-'.concat(tracks_s).concat('"><div class="daw-track-left"><div class="daw-track-left-top"><div class="daw-track-remove" id="remove-track-'.concat(tracks_s).concat('">x</div><input type="text" class="daw-track-name"></div><div class="daw-track-vol"><p>–</p><input type="range" class="daw-track-vol-slider"><p>+</p></div><div class="daw-track-pan"><p>L</p><input type="range" class="daw-track-pan-slider"><p>R</p></div><div class="daw-track-mute-solo"><div class="daw-track-mute">M</div><div class="daw-track-solo">S</div></div></div><div class="daw-track-right"><div class="daw-track-circle-btns"><div class="daw-track-circle-btn full-record-btn"><div class="daw-track-record"></div></div><div class="daw-track-circle-btn full-stop-btn disabled"><div class="daw-track-stop"></div></div></div></div><audio controls class="daw-track-audio hidden" id="audio-'.concat(tracks_s).concat('"></audio></div>')));
     });
 
-    $(".daw-track-remove").on("click", function () {
-        console.log('removing');
-        $(".daw").remove("#track-0");
+    $(document).on("click", ".daw-track-remove", function() {
+        $(this).closest('.daw-track').remove();
     });
-
-
 });
 
 function getKeyByFreq(object, freq) {
     return Object.keys(object).find(key => object[key] == freq);
 }
-

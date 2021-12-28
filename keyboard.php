@@ -12,7 +12,7 @@
   <link rel="stylesheet" type="text/css" href="styles/keyboard_style.css" />
 </head>
 
-<body>
+<body class="no-select">
     <div class="logo-div">
         <img class="tambor-perform-logo" id="keyboard-logo" src="assets/Tambor_Perform_Logo.png" alt="tambor-perform-logo">
     </div>
@@ -300,56 +300,48 @@
         </div>
     </div>
 
-    <div class="daw">
+    <div class="daw" id="daw">
         <div class="daw-nav">
             <div class="daw-curr daw-nav-item">RECORD</div>
             <div class="daw-nav-item">EDIT</div>
             <div class="daw-nav-item">IMPORT</div>
             <div class="daw-nav-item">EXPORT</div>
         </div>
-        <div class="daw-track-wrapper">
-            <?php $i=0; ?>
-                <div class="daw-track track-selected" id="<?php echo 'track-'.$i; ?>">
-                    <div class="daw-track-left">
-                        <div class="daw-track-left-top">
-                            <div class="daw-track-remove" id="<?php echo 'remove-track-'.$i; ?>">x</div>
-                            <input type="text" class="daw-track-name">
-                        </div>
-                        <div class="daw-track-vol">
-                            <p>–</p>
-                            <input type="range" class="daw-track-vol-slider">
-                            <p>+</p>
-                        </div>
-                        <div class="daw-track-pan">
-                            <p>L</p>
-                            <input type="range" class="daw-track-pan-slider">
-                            <p>R</p>
-                        </div>
-                        <div class="daw-track-mute-solo">
-                            <div class="daw-track-mute">M</div>
-                            <div class="daw-track-solo">S</div>
-                        </div>
-                    </div>
-                    <div class="daw-track-right">
-                        <div class="daw-track-circle-btns">
-                            <div class="daw-track-circle-btn full-record-btn">
-                                <div class="daw-track-record"></div>
-                            </div>
-                            <!-- <div class="daw-track-circle-btn">
-                                <div class="daw-track-pause"></div>
-                            </div> -->
-                            <div class="daw-track-circle-btn full-stop-btn">
-                                <div class="daw-track-stop"></div>
-                            </div>
-                        </div>
-                    <!-- <hr class="daw-track-flat" /> -->
-                    </div>
-                    <audio controls class="daw-track-audio"></audio>
-                    
+        <div class="daw-track" id="track-0">
+            <div class="daw-track-left">
+                <div class="daw-track-left-top">
+                    <div class="daw-track-remove" id="remove-track-0">x</div>
+                    <input type="text" class="daw-track-name">
                 </div>
+                <div class="daw-track-vol">
+                    <p>–</p>
+                    <input type="range" class="daw-track-vol-slider">
+                    <p>+</p>
+                </div>
+                <div class="daw-track-pan">
+                    <p>L</p>
+                    <input type="range" class="daw-track-pan-slider">
+                    <p>R</p>
+                </div>
+                <div class="daw-track-mute-solo">
+                    <div class="daw-track-mute">M</div>
+                    <div class="daw-track-solo">S</div>
+                </div>
+            </div>
+            <div class="daw-track-right">
+                <div class="daw-track-circle-btns">
+                    <div class="daw-track-circle-btn full-record-btn">
+                        <div class="daw-track-record"></div>
+                    </div>
+                    <div class="daw-track-circle-btn full-stop-btn disabled">
+                        <div class="daw-track-stop"></div>
+                    </div>
+                </div>
+            </div>
+            <audio controls class="daw-track-audio hidden" id="audio-0"></audio>
         </div>
     </div>
-    <!-- <div class="daw-track-new">+</div> -->
+    <div class="daw-track-new">+</div>
 
     <!-- <script>
     (function(Peaks) {

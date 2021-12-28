@@ -911,11 +911,6 @@ $(document).ready(function() {
                 let blob = new Blob(chunks, {type: 'audio/ogg; codecs=opus'});
                 audio.src = URL.createObjectURL(blob);
             }
-
-            var wavesurfer = WaveSurfer.create({
-                container: '.daw-track-right'
-            });
-            wavesurfer.load(audio);
         })
 
     });

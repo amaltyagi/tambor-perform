@@ -393,10 +393,11 @@ nav a:hover, .curr {
 }
 
 .track-selected {
-  background-color: rgba(200,200,200,1);
+  
 }
 
 .daw-track-left {
+  background-color: rgba(200,200,200,1);
   display: flex;
   flex-direction: column;
   border-right: solid black 1px;
@@ -478,4 +479,65 @@ nav a:hover, .curr {
   width: 20px;
   height: 20px;
   text-align: center;
+}
+
+.daw-track-circle-btns {
+  display: flex;
+  flex-direction: row;
+}
+
+.daw-track-circle-btn {
+  background-color: rgba(225,225,225,1);
+  width: 50px;
+  height: 50px;
+  margin-top: 35px;
+  margin-left: 15px;
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.daw-track-circle-btn:hover {
+  background-color: rgba(200,200,200,1);
+  /* cursor: pointer; */
+}
+
+.daw-track-circle-btn:active {
+  transform:scale(1.1);
+  border-color:rgba(255,215,0);
+  box-shadow: 0 0 10px #ffc600;
+}
+
+.daw-track-record {
+  margin-left: 12.5px;
+  margin-top: 12.5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: red;
+}
+
+.daw-track-pause {
+
+}
+
+.daw-track-stop {
+  margin-left: 15px;
+  margin-top: 15px;
+  width: 20px;
+  height: 20px;
+  background-color: royalblue;
+}
+
+audio {
+  display: block;
+  margin: auto;
+}
+
+.recording {
+  pointer-events: none;
+  background-color: rgba(200,200,200,1);
+}
+
+.daw-track-audio {
+  width: 90vw;
 }

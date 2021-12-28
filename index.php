@@ -29,6 +29,13 @@
         <div id="login">
           <h1><a href="/keyboard.php" class="btn btn-primary" id="login-tambor-btn"><h1 class="login-text">Login</h1></a> with Tambor</h1>
         </div>
+        <div id="loggedin">
+          <div id="user-profile">
+          </div>
+          <div id="oauth">
+          </div>
+          <button class="btn btn-default" id="obtain-new-token">Obtain new token using the refresh token</button>
+        </div>
       </div>
     </div>
 
@@ -112,7 +119,7 @@
 
                   // $('#login').hide();
                   // $('#loggedin').show();
-                  window.location.replace("https://tambor-blend.herokuapp.com/playlists.html");
+                  window.location.replace("https://tambor-perform.herokuapp.com/keyboard.php");
                 }
             });
           } else {

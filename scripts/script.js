@@ -882,6 +882,44 @@ $(document).ready(function() {
         }
     }
 
+    $(".daw-track-audio").hide();
+    stop_btn = document.querySelector(".full-stop-btn");
+    stop_btn.classList.add("disabled");
+    $(".full-record-btn").on("click", function() {
+        record_btn = document.querySelector(".full-record-btn");
+        record_btn.classList.add("disabled");
+        stop_btn = document.querySelector(".full-stop-btn");
+        stop_btn.classList.remove("disabled");
+        const audio = document.querySelector("audio");
+        const actx = Tone.context;
+        console.log(actx);
+        const dest = actx.createMediaStreamDestination();
+        const recorder = new MediaRecorder(dest.stream);
+
+        defaultSynth.connect(dest);
+        const chunks = [];
+        recorder.start();
+        recorder.ondataavailable = evt => chunks.push(evt.data);
+
+        $(".full-stop-btn").on("click", function() {
+            $(".daw-track-circle-btns").hide();
+            $(".daw-track-audio").show();
+            console.log('stopped');
+            recorder.stop();
+            recorder.onstop = evt => {
+                console.log(evt);
+                let blob = new Blob(chunks, {type: 'audio/ogg; codecs=opus'});
+                audio.src = URL.createObjectURL(blob);
+            }
+
+            var wavesurfer = WaveSurfer.create({
+                container: '.daw-track-right'
+            });
+            wavesurfer.load(audio);
+        })
+
+    });
+
     $(".daw-track-new").on("click", function () {
         $(".daw").append($(".daw-track-wrapper").html());
     });

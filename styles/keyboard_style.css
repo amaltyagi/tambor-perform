@@ -365,6 +365,8 @@ nav a:hover, .curr {
 .daw-nav {
   display: flex;
   flex-direction: row;
+  justify-content: end;
+  margin-bottom: -92px;
 }
 
 .daw-curr {
@@ -375,8 +377,8 @@ nav a:hover, .curr {
   text-align: center;
   border: 1px solid black;
   border-radius: 2px;
-  padding-top: 15px;
-  height: 30px;
+  padding-top: 22px;
+  height: 35px;
   width: 140px;
 }
 
@@ -484,30 +486,67 @@ nav a:hover, .curr {
   text-align: center;
 }
 
-.daw-track-circle-btns {
+.daw-circle-btns, .daw-track-circle-btns {
   display: flex;
   flex-direction: row;
 }
 
-.daw-track-circle-btn {
+.daw-track-circle-btn, .daw-circle-btn {
   background-color: rgba(225,225,225,1);
   width: 50px;
   height: 50px;
   margin-top: 35px;
   margin-left: 15px;
+  margin-right: 6px;
   border: 1px solid black;
   border-radius: 50%;
 }
 
-.daw-track-circle-btn:hover {
+.daw-track-circle-btn:hover, .daw-circle-btn:hover {
   background-color: rgba(200,200,200,1);
-  /* cursor: pointer; */
 }
 
-.daw-track-circle-btn:active {
+.daw-track-circle-btn:active, .daw-circle-btn:active {
   transform:scale(1.1);
   border-color:rgba(255,215,0);
   box-shadow: 0 0 10px #ffc600;
+}
+
+.daw-circle-btns {
+  margin-left: -4px;
+  padding-right: 4px;
+}
+
+.daw-circle-btn {
+  margin-bottom: 5px;
+}
+
+.daw-play {
+  width: 30px;
+  height: 30px;
+  background: rgb(21, 185, 87);
+  margin-top: 10px;
+  margin-left: 17px;
+  clip-path: polygon(0 0, 80% 48%, 0 100%, 0% 100%);
+}
+
+.daw-pause {
+  display: block;
+  box-sizing: border-box;
+  width: 0;
+  height: 27px;
+  border-color: transparent transparent transparent royalblue;
+  border-style: double;
+  border-width: 0 0 0 20px;
+  margin-top: 11px;
+  margin-left: 15px;
+}
+
+.daw-loop {
+  font-size: 28pt;
+  font-weight: bolder;
+  margin-left: 7px;
+  margin-top: -4px;
 }
 
 .daw-track-record {
@@ -517,10 +556,6 @@ nav a:hover, .curr {
   height: 25px;
   border-radius: 50%;
   background-color: red;
-}
-
-.daw-track-pause {
-
 }
 
 .daw-track-stop {
@@ -547,4 +582,12 @@ audio {
 
 .hidden {
   display: none;
+}
+
+.toggled {
+  background-color:  rgba(255,215,0,0.2);
+}
+
+.toggled:hover {
+  background-color: rgba(255,215,0,0.4);
 }

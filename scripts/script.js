@@ -895,7 +895,6 @@ $(document).ready(function() {
         closest_stop_btn.removeClass("disabled");
 
         const audio = document.querySelector(".track-selected > audio");
-        console.log(audio);
         const actx = Tone.context;
         const dest = actx.createMediaStreamDestination();
         const recorder = new MediaRecorder(dest.stream);
@@ -908,14 +907,50 @@ $(document).ready(function() {
         closest_stop_btn.on("click", function() {
             $(this).closest(".daw-track-circle-btns").hide();
             audio.classList.remove("hidden");
+            $('.full-play-btn').removeClass('disabled');
+            $('.full-loop-btn').removeClass('disabled');
             
             recorder.stop();
             recorder.onstop = evt => {
                 let blob = new Blob(chunks, {type: 'audio/ogg; codecs=opus'});
                 audio.src = URL.createObjectURL(blob);
-                console.log(audio);
             }
         });
+    });
+
+    $(document).on("click", ".full-play-btn", function() {
+        $('.full-play-btn').addClass('disabled');
+        $('.full-pause-btn').removeClass('disabled');
+        const audios = document.querySelectorAll("audio:not(.hidden)");
+        audios.forEach(audio => {
+            audio.play(); 
+        });
+    });
+
+    $(document).on("click", ".full-pause-btn", function() {
+        $('.full-pause-btn').addClass('disabled');
+        $('.full-play-btn').removeClass('disabled');
+        const audios = document.querySelectorAll("audio:not(.hidden)");
+        audios.forEach(audio => {
+            audio.pause(); 
+        });
+    });
+
+    $(document).on("click", ".full-loop-btn", function() {
+        if (document.querySelector('.full-loop-btn').classList.contains('toggled')) {
+            $('.full-loop-btn').removeClass('toggled');
+            const audios = document.querySelectorAll("audio:not(.hidden)");
+            audios.forEach(audio => {
+                audio.loop = false; 
+            });
+        }
+        else {
+            $('.full-loop-btn').addClass('toggled');
+            const audios = document.querySelectorAll("audio:not(.hidden)");
+            audios.forEach(audio => {
+                audio.loop = true; 
+            });
+        }
     });
 
     var tracks = 0;

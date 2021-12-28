@@ -307,6 +307,17 @@
             <div class="daw-nav-item">IMPORT</div>
             <div class="daw-nav-item">EXPORT</div>
         </div>
+        <div class="daw-circle-btns">
+            <div class="daw-circle-btn full-play-btn disabled">
+                <div class="daw-play"></div>
+            </div>
+            <div class="daw-circle-btn full-pause-btn disabled">
+                <div class="daw-pause"></div>
+            </div>
+            <div class="daw-circle-btn full-loop-btn disabled">
+                <div class="daw-loop">↻</div>
+            </div>
+        </div>
         <div class="daw-track" id="track-0">
             <div class="daw-track-left">
                 <div class="daw-track-left-top">

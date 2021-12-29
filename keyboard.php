@@ -5,8 +5,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/13.0.1/Tone.min.js"></script>
+  <script src="https://unpkg.com/peaks.js/dist/peaks.js"></script>
   <script src="scripts/Rhythm.js"></script>
-  <!-- <script src="https://unpkg.com/peaks.js/dist/peaks.js"></script> -->
   <script src="scripts/script.js"></script>
   <!-- <link rel="stylesheet" type="text/css" href="styles/logo_style.css"> -->
   <link rel="stylesheet" type="text/css" href="styles/keyboard_style.css" />
@@ -349,31 +349,12 @@
                     </div>
                 </div>
             </div>
+            <div class="zoomview-container" id="zoomview-0"><div class="overview-container" id="overview-0"></div></div>
             <audio controls class="daw-track-audio hidden" id="audio-0"></audio>
         </div>
     </div>
-    <div class="daw-track-new">+</div>
+    <div class="daw-track-new" id="daw-track-new">+</div>
 
-    <!-- <script>
-    (function(Peaks) {
-    const options = {
-        zoomview: {
-            container: document.getElementById('daw-track-right')
-        },
-        overview: {
-            container: document.getElementById('daw-track-right')
-        },
-        mediaElement: document.querySelector('audio'),
-        webAudio: {
-            audioContext: new AudioContext()
-        }
-    };
-
-    Peaks.init(options, function(err, peaks) {
-        // Do something when the waveform is displayed and ready
-    });
-    })(peaks);
-    </script> -->
 </body>
 
 </html>

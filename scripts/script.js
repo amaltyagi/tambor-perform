@@ -367,9 +367,6 @@ $(document).ready(function() {
     }
 
     defaultSynth = initSynth();
-    // const recorder = new Tone.Recorder();
-    // defaultSynth.connect(recorder);
-    // recorder.start();
 
     $(".instrument, .osc, .vol-input, .vol-box, .synth-basefreq-input, .synth-basefreq-box, .partial-input, .partial-box, .attack-input, .decay-input, .sustain-input, .release-input, .env-box[id='attack-value'], .env-box[id='decay-value'], .env-box[id='sustain-value'], .env-box[id='release-value'], .pluck-basefreq-input, .pluck-basefreq-box, .attack-noise-input, .dampening-input, .pluck-resonance-input, .attack-noise-box, .dampening-box, .pluck-resonance-box, .metal-basefreq-input, .metal-basefreq-box, .metal-harmonicity-input, .metal-harmonicity-box, .metal-modulation-input, .metal-modulation-box, .metal-resonance-input, .metal-resonance-box, .metal-octaves-input, .metal-octaves-box, .metal-attack-input, .metal-decay-input, .metal-release-input, .metal-env-box[id='metal-attack-value'], .metal-env-box[id='metal-decay-value'], .metal-env-box[id='metal-release-value'], .kick-basefreq-input, .kick-basefreq-box, .kick-pitch-decay-input, .kick-pitch-decay-box, .kick-octaves-input, .kick-octaves-box, .kick-attack-input, .kick-decay-input, .kick-sustain-input, .kick-release-input, .kick-env-box[id='kick-attack-value'], .kick-env-box[id='kick-decay-value'], .kick-env-box[id='kick-sustain-value'], .kick-env-box[id='kick-release-value']").change(function() {
         var curr_type = $(".instrument").val();
@@ -430,290 +427,60 @@ $(document).ready(function() {
         var curr_kick_sustain_box =  parseFloat($(".kick-env-box[id='kick-sustain-value']").val());
         var curr_kick_release_box =  parseFloat($(".kick-env-box[id='kick-release-value']").val());
 
-        if (prev_type != curr_type) {
-            prev_type = curr_type;
-        }
-
-        else if (prev_vol != curr_vol_input) {
-            $(".vol-box").val(curr_vol_input);
-            prev_vol = curr_vol_input;
-        }
-
-        else if (prev_vol != curr_vol_box) {
-            $(".vol-input").val(curr_vol_box);
-            prev_vol = curr_vol_box;
-        }
-
-        else if (prev_synth_base_freq != curr_synth_freq_input) {
-            $(".synth-basefreq-box").val(curr_synth_freq_input);
-            prev_synth_base_freq = curr_synth_freq_input;
-            prev_base_freq = curr_synth_freq_input;
-            keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n);
-        }
-
-        else if (prev_synth_base_freq != curr_synth_freq_box) {
-            $(".synth-basefreq-input").val(curr_synth_freq_box);
-            prev_synth_base_freq = curr_synth_freq_box;
-            prev_base_freq = curr_synth_freq_box;
-            keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n);
-        }
-
-        else if (prev_osc != curr_osc) {
-            console.log(('osc changed from ').concat(prev_osc).concat(' to ').concat(curr_osc));
-            prev_osc = curr_osc;
-        }
-
-        else if (prev_partial != curr_partial_input) {
-            $(".partial-box").val(curr_partial_input);
-            prev_partial = curr_partial_input;
-        }
-
-        else if (prev_partial != curr_partial_box) {
-            $(".partial-input").val(curr_partial_box);
-            prev_partial = curr_partial_box;
-        }
-
-        else if (prev_attack != curr_attack_input) {
-            $(".env-box[id='attack-value']").val(curr_attack_input);
-            prev_attack = curr_attack_input;
-        }
-
-        else if (prev_attack != curr_attack_box) {
-            $(".attack-input").val(curr_attack_box);
-            prev_attack = curr_attack_box;
-        }
-
-        else if (prev_decay != curr_decay_input) {
-            $(".env-box[id='decay-value']").val(curr_decay_input);
-            prev_decay = curr_decay_input;
-        }
-
-        else if (prev_decay != curr_decay_box) {
-            $(".decay-input").val(curr_decay_box);
-            prev_decay = curr_decay_box;
-        }
-
-        else if (prev_sustain != curr_sustain_input) {
-            $(".env-box[id='sustain-value']").val(curr_sustain_input);
-            prev_sustain = curr_sustain_input;
-        }
-
-        else if (prev_sustain != curr_sustain_box) {
-            $(".sustain-input").val(curr_sustain_box);
-            prev_sustain = curr_sustain_box;
-        }
-
-        else if (prev_release != curr_release_input) {
-            $(".env-box[id='release-value']").val(curr_release_input);
-            prev_release = curr_release_input;
-        }
-
-        else if (prev_release != curr_release_box) {
-            $(".release-input").val(curr_release_box);
-            prev_release = curr_release_box;
-        }
-
-        else if (prev_pluck_base_freq != curr_pluck_freq_input) {
-            $(".pluck-basefreq-box").val(curr_pluck_freq_input);
-            prev_pluck_base_freq = curr_pluck_freq_input;
-            prev_base_freq = curr_pluck_freq_input;
-            keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n);
-        }
-
-        else if (prev_pluck_base_freq != curr_pluck_freq_box) {
-            $(".pluck-basefreq-input").val(curr_pluck_freq_box);
-            prev_pluck_base_freq = curr_pluck_freq_box;
-            prev_base_freq = curr_pluck_freq_box;
-            keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n);
-        }
-
-        else if (prev_attack_noise != curr_attack_noise_input) {
-            $(".attack-noise-box").val(curr_attack_noise_input);
-            prev_attack_noise = curr_attack_noise_input;
-        }
-
-        else if (prev_dampening != curr_dampening_input) {
-            $(".dampening-box").val(curr_dampening_input);
-            prev_dampening = curr_dampening_input;
-        }
-
-        else if (prev_pluck_resonance != curr_pluck_resonance_input) {
-            $(".pluck-resonance-box").val(curr_pluck_resonance_input);
-            prev_pluck_resonance = curr_pluck_resonance_input;
-        }
-
-        else if (prev_attack_noise != curr_attack_noise_box) {
-            $(".attack-noise-input").val(curr_attack_noise_box);
-            prev_attack_noise = curr_attack_noise_box;
-        }
-
-        else if (prev_dampening != curr_dampening_box) {
-            $(".dampening-input").val(curr_dampening_box);
-            prev_dampening = curr_dampening_box;
-        }
-
-        else if (prev_pluck_resonance != curr_pluck_resonance_box) {
-            $(".pluck-resonance-input").val(curr_pluck_resonance_box);
-            prev_pluck_resonance = curr_pluck_resonance_box;
-        }
-        
-        else if (prev_metal_base_freq != curr_metal_freq_input) {
-            $(".metal-basefreq-box").val(curr_metal_freq_input);
-            prev_metal_base_freq = curr_metal_freq_input;
-            prev_base_freq = curr_metal_freq_input;
-            keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n);
-        }
-
-        else if (prev_metal_base_freq != curr_metal_freq_box) {
-            $(".metal-basefreq-input").val(curr_metal_freq_box);
-            prev_metal_base_freq = curr_metal_freq_box;
-            prev_base_freq = curr_metal_freq_box;
-            keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n);
-        }
-
-        else if (prev_metal_harmonicity != curr_metal_harmonicity_input) {
-            $(".metal-harmonicity-box").val(curr_metal_harmonicity_input);
-            prev_metal_harmonicity = curr_metal_harmonicity_input;
-        }
-
-        else if (prev_metal_harmonicity != curr_metal_harmonicity_box) {
-            $(".metal-harmonicity-input").val(curr_metal_harmonicity_box);
-            prev_metal_harmonicity = curr_metal_harmonicity_box;
-        }
-
-        else if (prev_metal_modulation != curr_metal_modulation_input) {
-            $(".metal-modulation-box").val(curr_metal_modulation_input);
-            prev_metal_modulation = curr_metal_modulation_input;
-        }
-
-        else if (prev_metal_modulation != curr_metal_modulation_box) {
-            $(".metal-modulation-input").val(curr_metal_modulation_box);
-            prev_metal_modulation = curr_metal_modulation_box;
-        }
-
-        else if (prev_metal_resonance != curr_metal_resonance_input) {
-            $(".metal-resonance-box").val(curr_metal_resonance_input);
-            prev_metal_resonance = curr_metal_resonance_input;
-        }
-
-        else if (prev_metal_resonance != curr_metal_resonance_box) {
-            $(".metal-resonance-input").val(curr_metal_resonance_box);
-            prev_metal_resonance = curr_metal_resonance_box;
-        }
-
-        else if (prev_metal_octaves != curr_metal_octaves_input) {
-            $(".metal-octaves-box").val(curr_metal_octaves_input);
-            prev_metal_octaves = curr_metal_octaves_input;
-        }
-
-        else if (prev_metal_octaves != curr_metal_octaves_box) {
-            $(".metal-octaves-input").val(curr_metal_octaves_box);
-            prev_metal_octaves = curr_metal_octaves_box;
-        }
-
-        else if (prev_metal_attack != curr_metal_attack_input) {
-            $(".metal-env-box[id='metal-attack-value']").val(curr_metal_attack_input);
-            prev_metal_attack = curr_metal_attack_input;
-        }
-
-        else if (prev_metal_attack != curr_metal_attack_box) {
-            $(".metal-attack-input").val(curr_metal_attack_box);
-            prev_metal_attack = curr_metal_attack_box;
-        }
-
-        else if (prev_metal_decay != curr_metal_decay_input) {
-            $(".metal-env-box[id='metal-decay-value']").val(curr_metal_decay_input);
-            prev_metal_decay = curr_metal_decay_input;
-        }
-
-        else if (prev_metal_decay != curr_metal_decay_box) {
-            $(".metal-decay-input").val(curr_metal_decay_box);
-            prev_metal_decay = curr_metal_decay_box;
-        }
-
-        else if (prev_metal_release != curr_metal_release_input) {
-            $(".metal-env-box[id='metal-release-value']").val(curr_metal_release_input);
-            prev_metal_release = curr_metal_release_input;
-        }
-
-        else if (prev_metal_release != curr_metal_release_box) {
-            $(".metal-release-input").val(curr_metal_release_box);
-            prev_metal_release = curr_metal_release_box;
-        }
-
-        else if (prev_kick_base_freq != curr_kick_freq_input) {
-            $(".kick-basefreq-box").val(curr_kick_freq_input);
-            prev_kick_base_freq = curr_kick_freq_input;
-            prev_base_freq = curr_kick_freq_input;
-            keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n);
-        }
-
-        else if (prev_kick_base_freq != curr_kick_freq_box) {
-            $(".kick-basefreq-input").val(curr_kick_freq_box);
-            prev_kick_base_freq = curr_kick_freq_box;
-            prev_base_freq = curr_kick_freq_box;
-            keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n);
-        }
-
-        else if (prev_kick_pitch_decay != curr_kick_pitch_decay_input) {
-            $(".kick-pitch-decay-box").val(curr_kick_pitch_decay_input);
-            prev_kick_pitch_decay = curr_kick_pitch_decay_input;
-        }
-
-        else if (prev_kick_pitch_decay != curr_kick_pitch_decay_box) {
-            $(".kick-pitch-decay-input").val(curr_kick_pitch_decay_box);
-            prev_kick_pitch_decay = curr_kick_pitch_decay_box;
-        }
-
-        else if (prev_kick_octaves != curr_kick_octaves_input) {
-            $(".kick-octaves-box").val(curr_kick_octaves_input);
-            prev_kick_octaves = curr_kick_octaves_input;
-        }
-
-        else if (prev_kick_octaves != curr_kick_octaves_box) {
-            $(".kick-octaves-input").val(curr_kick_octaves_box);
-            prev_kick_octaves = curr_kick_octaves_box;
-        }
-
-        else if (prev_kick_attack != curr_kick_attack_input) {
-            $(".kick-env-box[id='kick-attack-value']").val(curr_kick_attack_input);
-            prev_kick_attack = curr_kick_attack_input;
-        }
-
-        else if (prev_kick_attack != curr_kick_attack_box) {
-            $(".kick-attack-input").val(curr_kick_attack_box);
-            prev_kick_attack = curr_kick_attack_box;
-        }
-
-        else if (prev_kick_decay != curr_kick_decay_input) {
-            $(".kick-env-box[id='kick-decay-value']").val(curr_kick_decay_input);
-            prev_kick_decay = curr_kick_decay_input;
-        }
-
-        else if (prev_kick_decay != curr_kick_decay_box) {
-            $(".kick-decay-input").val(curr_kick_decay_box);
-            prev_kick_decay = curr_kick_decay_box;
-        }
-
-        else if (prev_kick_sustain != curr_kick_sustain_input) {
-            $(".kick-env-box[id='kick-sustain-value']").val(curr_kick_sustain_input);
-            prev_kick_sustain = curr_kick_sustain_input;
-        }
-
-        else if (prev_kick_sustain != curr_kick_sustain_box) {
-            $(".kick-sustain-input").val(curr_kick_sustain_box);
-            prev_kick_sustain = curr_kick_sustain_box;
-        }
-
-        else if (prev_kick_release != curr_kick_release_input) {
-            $(".kick-env-box[id='kick-release-value']").val(curr_kick_release_input);
-            prev_kick_release = curr_kick_release_input;
-        }
-
-        else if (prev_kick_release != curr_kick_release_box) {
-            $(".kick-release-input").val(curr_kick_release_box);
-            prev_kick_release = curr_kick_release_box;
-        }
+        if (prev_type != curr_type) { prev_type = curr_type; }
+        else if (prev_vol != curr_vol_input) { $(".vol-box").val(curr_vol_input); prev_vol = curr_vol_input; }
+        else if (prev_vol != curr_vol_box) { $(".vol-input").val(curr_vol_box); prev_vol = curr_vol_box; }
+        else if (prev_synth_base_freq != curr_synth_freq_input) { $(".synth-basefreq-box").val(curr_synth_freq_input); prev_synth_base_freq = curr_synth_freq_input; prev_base_freq = curr_synth_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_synth_base_freq != curr_synth_freq_box) { $(".synth-basefreq-input").val(curr_synth_freq_box); prev_synth_base_freq = curr_synth_freq_box; prev_base_freq = curr_synth_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_osc != curr_osc) {console.log(('osc changed from ').concat(prev_osc).concat(' to ').concat(curr_osc)); prev_osc = curr_osc; }
+        else if (prev_partial != curr_partial_input) { $(".partial-box").val(curr_partial_input); prev_partial = curr_partial_input; }
+        else if (prev_partial != curr_partial_box) { $(".partial-input").val(curr_partial_box); prev_partial = curr_partial_box; }
+        else if (prev_attack != curr_attack_input) { $(".env-box[id='attack-value']").val(curr_attack_input); prev_attack = curr_attack_input; }
+        else if (prev_attack != curr_attack_box) { $(".attack-input").val(curr_attack_box); prev_attack = curr_attack_box; }
+        else if (prev_decay != curr_decay_input) { $(".env-box[id='decay-value']").val(curr_decay_input); prev_decay = curr_decay_input; }
+        else if (prev_decay != curr_decay_box) { $(".decay-input").val(curr_decay_box); prev_decay = curr_decay_box; }
+        else if (prev_sustain != curr_sustain_input) { $(".env-box[id='sustain-value']").val(curr_sustain_input); prev_sustain = curr_sustain_input; }
+        else if (prev_sustain != curr_sustain_box) { $(".sustain-input").val(curr_sustain_box); prev_sustain = curr_sustain_box; }
+        else if (prev_release != curr_release_input) { $(".env-box[id='release-value']").val(curr_release_input); prev_release = curr_release_input; }
+        else if (prev_release != curr_release_box) { $(".release-input").val(curr_release_box); prev_release = curr_release_box; }
+        else if (prev_pluck_base_freq != curr_pluck_freq_input) { $(".pluck-basefreq-box").val(curr_pluck_freq_input); prev_pluck_base_freq = curr_pluck_freq_input; prev_base_freq = curr_pluck_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_pluck_base_freq != curr_pluck_freq_box) { $(".pluck-basefreq-input").val(curr_pluck_freq_box); prev_pluck_base_freq = curr_pluck_freq_box; prev_base_freq = curr_pluck_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_attack_noise != curr_attack_noise_input) { $(".attack-noise-box").val(curr_attack_noise_input); prev_attack_noise = curr_attack_noise_input; }
+        else if (prev_dampening != curr_dampening_input) { $(".dampening-box").val(curr_dampening_input); prev_dampening = curr_dampening_input; }
+        else if (prev_pluck_resonance != curr_pluck_resonance_input) { $(".pluck-resonance-box").val(curr_pluck_resonance_input); prev_pluck_resonance = curr_pluck_resonance_input; }
+        else if (prev_attack_noise != curr_attack_noise_box) { $(".attack-noise-input").val(curr_attack_noise_box); prev_attack_noise = curr_attack_noise_box; }
+        else if (prev_dampening != curr_dampening_box) { $(".dampening-input").val(curr_dampening_box); prev_dampening = curr_dampening_box; }
+        else if (prev_pluck_resonance != curr_pluck_resonance_box) { $(".pluck-resonance-input").val(curr_pluck_resonance_box); prev_pluck_resonance = curr_pluck_resonance_box; }
+        else if (prev_metal_base_freq != curr_metal_freq_input) { $(".metal-basefreq-box").val(curr_metal_freq_input); prev_metal_base_freq = curr_metal_freq_input; prev_base_freq = curr_metal_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_metal_base_freq != curr_metal_freq_box) { $(".metal-basefreq-input").val(curr_metal_freq_box); prev_metal_base_freq = curr_metal_freq_box; prev_base_freq = curr_metal_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_metal_harmonicity != curr_metal_harmonicity_input) { $(".metal-harmonicity-box").val(curr_metal_harmonicity_input); prev_metal_harmonicity = curr_metal_harmonicity_input; }
+        else if (prev_metal_harmonicity != curr_metal_harmonicity_box) { $(".metal-harmonicity-input").val(curr_metal_harmonicity_box); prev_metal_harmonicity = curr_metal_harmonicity_box; }
+        else if (prev_metal_modulation != curr_metal_modulation_input) { $(".metal-modulation-box").val(curr_metal_modulation_input); prev_metal_modulation = curr_metal_modulation_input; }
+        else if (prev_metal_modulation != curr_metal_modulation_box) { $(".metal-modulation-input").val(curr_metal_modulation_box); prev_metal_modulation = curr_metal_modulation_box; }
+        else if (prev_metal_resonance != curr_metal_resonance_input) { $(".metal-resonance-box").val(curr_metal_resonance_input); prev_metal_resonance = curr_metal_resonance_input; }
+        else if (prev_metal_resonance != curr_metal_resonance_box) { $(".metal-resonance-input").val(curr_metal_resonance_box); prev_metal_resonance = curr_metal_resonance_box; }
+        else if (prev_metal_octaves != curr_metal_octaves_input) { $(".metal-octaves-box").val(curr_metal_octaves_input); prev_metal_octaves = curr_metal_octaves_input; }
+        else if (prev_metal_octaves != curr_metal_octaves_box) { $(".metal-octaves-input").val(curr_metal_octaves_box); prev_metal_octaves = curr_metal_octaves_box; }
+        else if (prev_metal_attack != curr_metal_attack_input) { $(".metal-env-box[id='metal-attack-value']").val(curr_metal_attack_input); prev_metal_attack = curr_metal_attack_input; }
+        else if (prev_metal_attack != curr_metal_attack_box) { $(".metal-attack-input").val(curr_metal_attack_box); prev_metal_attack = curr_metal_attack_box; }
+        else if (prev_metal_decay != curr_metal_decay_input) { $(".metal-env-box[id='metal-decay-value']").val(curr_metal_decay_input); prev_metal_decay = curr_metal_decay_input; }
+        else if (prev_metal_decay != curr_metal_decay_box) { $(".metal-decay-input").val(curr_metal_decay_box); prev_metal_decay = curr_metal_decay_box; }
+        else if (prev_metal_release != curr_metal_release_input) { $(".metal-env-box[id='metal-release-value']").val(curr_metal_release_input); prev_metal_release = curr_metal_release_input; }
+        else if (prev_metal_release != curr_metal_release_box) { $(".metal-release-input").val(curr_metal_release_box); prev_metal_release = curr_metal_release_box; }
+        else if (prev_kick_base_freq != curr_kick_freq_input) { $(".kick-basefreq-box").val(curr_kick_freq_input); prev_kick_base_freq = curr_kick_freq_input; prev_base_freq = curr_kick_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_kick_base_freq != curr_kick_freq_box) { $(".kick-basefreq-input").val(curr_kick_freq_box); prev_kick_base_freq = curr_kick_freq_box; prev_base_freq = curr_kick_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_kick_pitch_decay != curr_kick_pitch_decay_input) { $(".kick-pitch-decay-box").val(curr_kick_pitch_decay_input); prev_kick_pitch_decay = curr_kick_pitch_decay_input; }
+        else if (prev_kick_pitch_decay != curr_kick_pitch_decay_box) { $(".kick-pitch-decay-input").val(curr_kick_pitch_decay_box); prev_kick_pitch_decay = curr_kick_pitch_decay_box; }
+        else if (prev_kick_octaves != curr_kick_octaves_input) { $(".kick-octaves-box").val(curr_kick_octaves_input); prev_kick_octaves = curr_kick_octaves_input; }
+        else if (prev_kick_octaves != curr_kick_octaves_box) { $(".kick-octaves-input").val(curr_kick_octaves_box); prev_kick_octaves = curr_kick_octaves_box; }
+        else if (prev_kick_attack != curr_kick_attack_input) { $(".kick-env-box[id='kick-attack-value']").val(curr_kick_attack_input); prev_kick_attack = curr_kick_attack_input; }
+        else if (prev_kick_attack != curr_kick_attack_box) { $(".kick-attack-input").val(curr_kick_attack_box); prev_kick_attack = curr_kick_attack_box; }
+        else if (prev_kick_decay != curr_kick_decay_input) { $(".kick-env-box[id='kick-decay-value']").val(curr_kick_decay_input); prev_kick_decay = curr_kick_decay_input; }
+        else if (prev_kick_decay != curr_kick_decay_box) { $(".kick-decay-input").val(curr_kick_decay_box); prev_kick_decay = curr_kick_decay_box; }
+        else if (prev_kick_sustain != curr_kick_sustain_input) { $(".kick-env-box[id='kick-sustain-value']").val(curr_kick_sustain_input); prev_kick_sustain = curr_kick_sustain_input; }
+        else if (prev_kick_sustain != curr_kick_sustain_box) { $(".kick-sustain-input").val(curr_kick_sustain_box); prev_kick_sustain = curr_kick_sustain_box; }
+        else if (prev_kick_release != curr_kick_release_input) { $(".kick-env-box[id='kick-release-value']").val(curr_kick_release_input); prev_kick_release = curr_kick_release_input; }
+        else if (prev_kick_release != curr_kick_release_box) { $(".kick-release-input").val(curr_kick_release_box); prev_kick_release = curr_kick_release_box; }
         
         defaultSynth = initSynth();
     });
@@ -907,6 +674,7 @@ $(document).ready(function() {
         closest_stop_btn.on("click", function() {
             $(this).closest(".daw-track-circle-btns").hide();
             audio.classList.remove("hidden");
+            audio.classList.add("replaced");
             $('.full-play-btn').removeClass('disabled');
             $('.full-loop-btn').removeClass('disabled');
             
@@ -915,13 +683,34 @@ $(document).ready(function() {
                 let blob = new Blob(chunks, {type: 'audio/ogg; codecs=opus'});
                 audio.src = URL.createObjectURL(blob);
             }
+
+            (function(Peaks) {
+                const options = {
+                    zoomview: {
+                        container: document.querySelector(".track-selected > .zoomview-container")
+                    },
+                    overview: {
+                        container: document.querySelector(".track-selected > .zoomview-container > .overview-container")
+                    },
+                    mediaElement: document.querySelector(".track-selected > audio"),
+                    webAudio: {
+                        audioContext: new AudioContext()
+                    }
+                };
+                console.log(options['zoomview']['container']);
+                console.log(options['overview']['container']);
+                console.log(options['mediaElement']);
+                Peaks.init(options, function(err, peaks) {
+                    // Do something when the waveform is displayed and ready
+                });
+            })(peaks);
         });
     });
 
     $(document).on("click", ".full-play-btn", function() {
         $('.full-play-btn').addClass('disabled');
         $('.full-pause-btn').removeClass('disabled');
-        const audios = document.querySelectorAll("audio:not(.hidden)");
+        const audios = document.querySelectorAll(".replaced");
         audios.forEach(audio => {
             audio.play(); 
         });
@@ -930,7 +719,7 @@ $(document).ready(function() {
     $(document).on("click", ".full-pause-btn", function() {
         $('.full-pause-btn').addClass('disabled');
         $('.full-play-btn').removeClass('disabled');
-        const audios = document.querySelectorAll("audio:not(.hidden)");
+        const audios = document.querySelectorAll(".replaced");
         audios.forEach(audio => {
             audio.pause(); 
         });
@@ -939,14 +728,14 @@ $(document).ready(function() {
     $(document).on("click", ".full-loop-btn", function() {
         if (document.querySelector('.full-loop-btn').classList.contains('toggled')) {
             $('.full-loop-btn').removeClass('toggled');
-            const audios = document.querySelectorAll("audio:not(.hidden)");
+            const audios = document.querySelectorAll(".replaced");
             audios.forEach(audio => {
                 audio.loop = false; 
             });
         }
         else {
             $('.full-loop-btn').addClass('toggled');
-            const audios = document.querySelectorAll("audio:not(.hidden)");
+            const audios = document.querySelectorAll(".replaced");
             audios.forEach(audio => {
                 audio.loop = true; 
             });
@@ -954,10 +743,10 @@ $(document).ready(function() {
     });
 
     var tracks = 0;
-    $(".daw-track-new").on("click", function () {
+    $(document).on("click", ".daw-track-new", function() {
         tracks++;
         tracks_s = tracks.toString();
-        document.getElementById("daw").innerHTML += '<div class="daw-track" id="track-'.concat(tracks_s).concat('"><div class="daw-track-left"><div class="daw-track-left-top"><div class="daw-track-remove" id="remove-track-'.concat(tracks_s).concat('">x</div><input type="text" class="daw-track-name"></div><div class="daw-track-vol"><p>–</p><input type="range" class="daw-track-vol-slider"><p>+</p></div><div class="daw-track-pan"><p>L</p><input type="range" class="daw-track-pan-slider"><p>R</p></div><div class="daw-track-mute-solo"><div class="daw-track-mute">M</div><div class="daw-track-solo">S</div></div></div><div class="daw-track-right"><div class="daw-track-circle-btns"><div class="daw-track-circle-btn full-record-btn"><div class="daw-track-record"></div></div><div class="daw-track-circle-btn full-stop-btn disabled"><div class="daw-track-stop"></div></div></div></div><audio controls class="daw-track-audio hidden" id="audio-'.concat(tracks_s).concat('"></audio></div>')));
+        $("#daw").append('<div class="daw-track" id="track-'.concat(tracks_s).concat('"><div class="daw-track-left"><div class="daw-track-left-top"><div class="daw-track-remove" id="remove-track-'.concat(tracks_s).concat('">x</div><input type="text" class="daw-track-name"></div><div class="daw-track-vol"><p>–</p><input type="range" class="daw-track-vol-slider"><p>+</p></div><div class="daw-track-pan"><p>L</p><input type="range" class="daw-track-pan-slider"><p>R</p></div><div class="daw-track-mute-solo"><div class="daw-track-mute">M</div><div class="daw-track-solo">S</div></div></div><div class="daw-track-right"><div class="daw-track-circle-btns"><div class="daw-track-circle-btn full-record-btn"><div class="daw-track-record"></div></div><div class="daw-track-circle-btn full-stop-btn disabled"><div class="daw-track-stop"></div></div></div></div><div class="zoomview-container" id="zoomview-'.concat(tracks_s).concat('"><div class="overview-container" id="overview-'.concat(tracks_s).concat('"></div></div><audio controls class="daw-track-audio hidden" id="audio-'.concat(tracks_s).concat('"></audio></div>'))))));
     });
 
     $(document).on("click", ".daw-track-remove", function() {

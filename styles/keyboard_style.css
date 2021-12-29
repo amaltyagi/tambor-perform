@@ -204,6 +204,29 @@ nav a:hover, .curr {
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-sizing: inherit;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) { /* chrome, brave only */
+  .env-slider {
+    margin-left: -43px;
+    margin-right: -43px;
+  }
+
+  .daw-nav {
+    margin-left: 50%;
+  }
+}
+
+@-moz-document url-prefix() { /* firefox only */
+  .env-slider {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+}
+
+.attack-input, .decay-input, .sustain-input, .release-input {
+  -webkit-appearance: slider-vertical;
 }
 
 .env-box, .metal-env-box, .metal-harmonicity-box, .metal-modulation-box, .metal-resonance-box, .metal-octaves-box, .kick-env-box, .kick-pitch-decay-box, .kick-octaves-box {

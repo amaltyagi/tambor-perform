@@ -131,7 +131,6 @@
                 <label class="partial-label" for="partial-value">PARTIALS</label>
             </div>
         </div>
-        
         <div class="env-slider" id="attack-slider">
             <input class="attack-input" name="attack-input" id="attack-input" orient="vertical" type="range" step=".01" min=".01" max=".25">
             <input class="env-box" type="text" id="attack-value">

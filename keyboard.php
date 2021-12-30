@@ -53,6 +53,23 @@
             <option class="drumkit">Drumkit</option>
         </select>
     </div>
+    <div class="floating-controls">
+        <div class="daw-track-circle-btn floating-circle-btn floating-record-btn">
+            <div class="daw-track-record full-track-record"></div>
+        </div>
+        <div class="daw-track-circle-btn floating-circle-btn floating-stop-btn disabled">
+            <div class="daw-track-stop floating-track-stop"></div>
+        </div>
+        <div class="daw-circle-btn floating-circle-btn floating-play-btn disabled">
+            <div class="daw-play floating-play"></div>
+        </div>
+        <div class="daw-circle-btn floating-circle-btn floating-pause-btn disabled">
+            <div class="daw-pause floating-pause"></div>
+        </div>
+        <div class="daw-circle-btn floating-circle-btn floating-loop-btn disabled">
+            <div class="daw-loop floating-loop">↻</div>
+        </div>
+    </div>
     <div class="qwerty">
     <?php for ($i=0; $i<=3; $i++) { ?>
         <div class="qwerty-row" id="<?php echo 'row'.strval($i)?>" style="margin-left: <?php if ($edo != '12TET') {echo strval(45*$i).'px';} else {echo strval(25*$i).'px';} ?>" >
@@ -270,32 +287,16 @@
 
     <div class="drumkit-div">
         <div class="drumkit-div-1">
-            <div class="drum" id="high-tom">
-
-            </div>
-            <div class="cymbal" id="crash-cymbal">
-            
-            </div>
-            <div class="drum" id="mid-tom">
-
-            </div>
-            <div class="cymbal" id="ride-cymbal">
-            
-            </div>
+            <div class="drum" id="high-tom"></div>
+            <div class="cymbal" id="crash-cymbal"></div>
+            <div class="drum" id="mid-tom"></div>
+            <div class="cymbal" id="ride-cymbal"></div>
         </div>
         <div class="drumkit-div-2">
-            <div class="drum" id="kick">
-                
-            </div>
-            <div class="drum" id="snare">
-                
-            </div>
-            <div class="cymbal" id="hi-hat">
-                
-            </div>
-            <div class="drum" id="low-tom">
-
-            </div>
+            <div class="drum" id="kick"></div>
+            <div class="drum" id="snare"></div>
+            <div class="cymbal" id="hi-hat"></div>
+            <div class="drum" id="low-tom"></div>
         </div>
     </div>
 
@@ -317,7 +318,7 @@
                 <div class="daw-loop">↻</div>
             </div>
         </div>
-        <div class="daw-track" id="track-0">
+        <div class="daw-track track-selected" id="track-0">
             <div class="daw-track-left">
                 <div class="daw-track-left-top">
                     <div class="daw-track-remove" id="remove-track-0">x</div>
@@ -353,7 +354,5 @@
         </div>
     </div>
     <div class="daw-track-new" id="daw-track-new">+</div>
-
 </body>
-
 </html>

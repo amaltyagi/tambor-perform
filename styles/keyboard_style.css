@@ -484,11 +484,13 @@ nav a:hover, .curr {
 
 .daw-track-new {
   border: solid black 1px;
-  margin-top: -1px;
+  margin-top: -10px;
   margin-bottom: 35px;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   text-align: center;
+  font-size: 35pt;
+  font-weight: 300;
 }
 
 .daw-circle-btns, .daw-track-circle-btns {
@@ -568,14 +570,21 @@ nav a:hover, .curr {
   background-color: royalblue;
 }
 
+.floating-controls {
+  display: flex;
+  flex-direction: column;
+  margin-left: calc(100vw - 90px);
+  margin-top: -30px;
+  position: fixed;
+}
+
+.floating-circle-btn {
+  margin-bottom: -20px;
+}
+
 audio {
   display: block;
   margin: auto;
-}
-
-.circle-btn-disabled {
-  pointer-events: none;
-  background-color: rgba(200,200,200,1);
 }
 
 .daw-track-audio {

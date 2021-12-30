@@ -654,6 +654,38 @@ $(document).ready(function() {
         $(this).addClass("track-selected");
     });
 
+    $(document).on("click", ".floating-record-btn", function() {
+        $(this).addClass("disabled");
+        $(".floating-stop-btn").removeClass("disabled");
+        $(".daw-track-new").trigger("click");
+        $(".track-selected .full-record-btn").trigger("click");
+    });
+
+    $(document).on("click", ".floating-stop-btn", function() {
+        $(this).addClass("disabled");
+        $(".floating-record-btn").removeClass("disabled");
+        $(".floating-play-btn").removeClass("disabled");
+        $(".floating-loop-btn").removeClass("disabled");
+        $(".track-selected .full-stop-btn").trigger("click");
+    });
+
+    $(document).on("click", ".floating-play-btn", function() {
+        $(".floating-play-btn").addClass("disabled");
+        $(".floating-pause-btn").removeClass("disabled");
+        $(".full-play-btn").trigger("click");
+    });
+
+    $(document).on("click", ".floating-pause-btn", function() {
+        $(".floating-pause-btn").addClass("disabled");
+        $(".floating-play-btn").removeClass("disabled");
+        $(".full-pause-btn").trigger("click");
+    });
+
+    $(document).on("click", ".floating-loop-btn", function() {
+        $(".full-loop-btn").trigger("click");
+        $(".floating-loop-btn").addClass("toggled");
+    });
+
     $(document).on("click", ".full-record-btn", function() {
         $(".track-selected").removeClass("track-selected");
         $(this).closest(".daw-track").addClass("track-selected");
@@ -675,8 +707,8 @@ $(document).ready(function() {
             $(this).closest(".daw-track-circle-btns").hide();
             audio.classList.remove("hidden");
             audio.classList.add("replaced");
-            $('.full-play-btn').removeClass('disabled');
-            $('.full-loop-btn').removeClass('disabled');
+            $(".full-play-btn").removeClass("disabled");
+            $(".full-loop-btn").removeClass("disabled");
             
             recorder.stop();
             recorder.onstop = evt => {
@@ -746,8 +778,8 @@ $(document).ready(function() {
     $(document).on("click", ".daw-track-new", function() {
         tracks++;
         tracks_s = tracks.toString();
-        // $("#daw").append('<div class="daw-track" id="track-'.concat(tracks_s).concat('"><div class="daw-track-left"><div class="daw-track-left-top"><div class="daw-track-remove" id="remove-track-'.concat(tracks_s).concat('">x</div><input type="text" class="daw-track-name"></div><div class="daw-track-vol"><p>–</p><input type="range" class="daw-track-vol-slider"><p>+</p></div><div class="daw-track-pan"><p>L</p><input type="range" class="daw-track-pan-slider"><p>R</p></div><div class="daw-track-mute-solo"><div class="daw-track-mute">M</div><div class="daw-track-solo">S</div></div></div><div class="daw-track-right"><div class="daw-track-circle-btns"><div class="daw-track-circle-btn full-record-btn"><div class="daw-track-record"></div></div><div class="daw-track-circle-btn full-stop-btn disabled"><div class="daw-track-stop"></div></div></div></div><div class="zoomview-container" id="zoomview-'.concat(tracks_s).concat('"><div class="overview-container" id="overview-'.concat(tracks_s).concat('"></div></div><audio controls class="daw-track-audio hidden" id="audio-'.concat(tracks_s).concat('"></audio></div>'))))));
-        $('<div class="daw-track" id="track-'.concat(tracks_s).concat('"><div class="daw-track-left"><div class="daw-track-left-top"><div class="daw-track-remove" id="remove-track-'.concat(tracks_s).concat('">x</div><input type="text" class="daw-track-name"></div><div class="daw-track-vol"><p>–</p><input type="range" class="daw-track-vol-slider"><p>+</p></div><div class="daw-track-pan"><p>L</p><input type="range" class="daw-track-pan-slider"><p>R</p></div><div class="daw-track-mute-solo"><div class="daw-track-mute">M</div><div class="daw-track-solo">S</div></div></div><div class="daw-track-right"><div class="daw-track-circle-btns"><div class="daw-track-circle-btn full-record-btn"><div class="daw-track-record"></div></div><div class="daw-track-circle-btn full-stop-btn disabled"><div class="daw-track-stop"></div></div></div></div><div class="zoomview-container" id="zoomview-'.concat(tracks_s).concat('"><div class="overview-container" id="overview-'.concat(tracks_s).concat('"></div></div><audio controls class="daw-track-audio hidden" id="audio-'.concat(tracks_s).concat('"></audio></div>')))))).appendTo("#daw");
+        $(".track-selected").removeClass("track-selected");
+        $('<div class="daw-track track-selected" id="track-'.concat(tracks_s).concat('"><div class="daw-track-left"><div class="daw-track-left-top"><div class="daw-track-remove" id="remove-track-'.concat(tracks_s).concat('">x</div><input type="text" class="daw-track-name"></div><div class="daw-track-vol"><p>–</p><input type="range" class="daw-track-vol-slider"><p>+</p></div><div class="daw-track-pan"><p>L</p><input type="range" class="daw-track-pan-slider"><p>R</p></div><div class="daw-track-mute-solo"><div class="daw-track-mute">M</div><div class="daw-track-solo">S</div></div></div><div class="daw-track-right"><div class="daw-track-circle-btns"><div class="daw-track-circle-btn full-record-btn"><div class="daw-track-record"></div></div><div class="daw-track-circle-btn full-stop-btn disabled"><div class="daw-track-stop"></div></div></div></div><div class="zoomview-container" id="zoomview-'.concat(tracks_s).concat('"><div class="overview-container" id="overview-'.concat(tracks_s).concat('"></div></div><audio controls class="daw-track-audio hidden" id="audio-'.concat(tracks_s).concat('"></audio></div>')))))).appendTo("#daw");
     });
 
     $(document).on("click", ".daw-track-remove", function() {

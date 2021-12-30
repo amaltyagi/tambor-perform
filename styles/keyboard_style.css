@@ -1,5 +1,5 @@
 body {
-  /* background-color: aliceblue; */
+  /* background-color: black; */
   font-family: helvetica, sans-serif;
   user-select: none;
 }
@@ -474,12 +474,6 @@ nav a:hover, .curr {
   justify-content: center;
   width: 20px;
   height: 18px;
-}
-
-.daw-track-flat {
-  /* margin-top: 60px;
-  position: relative;
-  width: calc(); */
 }
 
 .daw-track-new {

@@ -683,7 +683,12 @@ $(document).ready(function() {
 
     $(document).on("click", ".floating-loop-btn", function() {
         $(".full-loop-btn").trigger("click");
-        $(".floating-loop-btn").addClass("toggled");
+        if (document.querySelector('.floating-loop-btn').classList.contains('toggled')) {
+            $(".floating-loop-btn").removeClass("toggled");
+        }
+        else {
+            $(".floating-loop-btn").addClass("toggled");
+        }
     });
 
     $(document).on("click", ".full-record-btn", function() {

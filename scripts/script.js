@@ -683,18 +683,14 @@ $(document).ready(function() {
 
     $(document).on("click", ".floating-loop-btn", function() {
         $(".full-loop-btn").trigger("click");
-        if (document.querySelector('.floating-loop-btn').classList.contains('toggled')) {
-            $(".floating-loop-btn").removeClass("toggled");
-        }
-        else {
-            $(".floating-loop-btn").addClass("toggled");
-        }
     });
 
     $(document).on("click", ".full-record-btn", function() {
         $(".track-selected").removeClass("track-selected");
         $(this).closest(".daw-track").addClass("track-selected");
         $(this).addClass("disabled");
+        $(".floating-record-btn").addClass("disabled");
+        $(".floating-stop-btn").removeClass("disabled");
         var closest_stop_btn = $(this).next(".full-stop-btn");
         closest_stop_btn.removeClass("disabled");
 
@@ -714,6 +710,10 @@ $(document).ready(function() {
             audio.classList.add("replaced");
             $(".full-play-btn").removeClass("disabled");
             $(".full-loop-btn").removeClass("disabled");
+            $(".floating-record-btn").removeClass("disabled");
+            $(".floating-stop-btn").addClass("disabled");
+            $(".floating-play-btn").removeClass("disabled");
+            $(".floating-loop-btn").removeClass("disabled");
             
             recorder.stop();
             recorder.onstop = evt => {
@@ -747,6 +747,8 @@ $(document).ready(function() {
     $(document).on("click", ".full-play-btn", function() {
         $('.full-play-btn').addClass('disabled');
         $('.full-pause-btn').removeClass('disabled');
+        $('.floating-play-btn').addClass('disabled');
+        $('.floating-pause-btn').removeClass('disabled');
         const audios = document.querySelectorAll(".replaced");
         audios.forEach(audio => {
             audio.play(); 
@@ -756,6 +758,8 @@ $(document).ready(function() {
     $(document).on("click", ".full-pause-btn", function() {
         $('.full-pause-btn').addClass('disabled');
         $('.full-play-btn').removeClass('disabled');
+        $('.floating-pause-btn').addClass('disabled');
+        $('.floating-play-btn').removeClass('disabled');
         const audios = document.querySelectorAll(".replaced");
         audios.forEach(audio => {
             audio.pause(); 
@@ -765,6 +769,7 @@ $(document).ready(function() {
     $(document).on("click", ".full-loop-btn", function() {
         if (document.querySelector('.full-loop-btn').classList.contains('toggled')) {
             $('.full-loop-btn').removeClass('toggled');
+            $('.floating-loop-btn').removeClass('toggled');
             const audios = document.querySelectorAll(".replaced");
             audios.forEach(audio => {
                 audio.loop = false; 
@@ -772,6 +777,7 @@ $(document).ready(function() {
         }
         else {
             $('.full-loop-btn').addClass('toggled');
+            $('.floating-loop-btn').addClass('toggled');
             const audios = document.querySelectorAll(".replaced");
             audios.forEach(audio => {
                 audio.loop = true; 

@@ -12,8 +12,8 @@ body {
 }
 
 .dark-mode-toggle {
-  position: fixed;
-  margin-top: -60px;
+  position: relative;
+  /* margin-top: 1vh; */
   margin-left: 10px;
   display: inline-block;
   width: 60px;

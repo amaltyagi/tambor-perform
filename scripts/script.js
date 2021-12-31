@@ -619,6 +619,7 @@ $(document).ready(function() {
 
     document.body.onkeydown = function(e) {
         if(e.key == ' ' || (e.key == ' ' && e.repeat)) {
+            e.preventDefault();  
             pressPedal();
         }
         else if(e.key == 'Meta') {
@@ -801,3 +802,39 @@ $(document).ready(function() {
 function getKeyByFreq(object, freq) {
     return Object.keys(object).find(key => object[key] == freq);
 }
+
+$(document).on("click", ".dark-mode-checkbox", function() {
+    
+    if ($("body").css("background-color") == "rgb(255, 255, 255)") {
+        $("body").css("background", "black");
+        $(".black-key").css("background-color", "rgba(21, 185, 87, .7)");
+        $(".black-key").css("color", "black");
+        $(".white-key, .space-key").css("background-color", "black");
+        $(".white-key").css("color", "white");
+        $(".white-key, .space-key").css("border", "1px solid rgba(21, 185, 87, .7)");
+        $(".qwerty-key.disabled").css("opacity", ".2");
+        $(".tambor-perform-logo").css("filter", "invert(100%)");
+        $("input[type=text], input[type=range], select").css("opacity", ".7");
+        $("label").css("color", "white");
+        $(".daw-track-left").css("opacity", ".8");
+        $(".daw-track-new").css("background-color", "rgba(200,200,200,.8)")
+        $(".daw-nav-item").css("background-color", "rgba(255,215,0,.3)");
+        $(".daw-curr").css("background-color", "rgba(255,215,0,.5)");
+    }
+    else {
+        $("body").css("background", "white");
+        $(".black-key").css("background-color", "black");
+        $(".black-key").css("color", "white");
+        $(".white-key, .space-key").css("background-color", "white");
+        $(".white-key").css("color", "black");
+        $(".white-key, .space-key").css("border", "1px solid black");
+        $(".qwerty-key.disabled").css("opacity", ".3");
+        $(".tambor-perform-logo").css("filter", "invert(0%)");
+        $("input[type=text], input[type=range], select").css("opacity", "1");
+        $("label").css("color", "black");
+        $(".daw-track-left").css("opacity", "1");
+        $(".daw-track-new").css("background-color", "white")
+        $(".daw-nav-item").css("background-color", "white");
+        $(".daw-curr").css("background-color", "rgba(255,215,0)");
+    }
+});

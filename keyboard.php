@@ -54,6 +54,10 @@
         </select>
     </div>
     <div class="floating-controls">
+        <label class="dark-mode-toggle">
+            <input type="checkbox" class="dark-mode-checkbox">
+            <span class="dark-mode-slider round"></span>
+        </label>
         <div class="daw-track-circle-btn floating-circle-btn floating-record-btn">
             <div class="daw-track-record full-track-record"></div>
         </div>
@@ -133,7 +137,7 @@
     
     <form class="synth-env">
         <div class="osc-div">
-            <select class="osc" name="osc" disabled>
+            <select class="osc" name="osc">
                 <?php 
                 $waves = ["Sine","Square","Triangle","Sawtooth"];
                 for ($i=0; $i<=3; $i++) { ?>
@@ -301,12 +305,12 @@
     </div>
 
     <div class="daw" id="daw">
-        <div class="daw-nav">
+        <!-- <div class="daw-nav">
             <div class="daw-curr daw-nav-item">RECORD</div>
             <div class="daw-nav-item">EDIT</div>
             <div class="daw-nav-item">IMPORT</div>
             <div class="daw-nav-item">EXPORT</div>
-        </div>
+        </div> -->
         <div class="daw-circle-btns">
             <div class="daw-circle-btn full-play-btn disabled">
                 <div class="daw-play"></div>

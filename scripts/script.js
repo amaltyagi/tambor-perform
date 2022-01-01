@@ -7,10 +7,9 @@ $(document).ready(function() {
     var base_freq = synth_base_freq;
     var n = 12;
     var keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
-    // general initializations
+    // synth initializations
     $(".vol-box").val(-24);
     $(".vol-input").val(-24);
-    // synth initializations
     $(".synth-basefreq-input").val(synth_base_freq);
     $(".synth-basefreq-box").val(synth_base_freq);
     $(".osc").val("sine");
@@ -125,7 +124,7 @@ $(document).ready(function() {
             var synth = new Tone.PolySynth(6, Tone.Synth, {
                 volume: vol,
                 oscillator: {
-                    type: osc.toLowerCase().concat(partial),
+                    type: osc.toLowerCase().concat(partial.toString())
                 },
                 envelope: {
                     attack: attack,
@@ -169,7 +168,6 @@ $(document).ready(function() {
             $(".kick-basefreq").hide();
             $(".kick-env").hide();
             $(".drumkit-div").hide();
-            // document.getElementsByClassName("env").hide();
             base_freq = metal_base_freq;
             keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
             var synth = new Tone.MetalSynth({
@@ -368,7 +366,40 @@ $(document).ready(function() {
 
     defaultSynth = initSynth();
 
+    function initPedalSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, osc=prev_osc, partial=prev_partial, attack=prev_attack, decay=prev_decay, sustain=prev_sustain, release=5, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, metal_base_freq=prev_metal_base_freq, metal_harmonicity=prev_metal_harmonicity, metal_modulation=prev_metal_modulation, metal_resonance=prev_metal_resonance, metal_octaves=prev_metal_octaves, metal_attack=prev_metal_attack, metal_decay=prev_metal_decay, metal_release=prev_metal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
+        if (type == "Synth") {
+            bindToFreqs(qwerty_12, base_freq, n);
+            $(".qwerty").show();
+            $(".basefreq").show();
+            $(".synth-env").show();
+            $(".pluck-basefreq").hide();
+            $(".pluck-env").hide();
+            $(".metal-basefreq").hide();
+            $(".metal-env").hide();
+            $(".kick-basefreq").hide();
+            $(".kick-env").hide();
+            $(".drumkit-div").hide();
+            base_freq = synth_base_freq;
+            keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
+            var synth = new Tone.PolySynth(6, Tone.Synth, {
+                volume: vol,
+                oscillator: {
+                    type: osc.toLowerCase().concat(partial.toString())
+                },
+                envelope: {
+                    attack: attack,
+                    decay: attack + decay,
+                    sustain: attack + decay + sustain,
+                    release: attack + decay + sustain + release,
+                },
+            }).toMaster();
+        }
+
+        return synth;
+    }
+
     $(".instrument, .osc, .vol-input, .vol-box, .synth-basefreq-input, .synth-basefreq-box, .partial-input, .partial-box, .attack-input, .decay-input, .sustain-input, .release-input, .env-box[id='attack-value'], .env-box[id='decay-value'], .env-box[id='sustain-value'], .env-box[id='release-value'], .pluck-basefreq-input, .pluck-basefreq-box, .attack-noise-input, .dampening-input, .pluck-resonance-input, .attack-noise-box, .dampening-box, .pluck-resonance-box, .metal-basefreq-input, .metal-basefreq-box, .metal-harmonicity-input, .metal-harmonicity-box, .metal-modulation-input, .metal-modulation-box, .metal-resonance-input, .metal-resonance-box, .metal-octaves-input, .metal-octaves-box, .metal-attack-input, .metal-decay-input, .metal-release-input, .metal-env-box[id='metal-attack-value'], .metal-env-box[id='metal-decay-value'], .metal-env-box[id='metal-release-value'], .kick-basefreq-input, .kick-basefreq-box, .kick-pitch-decay-input, .kick-pitch-decay-box, .kick-octaves-input, .kick-octaves-box, .kick-attack-input, .kick-decay-input, .kick-sustain-input, .kick-release-input, .kick-env-box[id='kick-attack-value'], .kick-env-box[id='kick-decay-value'], .kick-env-box[id='kick-sustain-value'], .kick-env-box[id='kick-release-value']").change(function() {
+        console.log('changed');
         var curr_type = $(".instrument").val();
         var curr_vol_input = $(".vol-input").val();
         var curr_vol_box = $(".vol-box").val();
@@ -432,7 +463,7 @@ $(document).ready(function() {
         else if (prev_vol != curr_vol_box) { $(".vol-input").val(curr_vol_box); prev_vol = curr_vol_box; }
         else if (prev_synth_base_freq != curr_synth_freq_input) { $(".synth-basefreq-box").val(curr_synth_freq_input); prev_synth_base_freq = curr_synth_freq_input; prev_base_freq = curr_synth_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
         else if (prev_synth_base_freq != curr_synth_freq_box) { $(".synth-basefreq-input").val(curr_synth_freq_box); prev_synth_base_freq = curr_synth_freq_box; prev_base_freq = curr_synth_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
-        else if (prev_osc != curr_osc) {console.log(('osc changed from ').concat(prev_osc).concat(' to ').concat(curr_osc)); prev_osc = curr_osc; }
+        else if (prev_osc != curr_osc) { prev_osc = curr_osc; }
         else if (prev_partial != curr_partial_input) { $(".partial-box").val(curr_partial_input); prev_partial = curr_partial_input; }
         else if (prev_partial != curr_partial_box) { $(".partial-input").val(curr_partial_box); prev_partial = curr_partial_box; }
         else if (prev_attack != curr_attack_input) { $(".env-box[id='attack-value']").val(curr_attack_input); prev_attack = curr_attack_input; }
@@ -565,11 +596,9 @@ $(document).ready(function() {
 
     function pressPedal() {
         space_key.classList.add('playing');
-        $(".sustain-input").val(5);
-        $("#sustain-value").val(5);
         $(".release-input").val(5);
         $("#release-value").val(5);
-        defaultSynth = initSynth(vol=prev_vol, osc=prev_osc, partial=prev_partial, attack=prev_attack, decay=prev_decay, sustain=prev_sustain, release=5);
+        defaultSynth = initPedalSynth();
     }
 
     function letGoPedal() {
@@ -721,29 +750,36 @@ $(document).ready(function() {
                 let blob = new Blob(chunks, {type: 'audio/ogg; codecs=opus'});
                 audio.src = URL.createObjectURL(blob);
             }
-
+            
             (function(Peaks) {
                 const options = {
                     zoomview: {
                         container: document.querySelector(".track-selected > .zoomview-container")
                     },
                     overview: {
-                        container: document.querySelector(".track-selected > .zoomview-container > .overview-container")
+                        container: document.querySelector(".track-selected > .zoomview-container > .overview-container"),
                     },
                     mediaElement: document.querySelector(".track-selected > audio"),
                     webAudio: {
                         audioContext: new AudioContext()
                     }
                 };
-                console.log(options['zoomview']['container']);
-                console.log(options['overview']['container']);
-                console.log(options['mediaElement']);
                 Peaks.init(options, function(err, peaks) {
                     // Do something when the waveform is displayed and ready
                 });
             })(peaks);
         });
     });
+
+    // keyboard_color = $(".color-picker").val();
+    // $(".black-key").css("background-color", keyboard_color);
+    // $(".white-key, .space-key").css("border", "1px solid ".concat(keyboard_color));
+    // $(".color-picker").change(function() {
+    //     keyboard_color = $(".color-picker").val();
+    //     $(".black-key").css("background-color", keyboard_color);
+    //     $(".white-key, .space-key").css("border", "1px solid ".concat(keyboard_color));
+    //     options['overview']['playedWaveformColor'] = keyboard_color;
+    // });
 
     $(document).on("click", ".full-play-btn", function() {
         $('.full-play-btn').addClass('disabled');
@@ -804,7 +840,6 @@ function getKeyByFreq(object, freq) {
 }
 
 $(document).on("click", ".dark-mode-checkbox", function() {
-    
     if ($("body").css("background-color") == "rgb(255, 255, 255)") {
         $("body").css("background", "black");
         $(".black-key").css("background-color", "rgba(21, 185, 87, .7)");

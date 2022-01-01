@@ -11,9 +11,21 @@ body {
   margin-bottom: -40px;
 }
 
+/* .display-controls {
+  display: flex;
+  flex-direction: row;
+  margin-left: -45px;
+  margin-top: -5px;
+} */
+
+.color-picker {
+  width: 40px;
+  height: 40px;
+  margin-top: -3px;
+}
+
 .dark-mode-toggle {
   position: relative;
-  /* margin-top: 1vh; */
   margin-left: 10px;
   display: inline-block;
   width: 60px;
@@ -156,7 +168,6 @@ nav a:hover, .curr {
 
 .bottom-row {
   justify-content: center;
-  /* margin-left: -48px; */
 }
 
 .space-key {
@@ -164,7 +175,6 @@ nav a:hover, .curr {
   color: white;
   border-radius: 2px;
   border: 1px solid black;
-  /* margin: 5px 0px 0px 15px; */
   width: 278px;
   margin-top: 5px;
   margin-right: 5px;
@@ -228,6 +238,7 @@ nav a:hover, .curr {
 
 .osc, .osc-option {
   font-size: medium;
+  margin-bottom: 5px;
 }
 
 .osc-div {
@@ -321,7 +332,6 @@ nav a:hover, .curr {
 .attack-noise, .dampening, .pluck-resonance {
   text-align: center;
   margin-right: 30px;
-  /* margin-bottom: 100px; */
 }
 
 .attack-noise-box, .dampening-box, .pluck-resonance-box {
@@ -450,8 +460,6 @@ nav a:hover, .curr {
 
 .daw-nav-item:hover {
   background-color:rgba(255,215,0, .2);
-  /* box-shadow: 0 0 10px #ffc600; */
-
 }
 
 .daw-track {
@@ -464,7 +472,6 @@ nav a:hover, .curr {
 
 .track-selected {
   background-color: rgba(255,215,0,.2);
-  /* border: solid 3px gray; */
 }
 
 .daw-track-left {
@@ -500,10 +507,6 @@ nav a:hover, .curr {
 .daw-track-vol {
   margin-top: -5px;
   margin-bottom: -25px;
-}
-
-.daw-track-pan {
-  
 }
 
 .daw-track-vol-slider, .daw-track-pan-slider {

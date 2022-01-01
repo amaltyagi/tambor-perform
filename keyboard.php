@@ -54,10 +54,15 @@
         </select>
     </div>
     <div class="floating-controls">
-        <label class="dark-mode-toggle">
-            <input type="checkbox" class="dark-mode-checkbox">
-            <span class="dark-mode-slider round"></span>
-        </label>
+        <div class="display-controls">
+            <!-- <div class="color-picker-div">
+                <input type="color" class="color-picker" value="#1faf28">
+            </div> -->
+            <label class="dark-mode-toggle">
+                <input type="checkbox" class="dark-mode-checkbox">
+                <span class="dark-mode-slider round"></span>
+            </label>
+        </div>
         <div class="daw-track-circle-btn floating-circle-btn floating-record-btn">
             <div class="daw-track-record full-track-record"></div>
         </div>

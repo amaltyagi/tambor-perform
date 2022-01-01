@@ -162,15 +162,31 @@
             <input class="env-box" type="text" id="attack-value">
             <label class="env-label" for="attack-value">A</label>
         </div>
+        <div class="env-curves" id="attack-curves">
+            <img class="env-curve attack-curve curr-curve" id="attack-curve-lin" name="linear" src="assets/linear.png" alt="lin"></img>
+            <img class="env-curve attack-curve" id="attack-curve-exp" name="exponential" src="assets/exponential.png" alt="exp"></img>
+            <img class="env-curve attack-curve" id="attack-curve-sin" name="sine" src="assets/sine.png" alt="sin"></img>
+            <img class="env-curve attack-curve" id="attack-curve-cos" name="cosine" src="assets/cosine.png" alt="cos"></img>
+        </div>
         <div class="env-slider" id="decay-slider">
             <input class="decay-input" name="decay-input" id="decay-input" orient="vertical" type="range" step=".01" min=".01" max=".75">
             <input class="env-box" type="text" id="decay-value">
             <label class="env-label" for="decay-value">D</label>
         </div>
+        <div class="env-curves" id="decay-curves">
+            <img class="env-curve decay-curve curr-curve" id="decay-curve-lin" name="linear" src="assets/linear.png" alt="lin"></img>
+            <img class="env-curve decay-curve" id="decay-curve-exp" name="exponential" src="assets/exponential.png" alt="exp"></img>
+        </div>
         <div class="env-slider" id="sustain-slider">
             <input class="sustain-input" name="sustain-input" id="sustain-input" orient="vertical" type="range" step=".01" min=".01" max=".75">
             <input class="env-box" type="text" id="sustain-value">
             <label class="env-label" for="sustain-value">S</label>
+        </div>
+        <div class="env-curves" id="release-curves">
+            <img class="env-curve release-curve" id="release-curve-lin" name="linear" src="assets/linear.png" alt="lin"></img>
+            <img class="env-curve release-curve curr-curve" id="release-curve-exp" name="exponential" src="assets/exponential.png" alt="exp"></img>
+            <img class="env-curve release-curve" id="release-curve-sin" name="sine" src="assets/sine.png" alt="sin"></img>
+            <img class="env-curve release-curve" id="release-curve-cos" name="cosine" src="assets/cosine.png" alt="cos"></img>
         </div>
         <div class="env-slider" id="release-slider">
             <input class="release-input" name="release-input" id="release-input" orient="vertical" type="range" step=".01" min=".01" max="5">

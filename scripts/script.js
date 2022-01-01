@@ -74,9 +74,12 @@ $(document).ready(function() {
     var prev_osc = $(".osc").val();
     var prev_partial = $(".partial-input").val();
     var prev_attack =  parseFloat($(".attack-input").val());
+    var prev_attack_curve = "linear";
     var prev_decay =  parseFloat($(".decay-input").val());
+    var prev_decay_curve = "linear";
     var prev_sustain =  parseFloat($(".sustain-input").val());
     var prev_release =  parseFloat($(".release-input").val());
+    var prev_release_curve = "exponential";
     // string settings
     var prev_pluck_base_freq = $(".pluck-basefreq-input").val();
     var prev_attack_noise = $(".attack-noise-input").val();
@@ -106,7 +109,7 @@ $(document).ready(function() {
     const opt_key_1 = document.getElementById("opt-key-1");
     const opt_key_2 = document.getElementById("opt-key-2");
 
-    function initSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, osc=prev_osc, partial=prev_partial, attack=prev_attack, decay=prev_decay, sustain=prev_sustain, release=prev_release, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, metal_base_freq=prev_metal_base_freq, metal_harmonicity=prev_metal_harmonicity, metal_modulation=prev_metal_modulation, metal_resonance=prev_metal_resonance, metal_octaves=prev_metal_octaves, metal_attack=prev_metal_attack, metal_decay=prev_metal_decay, metal_release=prev_metal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
+    function initSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, osc=prev_osc, partial=prev_partial, attack=prev_attack, attack_curve=prev_attack_curve, decay=prev_decay, decay_curve=prev_decay_curve, sustain=prev_sustain, release=prev_release, release_curve=prev_release_curve, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, metal_base_freq=prev_metal_base_freq, metal_harmonicity=prev_metal_harmonicity, metal_modulation=prev_metal_modulation, metal_resonance=prev_metal_resonance, metal_octaves=prev_metal_octaves, metal_attack=prev_metal_attack, metal_decay=prev_metal_decay, metal_release=prev_metal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
         if (type == "Synth") {
             bindToFreqs(qwerty_12, base_freq, n);
             $(".qwerty").show();
@@ -128,9 +131,12 @@ $(document).ready(function() {
                 },
                 envelope: {
                     attack: attack,
+                    attackCurve: attack_curve,
                     decay: attack + decay,
+                    decayCurve: decay_curve,
                     sustain: attack + decay + sustain,
                     release: attack + decay + sustain + release,
+                    releaseCurve: release_curve,
                 },
             }).toMaster();
         }
@@ -366,7 +372,7 @@ $(document).ready(function() {
 
     defaultSynth = initSynth();
 
-    function initPedalSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, osc=prev_osc, partial=prev_partial, attack=prev_attack, decay=prev_decay, sustain=prev_sustain, release=5, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, metal_base_freq=prev_metal_base_freq, metal_harmonicity=prev_metal_harmonicity, metal_modulation=prev_metal_modulation, metal_resonance=prev_metal_resonance, metal_octaves=prev_metal_octaves, metal_attack=prev_metal_attack, metal_decay=prev_metal_decay, metal_release=prev_metal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
+    function initPedalSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, osc=prev_osc, partial=prev_partial, attack=prev_attack, attack_curve=prev_attack_curve, decay=prev_decay, decay_curve=prev_decay_curve, sustain=prev_sustain, release=5, release_curve=prev_release_curve, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, metal_base_freq=prev_metal_base_freq, metal_harmonicity=prev_metal_harmonicity, metal_modulation=prev_metal_modulation, metal_resonance=prev_metal_resonance, metal_octaves=prev_metal_octaves, metal_attack=prev_metal_attack, metal_decay=prev_metal_decay, metal_release=prev_metal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
         if (type == "Synth") {
             bindToFreqs(qwerty_12, base_freq, n);
             $(".qwerty").show();
@@ -388,9 +394,12 @@ $(document).ready(function() {
                 },
                 envelope: {
                     attack: attack,
+                    attackCurve: attack_curve,
                     decay: attack + decay,
+                    decayCurve: decay_curve,
                     sustain: attack + decay + sustain,
                     release: attack + decay + sustain + release,
+                    releaseCurve: release_curve,
                 },
             }).toMaster();
         }
@@ -399,7 +408,6 @@ $(document).ready(function() {
     }
 
     $(".instrument, .osc, .vol-input, .vol-box, .synth-basefreq-input, .synth-basefreq-box, .partial-input, .partial-box, .attack-input, .decay-input, .sustain-input, .release-input, .env-box[id='attack-value'], .env-box[id='decay-value'], .env-box[id='sustain-value'], .env-box[id='release-value'], .pluck-basefreq-input, .pluck-basefreq-box, .attack-noise-input, .dampening-input, .pluck-resonance-input, .attack-noise-box, .dampening-box, .pluck-resonance-box, .metal-basefreq-input, .metal-basefreq-box, .metal-harmonicity-input, .metal-harmonicity-box, .metal-modulation-input, .metal-modulation-box, .metal-resonance-input, .metal-resonance-box, .metal-octaves-input, .metal-octaves-box, .metal-attack-input, .metal-decay-input, .metal-release-input, .metal-env-box[id='metal-attack-value'], .metal-env-box[id='metal-decay-value'], .metal-env-box[id='metal-release-value'], .kick-basefreq-input, .kick-basefreq-box, .kick-pitch-decay-input, .kick-pitch-decay-box, .kick-octaves-input, .kick-octaves-box, .kick-attack-input, .kick-decay-input, .kick-sustain-input, .kick-release-input, .kick-env-box[id='kick-attack-value'], .kick-env-box[id='kick-decay-value'], .kick-env-box[id='kick-sustain-value'], .kick-env-box[id='kick-release-value']").change(function() {
-        console.log('changed');
         var curr_type = $(".instrument").val();
         var curr_vol_input = $(".vol-input").val();
         var curr_vol_box = $(".vol-box").val();
@@ -646,9 +654,30 @@ $(document).ready(function() {
         transposeKeys(12);
     })
 
+    $(".attack-curve").on("click", function() {
+        $(".attack-curve").removeClass("curr-curve");
+        $(this).addClass("curr-curve");
+        prev_attack_curve = $(this).attr('name');
+        defaultSynth = initSynth();
+    });
+
+    $(".decay-curve").on("click", function() {
+        $(".decay-curve").removeClass("curr-curve");
+        $(this).addClass("curr-curve");
+        prev_decay_curve = $(this).attr('name');
+        defaultSynth = initSynth();
+    });
+
+    $(".release-curve").on("click", function() {
+        $(".release-curve").removeClass("curr-curve");
+        $(this).addClass("curr-curve");
+        prev_release_curve = $(this).attr('name');
+        defaultSynth = initSynth();
+    });
+
     document.body.onkeydown = function(e) {
         if(e.key == ' ' || (e.key == ' ' && e.repeat)) {
-            e.preventDefault();  
+            e.preventDefault();
             pressPedal();
         }
         else if(e.key == 'Meta') {
@@ -678,6 +707,27 @@ $(document).ready(function() {
             letGoPedal();
         }
     }
+
+    $(document).on("click", ".attack-curve", function() {
+        if ($("body").css("background-color") == "rgb(0, 0, 0)") {
+            $(".attack-curve").css("box-shadow", "none");
+            $(this).css("box-shadow", "0 0 15px #0039ff");
+        }
+    });
+
+    $(document).on("click", ".decay-curve", function() {
+        if ($("body").css("background-color") == "rgb(0, 0, 0)") {
+            $(".decay-curve").css("box-shadow", "none");
+            $(this).css("box-shadow", "0 0 15px #0039ff");
+        }
+    });
+
+    $(document).on("click", ".release-curve", function() {
+        if ($("body").css("background-color") == "rgb(0, 0, 0)") {
+            $(".release-curve").css("box-shadow", "none");
+            $(this).css("box-shadow", "0 0 15px #0039ff");
+        }
+    });
 
     $(document).on("click", ".daw-track", function() {
         $(".track-selected").removeClass("track-selected");
@@ -849,6 +899,8 @@ $(document).on("click", ".dark-mode-checkbox", function() {
         $(".white-key, .space-key").css("border", "1px solid rgba(21, 185, 87, .7)");
         $(".qwerty-key.disabled").css("opacity", ".2");
         $(".tambor-perform-logo").css("filter", "invert(100%)");
+        $(".env-curve").css("filter", "invert(100%)");
+        $(".curr-curve").css("box-shadow", "0 0 15px #0039ff");
         $("input[type=text], input[type=range], select").css("opacity", ".7");
         $("label").css("color", "white");
         $(".daw-track-left").css("opacity", ".8");
@@ -865,6 +917,8 @@ $(document).on("click", ".dark-mode-checkbox", function() {
         $(".white-key, .space-key").css("border", "1px solid black");
         $(".qwerty-key.disabled").css("opacity", ".3");
         $(".tambor-perform-logo").css("filter", "invert(0%)");
+        $(".env-curve").css("filter", "invert(0%)");
+        $(".curr-curve").css("box-shadow", "0 0 10px #ffc600");
         $("input[type=text], input[type=range], select").css("opacity", "1");
         $("label").css("color", "black");
         $(".daw-track-left").css("opacity", "1");

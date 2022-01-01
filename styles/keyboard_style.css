@@ -184,7 +184,7 @@ nav a:hover, .curr {
   padding-top: 30px;
 }
 
-.playing {
+.playing, .curr-curve {
   transform:scale(1.1);
   border-color:rgba(255,215,0);
   box-shadow: 0 0 10px #ffc600;
@@ -281,6 +281,26 @@ nav a:hover, .curr {
 
 .attack-input, .decay-input, .sustain-input, .release-input {
   -webkit-appearance: slider-vertical;
+}
+
+.env-curves {
+  display: flex;
+  flex-direction: column;
+}
+
+#attack-curves, #release-curves {
+  margin-top: 30px;
+}
+
+#decay-curves {
+  margin-top: 62px;
+}
+
+.env-curve {
+  width: 20px;
+  height: 20px;
+  border: .5px solid black;
+  margin-bottom: 10px;
 }
 
 .env-box, .metal-env-box, .metal-harmonicity-box, .metal-modulation-box, .metal-resonance-box, .metal-octaves-box, .kick-env-box, .kick-pitch-decay-box, .kick-octaves-box {

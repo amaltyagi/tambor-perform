@@ -212,18 +212,23 @@ nav a:hover, .curr {
   pointer-events: none;
 }
 
-.vol-slider, .metal-env-slider, .kick-env-slider {
+.synth-vol, .synth-basefreq {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.synth-vol-slider, .crash-env-slider, .ride-env-slider, .kick-env-slider, .high-tom-env-slider, .mid-tom-env-slider, .low-tom-env-slider {
   margin-top: 10px;
   margin-bottom: 5px;
   display: flex;
   flex-direction: row;
 }
 
-.vol-slider {
+.synth-vol-slider {
   justify-content: center;
 }
 
-.vol-box {
+.synth-vol-box {
   width: 70px;
   font-size: medium;
   text-align: center;
@@ -252,36 +257,64 @@ nav a:hover, .curr {
   margin-top: 20px;
 }
 
-.synth-basefreq, .pluck-basefreq, .metal-basefreq, .kick-basefreq, .partial {
+.crash-cymbal-basefreq, .ride-cymbal-basefreq {
+  padding-left: 25px;
+}
+
+.crash-cymbal-basefreq-slider, .ride-cymbal-basefreq-slider {
+  display: flex;
+  flex-direction: row;
+}
+
+.crash-cymbal-basefreq-box, .ride-cymbal-basefreq-box {
+  margin-top: 5px;
+}
+
+.synth-basefreq, .pluck-basefreq, .crash-cymbal-basefreq, .ride-cymbal-basefreq, .kick-basefreq, .high-tom-basefreq, .mid-tom-basefreq, .low-tom-basefreq, .partial {
   margin-bottom: 15px;
 }
 
-.synth-basefreq-slider, .pluck-basefreq-slider, .metal-basefreq-slider, .kick-basefreq-slider, .partial-slider {
+.synth-basefreq-slider, .pluck-basefreq-slider, .crash-cymbal-basefreq-slider, .ride-cymbal-basefreq-slider, .kick-basefreq-slider, .high-tom-basefreq-slider, .mid-tom-basefreq-slider, .low-tom-basefreq-slider, .partial-slider {
   margin-bottom: 5px;
 }
 
-.synth-basefreq-box, .pluck-basefreq-box, .metal-basefreq-box, .kick-basefreq-box, .partial-box {
+.synth-basefreq-box, .pluck-basefreq-box, .crash-cymbal-basefreq-box, .ride-cymbal-basefreq-box, .kick-basefreq-box, .high-tom-basefreq-box, .mid-tom-basefreq-box, .low-tom-basefreq-box, .partial-box {
   width: 70px;
-  font-size: medium;
   text-align: center;
 }
 
-.synth-basefreq-input, .pluck-basefreq-input, .metal-basefreq-input, .kick-basefreq-input, .partial-input {
+.synth-basefreq-input, .pluck-basefreq-input, .crash-cymbal-basefreq-input, .ride-cymbal-basefreq-input, .kick-basefreq-input, .high-tom-basefreq-input, .mid-tom-basefreq-input, .low-tom-basefreq-input, .partial-input {
   margin-bottom: -5px;
-  margin-right: -2px;
+  /* margin-right: -2px; */
 }
 
-.synth-env, .pluck-env, .metal-env, .kick-env {
+.synth-env, .pluck-env {
   margin-left: 40px;
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.env-slider, .metal-env-slider, .metal-harmonicity-slider, .metal-modulation-slider, .metal-resonance-slider, .metal-octaves-slider, .kick-env-slider, .kick-pitch-decay-slider, .kick-octaves-slider {
+.crash-cymbal-env, .ride-cymbal-env, .kick-env, .high-tom-env, .mid-tom-env, .low-tom-env {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: -200px;
+}
+
+.env-slider, .crash-cymbal-env-slider, .ride-cymbal-env-slider, .kick-env-slider, .high-tom-env-slider, .mid-tom-env-slider, .low-tom-env-slider {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  box-sizing: inherit;
+}
+
+.crash-cymbal-harmonicity-slider, .crash-cymbal-modulation-slider, .crash-cymbal-resonance-slider, .crash-cymbal-octaves-slider, .ride-cymbal-harmonicity-slider, .ride-cymbal-modulation-slider, .ride-cymbal-resonance-slider, .ride-cymbal-octaves-slider, .kick-pitch-decay-slider, .kick-octaves-slider, .high-tom-pitch-decay-slider, .high-tom-octaves-slider, .mid-tom-pitch-decay-slider, .mid-tom-octaves-slider, .low-tom-pitch-decay-slider, .low-tom-octaves-slider {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  margin-bottom: 5px;
   align-items: center;
   box-sizing: inherit;
 }
@@ -310,46 +343,63 @@ nav a:hover, .curr {
   margin-bottom: 10px;
 }
 
-.env-box, .metal-env-box, .metal-harmonicity-box, .metal-modulation-box, .metal-resonance-box, .metal-octaves-box, .kick-env-box, .kick-pitch-decay-box, .kick-octaves-box {
-  width: 40px;
+.env-box {
   font-size: medium;
+}
+
+.env-box, .crash-cymbal-env-box, .crash-cymbal-harmonicity-box, .crash-cymbal-modulation-box, .crash-cymbal-resonance-box, .crash-cymbal-octaves-box, .ride-cymbal-env-box, .ride-cymbal-harmonicity-box, .ride-cymbal-modulation-box, .ride-cymbal-resonance-box, .ride-cymbal-octaves-box, .kick-env-box, .kick-pitch-decay-box, .kick-octaves-box, .high-tom-env-box, .high-tom-pitch-decay-box, .high-tom-octaves-box, .mid-tom-env-box, .mid-tom-pitch-decay-box, .mid-tom-octaves-box, .low-tom-env-box, .low-tom-pitch-decay-box, .low-tom-octaves-box {
+  width: 40px;
   text-align: center;
 }
 
-.env-box, .metal-env-box, .kick-env-box {
+.env-box, .crash-cymbal-env-box, .ride-cymbal-env-box, .kick-env-box, .high-tom-env-box, .mid-tom-env-box, .low-tom-env-box {
   margin-top: 15px;
 }
 
-.metal-modulation-box {
-  margin: 20px 0px 0px 60px;
-}
-
-.metal-harmonicity-box, .metal-resonance-box, .metal-octaves-box, .kick-pitch-decay-box, .kick-octaves-box {
-  margin: 20px 0px 0px 100px;
-  font-size: medium;
+.crash-cymbal-harmonicity-box, .crash-cymbal-modulation-box, .crash-cymbal-resonance-box, .crash-cymbal-octaves-box, .ride-cymbal-harmonicity-box, .ride-cymbal-modulation-box, .ride-cymbal-resonance-box, .ride-cymbal-octaves-box, .kick-pitch-decay-box, .kick-octaves-box, .high-tom-pitch-decay-box, .high-tom-octaves-box, .mid-tom-pitch-decay-box, .mid-tom-octaves-box, .low-tom-pitch-decay-box, .low-tom-octaves-box {
+  /* font-size: medium; */
   text-align: center;
 }
 
-.env-label, .metal-env-label, .metal-harmonicity-label, .metal-modulation-label, .metal-resonance-label, .metal-octaves-label, .kick-env-label, .kick-pitch-decay-label, .kick-octaves-label {
-  margin-top: 5px;
+.env-label {
   font-size: large;
 }
 
-.metal-env-1, .kick-env-1 {
-  margin-right: 20px;
-  display: flex;
-  flex-direction: row;
+.crash-cymbal-env, .crash-cymbal-harmonicity, .crash-cymbal-modulation, .crash-cymbal-resonance, .crash-cymbal-octaves, .ride-cymbal-env, .ride-cymbal-harmonicity, .ride-cymbal-modulation, .ride-cymbal-resonance, .ride-cymbal-octaves, .kick-env, .kick-pitch-decay, .kick-octaves, .high-tom-env, .high-tom-pitch-decay, .high-tom-octaves, .mid-tom-env, .mid-tom-pitch-decay, .mid-tom-octaves, .low-tom-env, .low-tom-pitch-decay, .low-tom-octaves {
+  text-align: center;
 }
 
-.metal-env-2, .kick-env-2 {
-  margin-left: 20px;
+.env-label, .crash-cymbal-env-label, .crash-cymbal-harmonicity-label, .crash-cymbal-modulation-label, .crash-cymbal-resonance-label, .crash-cymbal-octaves-label, .ride-cymbal-env-label, .ride-cymbal-harmonicity-label, .ride-cymbal-modulation-label, .ride-cymbal-resonance-label, .ride-cymbal-octaves-label, .kick-env-label, .kick-pitch-decay-label, .kick-octaves-label, .high-tom-env-label, .high-tom-pitch-decay-label, .high-tom-octaves-label, .mid-tom-env-label, .mid-tom-pitch-decay-label, .mid-tom-octaves-label, .low-tom-env-label, .low-tom-pitch-decay-label, .low-tom-octaves-label {
+  margin-top: 5px;
+  padding-top: 10px;
+}
+
+.kick-basefreq-label, .high-tom-basefreq-label, .mid-tom-basefreq-label, .low-tom-basefreq-label, .crash-cymbal-basefreq-label, .ride-cymbal-basefreq-label, .crash-cymbal-harmonicity-label, .crash-cymbal-modulation-label, .crash-cymbal-resonance-label, .crash-cymbal-octaves-label, .ride-cymbal-harmonicity-label, .ride-cymbal-modulation-label, .ride-cymbal-resonance-label, .ride-cymbal-octaves-label, .kick-pitch-decay-label, .kick-octaves-label, .high-tom-pitch-decay-label, .high-tom-octaves-label, .mid-tom-pitch-decay-label, .mid-tom-octaves-label, .low-tom-pitch-decay-label, .low-tom-octaves-label {
+  margin-left: 5px;
+}
+
+.crash-cymbal-env-1, .ride-cymbal-env-1, .kick-env-1, .high-tom-env-1, .mid-tom-env-1, .low-tom-env-1 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-right: 20px;
   display: flex;
   flex-direction: column;
 }
 
-.cover-all {
-  margin-top: 15px;
-  text-align: center;
+.crash-cymbal-env-adsr, .ride-cymbal-env-adsr, .kick-env-adsr, .high-tom-env-adsr, .mid-tom-env-adsr, .low-tom-env-adsr {
+  display: flex;
+  flex-direction: row;
+  padding-left: 25px;
+}
+
+.crash-cymbal-env-adsr, .ride-cymbal-env-adsr {
+  padding-left: 75px;
+}
+
+.crash-cymbal-env-2, .ride-cymbal-env-2, .kick-env-2, .high-tom-env-2, .mid-tom-env-2, .low-tom-env-2 {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .pluck-env {
@@ -425,9 +475,11 @@ nav a:hover, .curr {
 }
 
 #low-tom {
+  position: relative;
   height: 190px;
   width: 190px;
   margin-left: 275px;
+  z-index: 0;
 }
 
 #kick {
@@ -453,12 +505,95 @@ nav a:hover, .curr {
 }
 
 #ride-cymbal {
+  position: relative;
   height: 200px;
   width: 200px;
   margin-top: -25px;
   margin-left: -120px;
   margin-bottom: -70px;
+  z-index: 2;
+}
+
+.drumkit-dropdown {
+  position: relative;
+  background-color: rgba(170,170,170,1);
+  padding-bottom: 3px;
+  border-radius: 0 0 150px 150px;
   z-index: 1;
+  height: 16px;
+}
+
+.drumkit-dropdown:hover {
+  background-color: gray;
+}
+
+.drumkit-arrow {
+  position: relative;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  margin-left: 45%;
+  /* padding: 3px; */
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  z-index: 1;
+}
+
+#high-tom-dropdown {
+  width: 87px;
+  margin-top: 108px;
+  margin-left: 19px;
+}
+
+#crash-cymbal-dropdown {
+  width: 102px;
+  margin-top: 158px;
+  margin-left: 38px;
+}
+
+#mid-tom-dropdown {
+  width: 91px;
+  margin-top: 118px;
+  margin-left: 22px;
+}
+
+#ride-cymbal-dropdown {
+  width: 110px;
+  margin-top: 184px;
+  margin-left: 45px;
+}
+
+#kick-dropdown {
+  width: 105px;
+  margin-top: 48px;
+  margin-left: 75px;
+}
+
+#snare-dropdown {
+  width: 91px;
+  margin-top: 135px;
+  margin-left: 29px;
+}
+
+#hi-hat-dropdown {
+  width: 105px;
+  margin-top: 158px;
+  margin-left: 35px;
+}
+
+#low-tom-dropdown {
+  width: 106px;
+  margin-top: 174px;
+  margin-left: 42px;
+}
+
+.kick-env, .high-tom-env, .mid-tom-env, .low-tom-env, .crash-cymbal-env, .ride-cymbal-env {
+  position: relative;
+  z-index: 3;
+  background-color: rgba(225,225,225,1);
+  width: 600px;
 }
 
 .daw {
@@ -577,6 +712,10 @@ nav a:hover, .curr {
   text-align: center;
   font-size: 30pt;
   font-weight: 300;
+}
+
+.daw-circle-btns {
+  margin-left: -5px;
 }
 
 .daw-circle-btns, .daw-track-circle-btns {

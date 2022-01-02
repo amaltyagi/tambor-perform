@@ -13,14 +13,6 @@
     <div class="home-divs">
       <div class="left-div">
       <img class="tambor-perform-logo" id="home-logo" src="assets/Tambor_Perform_Logo.png" alt="tambor-perform-logo">
-        <!-- <div class="logo-div">
-          <div class="logo-parentheses">
-            <h1 id="l-parentheses">(</h1>
-            <h1 id="r-parentheses">)</h1>
-          </div>
-          <h1 id="logo-product">Perform</h1>
-          <h3 id="logo-company">by Tambor</h3>
-        </div> -->
         <h1 id="left1">Collaborative,</h1>
         <h1 id="left2">Customizable,</h1>
         <h1 id="left3">Curated instruments.</h1>

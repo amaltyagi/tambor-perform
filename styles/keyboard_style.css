@@ -236,7 +236,14 @@ nav a:hover, .curr {
   justify-content: center;
 }
 
+.sound {
+  margin-left: 2px;
+  width: 118px;
+  font-size: medium;
+}
+
 .osc, .osc-option {
+  width: 118px;
   font-size: medium;
   margin-bottom: 5px;
 }

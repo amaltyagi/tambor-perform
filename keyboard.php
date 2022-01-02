@@ -46,7 +46,7 @@
     
     <div class="instrument-div">
         <select class="instrument">
-            <option class="synth">Synth</option>
+            <option class="keyboard">Keyboard</option>
             <option class="pluck">String</option>
             <option class="metal">Cymbal</option>
             <option class="membrane">Kick</option>
@@ -142,6 +142,13 @@
     
     <form class="synth-env">
         <div class="osc-div">
+            <select class="sound" name="sound">
+                <?php 
+                $sounds = ["Synth","MonoSynth","AMSynth","FMSynth"];
+                for ($i=0; $i<=3; $i++) { ?>
+                <option class="sound-option" value="<?php echo $i; ?>"><?php echo $sounds[$i]; ?></option>
+                <?php }; ?>
+            </select>
             <select class="osc" name="osc">
                 <?php 
                 $waves = ["Sine","Square","Triangle","Sawtooth"];

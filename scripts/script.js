@@ -7,11 +7,13 @@ $(document).ready(function() {
     var base_freq = synth_base_freq;
     var n = 12;
     var keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
+    var sounds = [Tone.Synth, Tone.MonoSynth, Tone.AMSynth, Tone.FMSynth];
     // synth initializations
     $(".vol-box").val(-24);
     $(".vol-input").val(-24);
     $(".synth-basefreq-input").val(synth_base_freq);
     $(".synth-basefreq-box").val(synth_base_freq);
+    $(".sound").val(0);
     $(".osc").val("sine");
     $(".partial-box").val(1);
     $(".partial-input").val(1);
@@ -71,6 +73,7 @@ $(document).ready(function() {
     // synth settings
     var prev_base_freq = $(".synth-basefreq-input").val();
     var prev_synth_base_freq = $(".synth-basefreq-input").val();
+    var prev_sound = $(".sound").val();
     var prev_osc = $(".osc").val();
     var prev_partial = $(".partial-input").val();
     var prev_attack =  parseFloat($(".attack-input").val());
@@ -109,8 +112,8 @@ $(document).ready(function() {
     const opt_key_1 = document.getElementById("opt-key-1");
     const opt_key_2 = document.getElementById("opt-key-2");
 
-    function initSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, osc=prev_osc, partial=prev_partial, attack=prev_attack, attack_curve=prev_attack_curve, decay=prev_decay, decay_curve=prev_decay_curve, sustain=prev_sustain, release=prev_release, release_curve=prev_release_curve, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, metal_base_freq=prev_metal_base_freq, metal_harmonicity=prev_metal_harmonicity, metal_modulation=prev_metal_modulation, metal_resonance=prev_metal_resonance, metal_octaves=prev_metal_octaves, metal_attack=prev_metal_attack, metal_decay=prev_metal_decay, metal_release=prev_metal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
-        if (type == "Synth") {
+    function initSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, sound=prev_sound, osc=prev_osc, partial=prev_partial, attack=prev_attack, attack_curve=prev_attack_curve, decay=prev_decay, decay_curve=prev_decay_curve, sustain=prev_sustain, release=prev_release, release_curve=prev_release_curve, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, metal_base_freq=prev_metal_base_freq, metal_harmonicity=prev_metal_harmonicity, metal_modulation=prev_metal_modulation, metal_resonance=prev_metal_resonance, metal_octaves=prev_metal_octaves, metal_attack=prev_metal_attack, metal_decay=prev_metal_decay, metal_release=prev_metal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
+        if (type == "Keyboard") {
             bindToFreqs(qwerty_12, base_freq, n);
             $(".qwerty").show();
             $(".basefreq").show();
@@ -124,7 +127,7 @@ $(document).ready(function() {
             $(".drumkit-div").hide();
             base_freq = synth_base_freq;
             keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
-            var synth = new Tone.PolySynth(6, Tone.Synth, {
+            var synth = new Tone.PolySynth(6, sounds[prev_sound], {
                 volume: vol,
                 oscillator: {
                     type: osc.toLowerCase().concat(partial.toString())
@@ -372,8 +375,8 @@ $(document).ready(function() {
 
     defaultSynth = initSynth();
 
-    function initPedalSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, osc=prev_osc, partial=prev_partial, attack=prev_attack, attack_curve=prev_attack_curve, decay=prev_decay, decay_curve=prev_decay_curve, sustain=prev_sustain, release=5, release_curve=prev_release_curve, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, metal_base_freq=prev_metal_base_freq, metal_harmonicity=prev_metal_harmonicity, metal_modulation=prev_metal_modulation, metal_resonance=prev_metal_resonance, metal_octaves=prev_metal_octaves, metal_attack=prev_metal_attack, metal_decay=prev_metal_decay, metal_release=prev_metal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
-        if (type == "Synth") {
+    function initPedalSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, sound=prev_sound, osc=prev_osc, partial=prev_partial, attack=prev_attack, attack_curve=prev_attack_curve, decay=prev_decay, decay_curve=prev_decay_curve, sustain=prev_sustain, release=5, release_curve=prev_release_curve, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, metal_base_freq=prev_metal_base_freq, metal_harmonicity=prev_metal_harmonicity, metal_modulation=prev_metal_modulation, metal_resonance=prev_metal_resonance, metal_octaves=prev_metal_octaves, metal_attack=prev_metal_attack, metal_decay=prev_metal_decay, metal_release=prev_metal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
+        if (type == "Keyboard") {
             bindToFreqs(qwerty_12, base_freq, n);
             $(".qwerty").show();
             $(".basefreq").show();
@@ -387,7 +390,7 @@ $(document).ready(function() {
             $(".drumkit-div").hide();
             base_freq = synth_base_freq;
             keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
-            var synth = new Tone.PolySynth(6, Tone.Synth, {
+            var synth = new Tone.PolySynth(6, sounds[prev_sound], {
                 volume: vol,
                 oscillator: {
                     type: osc.toLowerCase().concat(partial.toString())
@@ -407,12 +410,13 @@ $(document).ready(function() {
         return synth;
     }
 
-    $(".instrument, .osc, .vol-input, .vol-box, .synth-basefreq-input, .synth-basefreq-box, .partial-input, .partial-box, .attack-input, .decay-input, .sustain-input, .release-input, .env-box[id='attack-value'], .env-box[id='decay-value'], .env-box[id='sustain-value'], .env-box[id='release-value'], .pluck-basefreq-input, .pluck-basefreq-box, .attack-noise-input, .dampening-input, .pluck-resonance-input, .attack-noise-box, .dampening-box, .pluck-resonance-box, .metal-basefreq-input, .metal-basefreq-box, .metal-harmonicity-input, .metal-harmonicity-box, .metal-modulation-input, .metal-modulation-box, .metal-resonance-input, .metal-resonance-box, .metal-octaves-input, .metal-octaves-box, .metal-attack-input, .metal-decay-input, .metal-release-input, .metal-env-box[id='metal-attack-value'], .metal-env-box[id='metal-decay-value'], .metal-env-box[id='metal-release-value'], .kick-basefreq-input, .kick-basefreq-box, .kick-pitch-decay-input, .kick-pitch-decay-box, .kick-octaves-input, .kick-octaves-box, .kick-attack-input, .kick-decay-input, .kick-sustain-input, .kick-release-input, .kick-env-box[id='kick-attack-value'], .kick-env-box[id='kick-decay-value'], .kick-env-box[id='kick-sustain-value'], .kick-env-box[id='kick-release-value']").change(function() {
+    $(".instrument, .sound, .osc, .vol-input, .vol-box, .synth-basefreq-input, .synth-basefreq-box, .partial-input, .partial-box, .attack-input, .decay-input, .sustain-input, .release-input, .env-box[id='attack-value'], .env-box[id='decay-value'], .env-box[id='sustain-value'], .env-box[id='release-value'], .pluck-basefreq-input, .pluck-basefreq-box, .attack-noise-input, .dampening-input, .pluck-resonance-input, .attack-noise-box, .dampening-box, .pluck-resonance-box, .metal-basefreq-input, .metal-basefreq-box, .metal-harmonicity-input, .metal-harmonicity-box, .metal-modulation-input, .metal-modulation-box, .metal-resonance-input, .metal-resonance-box, .metal-octaves-input, .metal-octaves-box, .metal-attack-input, .metal-decay-input, .metal-release-input, .metal-env-box[id='metal-attack-value'], .metal-env-box[id='metal-decay-value'], .metal-env-box[id='metal-release-value'], .kick-basefreq-input, .kick-basefreq-box, .kick-pitch-decay-input, .kick-pitch-decay-box, .kick-octaves-input, .kick-octaves-box, .kick-attack-input, .kick-decay-input, .kick-sustain-input, .kick-release-input, .kick-env-box[id='kick-attack-value'], .kick-env-box[id='kick-decay-value'], .kick-env-box[id='kick-sustain-value'], .kick-env-box[id='kick-release-value']").change(function() {
         var curr_type = $(".instrument").val();
         var curr_vol_input = $(".vol-input").val();
         var curr_vol_box = $(".vol-box").val();
         var curr_synth_freq_input = $(".synth-basefreq-input").val();
         var curr_synth_freq_box = $(".synth-basefreq-box").val();
+        var curr_sound = $(".sound").val();
         var curr_osc = $(".osc").val();
         var curr_partial_input = $(".partial-input").val();
         var curr_partial_box = $(".partial-box").val();
@@ -471,6 +475,7 @@ $(document).ready(function() {
         else if (prev_vol != curr_vol_box) { $(".vol-input").val(curr_vol_box); prev_vol = curr_vol_box; }
         else if (prev_synth_base_freq != curr_synth_freq_input) { $(".synth-basefreq-box").val(curr_synth_freq_input); prev_synth_base_freq = curr_synth_freq_input; prev_base_freq = curr_synth_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
         else if (prev_synth_base_freq != curr_synth_freq_box) { $(".synth-basefreq-input").val(curr_synth_freq_box); prev_synth_base_freq = curr_synth_freq_box; prev_base_freq = curr_synth_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_sound != curr_sound) { prev_sound = curr_sound; }
         else if (prev_osc != curr_osc) { prev_osc = curr_osc; }
         else if (prev_partial != curr_partial_input) { $(".partial-box").val(curr_partial_input); prev_partial = curr_partial_input; }
         else if (prev_partial != curr_partial_box) { $(".partial-input").val(curr_partial_box); prev_partial = curr_partial_box; }

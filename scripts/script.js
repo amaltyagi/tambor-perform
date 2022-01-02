@@ -2,12 +2,17 @@ $(document).ready(function() {
     const qwerty_12 = ["q2w3er5t6y7ui9o0p[=]"];
     var synth_base_freq = 261.6;
     var pluck_base_freq = 40;
-    var metal_base_freq = 200;
+    var crash_cymbal_base_freq = 200;
+    var ride_cymbal_base_freq = 200;
     var kick_base_freq = 30;
+    var low_tom_base_freq = 30;
+    var mid_tom_base_freq = 30;
+    var high_tom_base_freq = 30;
     var base_freq = synth_base_freq;
     var n = 12;
     var keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
     var sounds = [Tone.Synth, Tone.MonoSynth, Tone.AMSynth, Tone.FMSynth];
+
     // synth initializations
     $(".synth-vol-box").val(-24);
     $(".synth-vol-input").val(-24);
@@ -25,6 +30,7 @@ $(document).ready(function() {
     $("#decay-value").val($(".decay-input").val());
     $("#sustain-value").val($(".sustain-input").val());
     $("#release-value").val($(".release-input").val());
+
     // string initializations
     $(".pluck-basefreq-input").val(pluck_base_freq);
     $(".pluck-basefreq-box").val(pluck_base_freq);
@@ -34,23 +40,41 @@ $(document).ready(function() {
     $(".attack-noise-box").val($(".attack-noise-input").val());
     $(".dampening-box").val($(".dampening-input").val());
     $(".pluck-resonance-box").val($(".pluck-resonance-input").val());
+
     // metal initializations
-    $(".metal-basefreq-input").val(metal_base_freq);
-    $(".metal-basefreq-box").val(metal_base_freq);
-    $(".metal-attack-input").val(.01);
-    $(".metal-decay-input").val(.5);
-    $(".metal-release-input").val(2);
-    $("#metal-attack-value").val($(".metal-attack-input").val());
-    $("#metal-decay-value").val($(".metal-decay-input").val());
-    $("#metal-release-value").val($(".metal-release-input").val());
-    $(".metal-harmonicity-input").val(5.1);
-    $(".metal-modulation-input").val(32);
-    $(".metal-resonance-input").val(4000);
-    $(".metal-octaves-input").val(1.5);
-    $(".metal-harmonicity-box").val($(".metal-harmonicity-input").val());
-    $(".metal-modulation-box").val($(".metal-modulation-input").val());
-    $(".metal-resonance-box").val($(".metal-resonance-input").val());
-    $(".metal-octaves-box").val($(".metal-octaves-input").val());
+    $(".crash-cymbal-basefreq-input").val(crash_cymbal_base_freq);
+    $(".crash-cymbal-basefreq-box").val(crash_cymbal_base_freq);
+    $(".crash-cymbal-attack-input").val(.01);
+    $(".crash-cymbal-decay-input").val(.5);
+    $(".crash-cymbal-release-input").val(2);
+    $("#crash-cymbal-attack-value").val($(".crash-cymbal-attack-input").val());
+    $("#crash-cymbal-decay-value").val($(".crash-cymbal-decay-input").val());
+    $("#crash-cymbal-release-value").val($(".crash-cymbal-release-input").val());
+    $(".crash-cymbal-harmonicity-input").val(5.1);
+    $(".crash-cymbal-modulation-input").val(32);
+    $(".crash-cymbal-resonance-input").val(4000);
+    $(".crash-cymbal-octaves-input").val(1.5);
+    $(".crash-cymbal-harmonicity-box").val($(".crash-cymbal-harmonicity-input").val());
+    $(".crash-cymbal-modulation-box").val($(".crash-cymbal-modulation-input").val());
+    $(".crash-cymbal-resonance-box").val($(".crash-cymbal-resonance-input").val());
+    $(".crash-cymbal-octaves-box").val($(".crash-cymbal-octaves-input").val());
+    $(".ride-cymbal-basefreq-input").val(ride_cymbal_base_freq);
+    $(".ride-cymbal-basefreq-box").val(ride_cymbal_base_freq);
+    $(".ride-cymbal-attack-input").val(.01);
+    $(".ride-cymbal-decay-input").val(.5);
+    $(".ride-cymbal-release-input").val(2);
+    $("#ride-cymbal-attack-value").val($(".ride-cymbal-attack-input").val());
+    $("#ride-cymbal-decay-value").val($(".ride-cymbal-decay-input").val());
+    $("#ride-cymbal-release-value").val($(".ride-cymbal-release-input").val());
+    $(".ride-cymbal-harmonicity-input").val(5.1);
+    $(".ride-cymbal-modulation-input").val(32);
+    $(".ride-cymbal-resonance-input").val(4000);
+    $(".ride-cymbal-octaves-input").val(1.5);
+    $(".ride-cymbal-harmonicity-box").val($(".ride-cymbal-harmonicity-input").val());
+    $(".ride-cymbal-modulation-box").val($(".ride-cymbal-modulation-input").val());
+    $(".ride-cymbal-resonance-box").val($(".ride-cymbal-resonance-input").val());
+    $(".ride-cymbal-octaves-box").val($(".ride-cymbal-octaves-input").val());
+
     // kick initializations
     $(".kick-basefreq-input").val(kick_base_freq);
     $(".kick-basefreq-box").val(kick_base_freq);
@@ -66,11 +90,54 @@ $(document).ready(function() {
     $(".kick-octaves-input").val(10);
     $(".kick-pitch-decay-box").val($(".kick-pitch-decay-input").val());
     $(".kick-octaves-box").val($(".kick-octaves-input").val());
+    $(".low-tom-basefreq-input").val(low_tom_base_freq);
+    $(".low-tom-basefreq-box").val(low_tom_base_freq);
+    $(".low-tom-attack-input").val(.01);
+    $(".low-tom-decay-input").val(.5);
+    $(".low-tom-sustain-input").val(.5);
+    $(".low-tom-release-input").val(2);
+    $("#low-tom-attack-value").val($(".low-tom-attack-input").val());
+    $("#low-tom-decay-value").val($(".low-tom-decay-input").val());
+    $("#low-tom-sustain-value").val($(".low-tom-decay-input").val());
+    $("#low-tom-release-value").val($(".low-tom-sustain-input").val());
+    $(".low-tom-pitch-decay-input").val(0.05);
+    $(".low-tom-octaves-input").val(10);
+    $(".low-tom-pitch-decay-box").val($(".low-tom-pitch-decay-input").val());
+    $(".low-tom-octaves-box").val($(".low-tom-octaves-input").val());
+    $(".mid-tom-basefreq-input").val(mid_tom_base_freq);
+    $(".mid-tom-basefreq-box").val(mid_tom_base_freq);
+    $(".mid-tom-attack-input").val(.01);
+    $(".mid-tom-decay-input").val(.5);
+    $(".mid-tom-sustain-input").val(.5);
+    $(".mid-tom-release-input").val(2);
+    $("#mid-tom-attack-value").val($(".mid-tom-attack-input").val());
+    $("#mid-tom-decay-value").val($(".mid-tom-decay-input").val());
+    $("#mid-tom-sustain-value").val($(".mid-tom-decay-input").val());
+    $("#mid-tom-release-value").val($(".mid-tom-sustain-input").val());
+    $(".mid-tom-pitch-decay-input").val(0.05);
+    $(".mid-tom-octaves-input").val(10);
+    $(".mid-tom-pitch-decay-box").val($(".mid-tom-pitch-decay-input").val());
+    $(".mid-tom-octaves-box").val($(".mid-tom-octaves-input").val());
+    $(".high-tom-basefreq-input").val(high_tom_base_freq);
+    $(".high-tom-basefreq-box").val(high_tom_base_freq);
+    $(".high-tom-attack-input").val(.01);
+    $(".high-tom-decay-input").val(.5);
+    $(".high-tom-sustain-input").val(.5);
+    $(".high-tom-release-input").val(2);
+    $("#high-tom-attack-value").val($(".high-tom-attack-input").val());
+    $("#high-tom-decay-value").val($(".high-tom-decay-input").val());
+    $("#high-tom-sustain-value").val($(".high-tom-decay-input").val());
+    $("#high-tom-release-value").val($(".high-tom-sustain-input").val());
+    $(".high-tom-pitch-decay-input").val(0.05);
+    $(".high-tom-octaves-input").val(10);
+    $(".high-tom-pitch-decay-box").val($(".high-tom-pitch-decay-input").val());
+    $(".high-tom-octaves-box").val($(".high-tom-octaves-input").val());
 
     // general settings
     var prev_type = $(".instrument").val();
-    var prev_vol = $(".synth-vol-input").val();
+    
     // synth settings
+    var prev_vol = $(".synth-vol-input").val();
     var prev_base_freq = $(".synth-basefreq-input").val();
     var prev_synth_base_freq = $(".synth-basefreq-input").val();
     var prev_sound = $(".sound").val();
@@ -83,20 +150,31 @@ $(document).ready(function() {
     var prev_sustain =  parseFloat($(".sustain-input").val());
     var prev_release =  parseFloat($(".release-input").val());
     var prev_release_curve = "exponential";
+
     // string settings
     var prev_pluck_base_freq = $(".pluck-basefreq-input").val();
     var prev_attack_noise = $(".attack-noise-input").val();
     var prev_dampening = $(".dampening-input").val();
     var prev_pluck_resonance = $(".pluck-resonance-input").val();
+
     // metal settings
-    var prev_metal_base_freq = $(".metal-basefreq-input").val();
-    var prev_metal_harmonicity = $(".metal-harmonicity-input").val();
-    var prev_metal_modulation = $(".metal-modulation-input").val();
-    var prev_metal_resonance = $(".metal-resonance-input").val();
-    var prev_metal_octaves = $(".metal-octaves-input").val();
-    var prev_metal_attack =  parseFloat($(".metal-attack-input").val());
-    var prev_metal_decay =  parseFloat($(".metal-decay-input").val());
-    var prev_metal_release =  parseFloat($(".metal-release-input").val());
+    var prev_crash_cymbal_base_freq = $(".crash-cymbal-basefreq-input").val();
+    var prev_crash_cymbal_harmonicity = $(".crash-cymbal-harmonicity-input").val();
+    var prev_crash_cymbal_modulation = $(".crash-cymbal-modulation-input").val();
+    var prev_crash_cymbal_resonance = $(".crash-cymbal-resonance-input").val();
+    var prev_crash_cymbal_octaves = $(".crash-cymbal-octaves-input").val();
+    var prev_crash_cymbal_attack =  parseFloat($(".crash-cymbal-attack-input").val());
+    var prev_crash_cymbal_decay =  parseFloat($(".crash-cymbal-decay-input").val());
+    var prev_crash_cymbal_release =  parseFloat($(".crash-cymbal-release-input").val());
+    var prev_ride_cymbal_base_freq = $(".ride-cymbal-basefreq-input").val();
+    var prev_ride_cymbal_harmonicity = $(".ride-cymbal-harmonicity-input").val();
+    var prev_ride_cymbal_modulation = $(".ride-cymbal-modulation-input").val();
+    var prev_ride_cymbal_resonance = $(".ride-cymbal-resonance-input").val();
+    var prev_ride_cymbal_octaves = $(".ride-cymbal-octaves-input").val();
+    var prev_ride_cymbal_attack =  parseFloat($(".ride-cymbal-attack-input").val());
+    var prev_ride_cymbal_decay =  parseFloat($(".ride-cymbal-decay-input").val());
+    var prev_ride_cymbal_release =  parseFloat($(".ride-cymbal-release-input").val());
+    
     // kick settings
     var prev_kick_base_freq = $(".kick-basefreq-input").val();
     var prev_kick_pitch_decay = $(".kick-pitch-decay-input").val();
@@ -105,6 +183,27 @@ $(document).ready(function() {
     var prev_kick_decay =  parseFloat($(".kick-decay-input").val());
     var prev_kick_sustain =  parseFloat($(".kick-sustain-input").val());
     var prev_kick_release =  parseFloat($(".kick-release-input").val());
+    var prev_low_tom_base_freq = $(".low-tom-basefreq-input").val();
+    var prev_low_tom_pitch_decay = $(".low-tom-pitch-decay-input").val();
+    var prev_low_tom_octaves = $(".low-tom-octaves-input").val();
+    var prev_low_tom_attack =  parseFloat($(".low-tom-attack-input").val());
+    var prev_low_tom_decay =  parseFloat($(".low-tom-decay-input").val());
+    var prev_low_tom_sustain =  parseFloat($(".low-tom-sustain-input").val());
+    var prev_low_tom_release =  parseFloat($(".low-tom-release-input").val());
+    var prev_mid_tom_base_freq = $(".mid-tom-basefreq-input").val();
+    var prev_mid_tom_pitch_decay = $(".mid-tom-pitch-decay-input").val();
+    var prev_mid_tom_octaves = $(".mid-tom-octaves-input").val();
+    var prev_mid_tom_attack =  parseFloat($(".mid-tom-attack-input").val());
+    var prev_mid_tom_decay =  parseFloat($(".mid-tom-decay-input").val());
+    var prev_mid_tom_sustain =  parseFloat($(".mid-tom-sustain-input").val());
+    var prev_mid_tom_release =  parseFloat($(".mid-tom-release-input").val());
+    var prev_high_tom_base_freq = $(".high-tom-basefreq-input").val();
+    var prev_high_tom_pitch_decay = $(".high-tom-pitch-decay-input").val();
+    var prev_high_tom_octaves = $(".high-tom-octaves-input").val();
+    var prev_high_tom_attack =  parseFloat($(".high-tom-attack-input").val());
+    var prev_high_tom_decay =  parseFloat($(".high-tom-decay-input").val());
+    var prev_high_tom_sustain =  parseFloat($(".high-tom-sustain-input").val());
+    var prev_high_tom_release =  parseFloat($(".high-tom-release-input").val());
 
     const space_key = document.getElementById("space-key");
     const meta_key_1 = document.getElementById("cmd-key-1");
@@ -112,7 +211,7 @@ $(document).ready(function() {
     const opt_key_1 = document.getElementById("opt-key-1");
     const opt_key_2 = document.getElementById("opt-key-2");
 
-    function initSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, sound=prev_sound, osc=prev_osc, partial=prev_partial, attack=prev_attack, attack_curve=prev_attack_curve, decay=prev_decay, decay_curve=prev_decay_curve, sustain=prev_sustain, release=prev_release, release_curve=prev_release_curve, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, metal_base_freq=prev_metal_base_freq, metal_harmonicity=prev_metal_harmonicity, metal_modulation=prev_metal_modulation, metal_resonance=prev_metal_resonance, metal_octaves=prev_metal_octaves, metal_attack=prev_metal_attack, metal_decay=prev_metal_decay, metal_release=prev_metal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
+    function initSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, sound=prev_sound, osc=prev_osc, partial=prev_partial, attack=prev_attack, attack_curve=prev_attack_curve, decay=prev_decay, decay_curve=prev_decay_curve, sustain=prev_sustain, release=prev_release, release_curve=prev_release_curve, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, crash_cymbal_base_freq=prev_crash_cymbal_base_freq, crash_cymbal_harmonicity=prev_crash_cymbal_harmonicity, crash_cymbal_modulation=prev_crash_cymbal_modulation, crash_cymbal_resonance=prev_crash_cymbal_resonance, crash_cymbal_octaves=prev_crash_cymbal_octaves, crash_cymbal_attack=prev_crash_cymbal_attack, crash_cymbal_decay=prev_crash_cymbal_decay, crash_cymbal_release=prev_crash_cymbal_release, ride_cymbal_base_freq=prev_ride_cymbal_base_freq, ride_cymbal_harmonicity=prev_ride_cymbal_harmonicity, ride_cymbal_modulation=prev_ride_cymbal_modulation, ride_cymbal_resonance=prev_ride_cymbal_resonance, ride_cymbal_octaves=prev_ride_cymbal_octaves, ride_cymbal_attack=prev_ride_cymbal_attack, ride_cymbal_decay=prev_ride_cymbal_decay, ride_cymbal_release=prev_ride_cymbal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release, low_tom_base_freq=prev_low_tom_base_freq, low_tom_pitch_decay=prev_low_tom_pitch_decay, low_tom_octaves=prev_low_tom_octaves, low_tom_attack=prev_low_tom_attack, low_tom_decay=prev_low_tom_decay, low_tom_sustain=prev_low_tom_sustain, low_tom_release=prev_low_tom_release, mid_tom_base_freq=prev_mid_tom_base_freq, mid_tom_pitch_decay=prev_mid_tom_pitch_decay, mid_tom_octaves=prev_mid_tom_octaves, mid_tom_attack=prev_mid_tom_attack, mid_tom_decay=prev_mid_tom_decay, mid_tom_sustain=prev_mid_tom_sustain, mid_tom_release=prev_mid_tom_release, high_tom_base_freq=prev_high_tom_base_freq, high_tom_pitch_decay=prev_high_tom_pitch_decay, high_tom_octaves=prev_high_tom_octaves, high_tom_attack=prev_high_tom_attack, high_tom_decay=prev_high_tom_decay, high_tom_sustain=prev_high_tom_sustain, high_tom_release=prev_high_tom_release) {
         if (type == "Keyboard") {
             bindToFreqs(qwerty_12, base_freq, n);
             $(".qwerty").show();
@@ -271,63 +370,63 @@ $(document).ready(function() {
             var low_tom_synth = new Tone.MembraneSynth({
                 volume: vol,
                 envelope: {
-                    attack: kick_attack,
-                    decay: kick_attack + kick_decay,
-                    sustain: kick_attack + kick_decay + kick_sustain,
-                    release: kick_attack + kick_decay + kick_sustain + kick_release,
+                    attack: low_tom_attack,
+                    decay: low_tom_attack + low_tom_decay,
+                    sustain: low_tom_attack + low_tom_decay + low_tom_sustain,
+                    release: low_tom_attack + low_tom_decay + low_tom_sustain + low_tom_release,
                 },
-                pitchDecay: kick_pitch_decay,
-                octaves: kick_octaves,
+                pitchDecay: low_tom_pitch_decay,
+                octaves: low_tom_octaves,
             }).toMaster();
 
             var mid_tom_synth = new Tone.MembraneSynth({
                 volume: vol,
                 envelope: {
-                    attack: kick_attack,
-                    decay: kick_attack + kick_decay,
-                    sustain: kick_attack + kick_decay + kick_sustain,
-                    release: kick_attack + kick_decay + kick_sustain + kick_release,
+                    attack: mid_tom_attack,
+                    decay: mid_tom_attack + mid_tom_decay,
+                    sustain: mid_tom_attack + mid_tom_decay + mid_tom_sustain,
+                    release: mid_tom_attack + mid_tom_decay + mid_tom_sustain + mid_tom_release,
                 },
-                pitchDecay: kick_pitch_decay,
-                octaves: kick_octaves,
+                pitchDecay: mid_tom_pitch_decay,
+                octaves: mid_tom_octaves,
             }).toMaster();
 
             var high_tom_synth = new Tone.MembraneSynth({
                 volume: vol,
                 envelope: {
-                    attack: kick_attack,
-                    decay: kick_attack + kick_decay,
-                    sustain: kick_attack + kick_decay + kick_sustain,
-                    release: kick_attack + kick_decay + kick_sustain + kick_release,
+                    attack: high_tom_attack,
+                    decay: high_tom_attack + high_tom_decay,
+                    sustain: high_tom_attack + high_tom_decay + high_tom_sustain,
+                    release: high_tom_attack + high_tom_decay + high_tom_sustain + high_tom_release,
                 },
-                pitchDecay: kick_pitch_decay,
-                octaves: kick_octaves,
+                pitchDecay: high_tom_pitch_decay,
+                octaves: high_tom_octaves,
             }).toMaster();
 
             var ride_cymbal_synth = new Tone.MetalSynth({
                 volume: vol,
                 envelope: {
-                    attack: metal_attack,
-                    decay: metal_attack + metal_decay,
-                    release: metal_attack + metal_decay + metal_release,
+                    attack: ride_cymbal_attack,
+                    decay: ride_cymbal_attack + ride_cymbal_decay,
+                    release: ride_cymbal_attack + ride_cymbal_decay + ride_cymbal_release,
                 },
-                harmonicity: metal_harmonicity,
-                modulationIndex: metal_modulation,
-                resonance: metal_resonance,
-                octaves: metal_octaves,
+                harmonicity: ride_cymbal_harmonicity,
+                modulationIndex: ride_cymbal_modulation,
+                resonance: ride_cymbal_resonance,
+                octaves: ride_cymbal_octaves,
             }).toMaster();
 
             var crash_cymbal_synth = new Tone.MetalSynth({
                 volume: vol,
                 envelope: {
-                    attack: metal_attack,
-                    decay: metal_attack + metal_decay,
-                    release: metal_attack + metal_decay + metal_release,
+                    attack: crash_cymbal_attack,
+                    decay: crash_cymbal_attack + crash_cymbal_decay,
+                    release: crash_cymbal_attack + crash_cymbal_decay + crash_cymbal_release,
                 },
-                harmonicity: metal_harmonicity,
-                modulationIndex: metal_modulation,
-                resonance: metal_resonance,
-                octaves: metal_octaves,
+                harmonicity: crash_cymbal_harmonicity,
+                modulationIndex: crash_cymbal_modulation,
+                resonance: crash_cymbal_resonance,
+                octaves: crash_cymbal_octaves,
             }).toMaster();
 
             $("#snare").on("click", function() {
@@ -356,8 +455,7 @@ $(document).ready(function() {
             });
 
             $("#crash-cymbal").on("click", function() {
-                snare_synth_noise.triggerAttackRelease("32n");
-                // crash_cymbal_synth.triggerAttackRelease();
+                crash_cymbal_synth.triggerAttackRelease();
             });
         }
 
@@ -366,7 +464,7 @@ $(document).ready(function() {
 
     defaultSynth = initSynth();
 
-    function initPedalSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, sound=prev_sound, osc=prev_osc, partial=prev_partial, attack=prev_attack, attack_curve=prev_attack_curve, decay=prev_decay, decay_curve=prev_decay_curve, sustain=prev_sustain, release=5, release_curve=prev_release_curve, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, metal_base_freq=prev_metal_base_freq, metal_harmonicity=prev_metal_harmonicity, metal_modulation=prev_metal_modulation, metal_resonance=prev_metal_resonance, metal_octaves=prev_metal_octaves, metal_attack=prev_metal_attack, metal_decay=prev_metal_decay, metal_release=prev_metal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
+    function initPedalSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, sound=prev_sound, osc=prev_osc, partial=prev_partial, attack=prev_attack, attack_curve=prev_attack_curve, decay=prev_decay, decay_curve=prev_decay_curve, sustain=prev_sustain, release=5, release_curve=prev_release_curve, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release) {
         if (type == "Keyboard") {
             var synth = new Tone.PolySynth(6, sounds[sound], {
                 volume: vol,
@@ -416,22 +514,38 @@ $(document).ready(function() {
         var curr_dampening_box = $(".dampening-box").val();
         var curr_pluck_resonance_box = $(".pluck-resonance-box").val();
 
-        var curr_metal_freq_input = $(".metal-basefreq-input").val();
-        var curr_metal_freq_box = $(".metal-basefreq-box").val();
-        var curr_metal_harmonicity_input = $(".metal-harmonicity-input").val();
-        var curr_metal_harmonicity_box = $(".metal-harmonicity-box").val();
-        var curr_metal_modulation_input = $(".metal-modulation-input").val();
-        var curr_metal_modulation_box = $(".metal-modulation-box").val();
-        var curr_metal_resonance_input = $(".metal-resonance-input").val();
-        var curr_metal_resonance_box = $(".metal-resonance-box").val();
-        var curr_metal_octaves_input = $(".metal-octaves-input").val();
-        var curr_metal_octaves_box = $(".metal-octaves-box").val();
-        var curr_metal_attack_input =  parseFloat($(".metal-attack-input").val());
-        var curr_metal_decay_input =  parseFloat($(".metal-decay-input").val());
-        var curr_metal_release_input =  parseFloat($(".metal-release-input").val());
-        var curr_metal_attack_box =  parseFloat($(".metal-env-box[id='metal-attack-value']").val());
-        var curr_metal_decay_box =  parseFloat($(".metal-env-box[id='metal-decay-value']").val());
-        var curr_metal_release_box =  parseFloat($(".metal-env-box[id='metal-release-value']").val());
+        var curr_crash_cymbal_freq_input = $(".crash-cymbal-basefreq-input").val();
+        var curr_crash_cymbal_freq_box = $(".crash-cymbal-basefreq-box").val();
+        var curr_crash_cymbal_harmonicity_input = $(".crash-cymbal-harmonicity-input").val();
+        var curr_crash_cymbal_harmonicity_box = $(".crash-cymbal-harmonicity-box").val();
+        var curr_crash_cymbal_modulation_input = $(".crash-cymbal-modulation-input").val();
+        var curr_crash_cymbal_modulation_box = $(".crash-cymbal-modulation-box").val();
+        var curr_crash_cymbal_resonance_input = $(".crash-cymbal-resonance-input").val();
+        var curr_crash_cymbal_resonance_box = $(".crash-cymbal-resonance-box").val();
+        var curr_crash_cymbal_octaves_input = $(".crash-cymbal-octaves-input").val();
+        var curr_crash_cymbal_octaves_box = $(".crash-cymbal-octaves-box").val();
+        var curr_crash_cymbal_attack_input =  parseFloat($(".crash-cymbal-attack-input").val());
+        var curr_crash_cymbal_decay_input =  parseFloat($(".crash-cymbal-decay-input").val());
+        var curr_crash_cymbal_release_input =  parseFloat($(".crash-cymbal-release-input").val());
+        var curr_crash_cymbal_attack_box =  parseFloat($(".crash-cymbal-env-box[id='crash-cymbal-attack-value']").val());
+        var curr_crash_cymbal_decay_box =  parseFloat($(".crash-cymbal-env-box[id='crash-cymbal-decay-value']").val());
+        var curr_crash_cymbal_release_box =  parseFloat($(".crash-cymbal-env-box[id='crash-cymbal-release-value']").val());
+        var curr_ride_cymbal_freq_input = $(".ride-cymbal-basefreq-input").val();
+        var curr_ride_cymbal_freq_box = $(".ride-cymbal-basefreq-box").val();
+        var curr_ride_cymbal_harmonicity_input = $(".ride-cymbal-harmonicity-input").val();
+        var curr_ride_cymbal_harmonicity_box = $(".ride-cymbal-harmonicity-box").val();
+        var curr_ride_cymbal_modulation_input = $(".ride-cymbal-modulation-input").val();
+        var curr_ride_cymbal_modulation_box = $(".ride-cymbal-modulation-box").val();
+        var curr_ride_cymbal_resonance_input = $(".ride-cymbal-resonance-input").val();
+        var curr_ride_cymbal_resonance_box = $(".ride-cymbal-resonance-box").val();
+        var curr_ride_cymbal_octaves_input = $(".ride-cymbal-octaves-input").val();
+        var curr_ride_cymbal_octaves_box = $(".ride-cymbal-octaves-box").val();
+        var curr_ride_cymbal_attack_input =  parseFloat($(".ride-cymbal-attack-input").val());
+        var curr_ride_cymbal_decay_input =  parseFloat($(".ride-cymbal-decay-input").val());
+        var curr_ride_cymbal_release_input =  parseFloat($(".ride-cymbal-release-input").val());
+        var curr_ride_cymbal_attack_box =  parseFloat($(".ride-cymbal-env-box[id='ride-cymbal-attack-value']").val());
+        var curr_ride_cymbal_decay_box =  parseFloat($(".ride-cymbal-env-box[id='ride-cymbal-decay-value']").val());
+        var curr_ride_cymbal_release_box =  parseFloat($(".ride-cymbal-env-box[id='ride-cymbal-release-value']").val());
         
         var curr_kick_freq_input = $(".kick-basefreq-input").val();
         var curr_kick_freq_box = $(".kick-basefreq-box").val();
@@ -447,6 +561,48 @@ $(document).ready(function() {
         var curr_kick_decay_box =  parseFloat($(".kick-env-box[id='kick-decay-value']").val());
         var curr_kick_sustain_box =  parseFloat($(".kick-env-box[id='kick-sustain-value']").val());
         var curr_kick_release_box =  parseFloat($(".kick-env-box[id='kick-release-value']").val());
+        var curr_low_tom_freq_input = $(".low-tom-basefreq-input").val();
+        var curr_low_tom_freq_box = $(".low-tom-basefreq-box").val();
+        var curr_low_tom_pitch_decay_input = $(".low-tom-pitch-decay-input").val();
+        var curr_low_tom_pitch_decay_box = $(".low-tom-pitch-decay-box").val();
+        var curr_low_tom_octaves_input = $(".low-tom-octaves-input").val();
+        var curr_low_tom_octaves_box = $(".low-tom-octaves-box").val();
+        var curr_low_tom_attack_input =  parseFloat($(".low-tom-attack-input").val());
+        var curr_low_tom_decay_input =  parseFloat($(".low-tom-decay-input").val());
+        var curr_low_tom_sustain_input =  parseFloat($(".low-tom-sustain-input").val());
+        var curr_low_tom_release_input =  parseFloat($(".low-tom-release-input").val());
+        var curr_low_tom_attack_box =  parseFloat($(".low-tom-env-box[id='low-tom-attack-value']").val());
+        var curr_low_tom_decay_box =  parseFloat($(".low-tom-env-box[id='low-tom-decay-value']").val());
+        var curr_low_tom_sustain_box =  parseFloat($(".low-tom-env-box[id='low-tom-sustain-value']").val());
+        var curr_low_tom_release_box =  parseFloat($(".low-tom-env-box[id='low-tom-release-value']").val());
+        var curr_mid_tom_freq_input = $(".mid-tom-basefreq-input").val();
+        var curr_mid_tom_freq_box = $(".mid-tom-basefreq-box").val();
+        var curr_mid_tom_pitch_decay_input = $(".mid-tom-pitch-decay-input").val();
+        var curr_mid_tom_pitch_decay_box = $(".mid-tom-pitch-decay-box").val();
+        var curr_mid_tom_octaves_input = $(".mid-tom-octaves-input").val();
+        var curr_mid_tom_octaves_box = $(".mid-tom-octaves-box").val();
+        var curr_mid_tom_attack_input =  parseFloat($(".mid-tom-attack-input").val());
+        var curr_mid_tom_decay_input =  parseFloat($(".mid-tom-decay-input").val());
+        var curr_mid_tom_sustain_input =  parseFloat($(".mid-tom-sustain-input").val());
+        var curr_mid_tom_release_input =  parseFloat($(".mid-tom-release-input").val());
+        var curr_mid_tom_attack_box =  parseFloat($(".mid-tom-env-box[id='mid-tom-attack-value']").val());
+        var curr_mid_tom_decay_box =  parseFloat($(".mid-tom-env-box[id='mid-tom-decay-value']").val());
+        var curr_mid_tom_sustain_box =  parseFloat($(".mid-tom-env-box[id='mid-tom-sustain-value']").val());
+        var curr_mid_tom_release_box =  parseFloat($(".mid-tom-env-box[id='mid-tom-release-value']").val());
+        var curr_high_tom_freq_input = $(".high-tom-basefreq-input").val();
+        var curr_high_tom_freq_box = $(".high-tom-basefreq-box").val();
+        var curr_high_tom_pitch_decay_input = $(".high-tom-pitch-decay-input").val();
+        var curr_high_tom_pitch_decay_box = $(".high-tom-pitch-decay-box").val();
+        var curr_high_tom_octaves_input = $(".high-tom-octaves-input").val();
+        var curr_high_tom_octaves_box = $(".high-tom-octaves-box").val();
+        var curr_high_tom_attack_input =  parseFloat($(".high-tom-attack-input").val());
+        var curr_high_tom_decay_input =  parseFloat($(".high-tom-decay-input").val());
+        var curr_high_tom_sustain_input =  parseFloat($(".high-tom-sustain-input").val());
+        var curr_high_tom_release_input =  parseFloat($(".high-tom-release-input").val());
+        var curr_high_tom_attack_box =  parseFloat($(".high-tom-env-box[id='high-tom-attack-value']").val());
+        var curr_high_tom_decay_box =  parseFloat($(".high-tom-env-box[id='high-tom-decay-value']").val());
+        var curr_high_tom_sustain_box =  parseFloat($(".high-tom-env-box[id='high-tom-sustain-value']").val());
+        var curr_high_tom_release_box =  parseFloat($(".high-tom-env-box[id='high-tom-release-value']").val());
 
         if (prev_type != curr_type) { prev_type = curr_type; }
         else if (prev_vol != curr_vol_input) { $(".synth-vol-box").val(curr_vol_input); prev_vol = curr_vol_input; }
@@ -473,22 +629,38 @@ $(document).ready(function() {
         else if (prev_attack_noise != curr_attack_noise_box) { $(".attack-noise-input").val(curr_attack_noise_box); prev_attack_noise = curr_attack_noise_box; }
         else if (prev_dampening != curr_dampening_box) { $(".dampening-input").val(curr_dampening_box); prev_dampening = curr_dampening_box; }
         else if (prev_pluck_resonance != curr_pluck_resonance_box) { $(".pluck-resonance-input").val(curr_pluck_resonance_box); prev_pluck_resonance = curr_pluck_resonance_box; }
-        else if (prev_metal_base_freq != curr_metal_freq_input) { $(".metal-basefreq-box").val(curr_metal_freq_input); prev_metal_base_freq = curr_metal_freq_input; prev_base_freq = curr_metal_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
-        else if (prev_metal_base_freq != curr_metal_freq_box) { $(".metal-basefreq-input").val(curr_metal_freq_box); prev_metal_base_freq = curr_metal_freq_box; prev_base_freq = curr_metal_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
-        else if (prev_metal_harmonicity != curr_metal_harmonicity_input) { $(".metal-harmonicity-box").val(curr_metal_harmonicity_input); prev_metal_harmonicity = curr_metal_harmonicity_input; }
-        else if (prev_metal_harmonicity != curr_metal_harmonicity_box) { $(".metal-harmonicity-input").val(curr_metal_harmonicity_box); prev_metal_harmonicity = curr_metal_harmonicity_box; }
-        else if (prev_metal_modulation != curr_metal_modulation_input) { $(".metal-modulation-box").val(curr_metal_modulation_input); prev_metal_modulation = curr_metal_modulation_input; }
-        else if (prev_metal_modulation != curr_metal_modulation_box) { $(".metal-modulation-input").val(curr_metal_modulation_box); prev_metal_modulation = curr_metal_modulation_box; }
-        else if (prev_metal_resonance != curr_metal_resonance_input) { $(".metal-resonance-box").val(curr_metal_resonance_input); prev_metal_resonance = curr_metal_resonance_input; }
-        else if (prev_metal_resonance != curr_metal_resonance_box) { $(".metal-resonance-input").val(curr_metal_resonance_box); prev_metal_resonance = curr_metal_resonance_box; }
-        else if (prev_metal_octaves != curr_metal_octaves_input) { $(".metal-octaves-box").val(curr_metal_octaves_input); prev_metal_octaves = curr_metal_octaves_input; }
-        else if (prev_metal_octaves != curr_metal_octaves_box) { $(".metal-octaves-input").val(curr_metal_octaves_box); prev_metal_octaves = curr_metal_octaves_box; }
-        else if (prev_metal_attack != curr_metal_attack_input) { $(".metal-env-box[id='metal-attack-value']").val(curr_metal_attack_input); prev_metal_attack = curr_metal_attack_input; }
-        else if (prev_metal_attack != curr_metal_attack_box) { $(".metal-attack-input").val(curr_metal_attack_box); prev_metal_attack = curr_metal_attack_box; }
-        else if (prev_metal_decay != curr_metal_decay_input) { $(".metal-env-box[id='metal-decay-value']").val(curr_metal_decay_input); prev_metal_decay = curr_metal_decay_input; }
-        else if (prev_metal_decay != curr_metal_decay_box) { $(".metal-decay-input").val(curr_metal_decay_box); prev_metal_decay = curr_metal_decay_box; }
-        else if (prev_metal_release != curr_metal_release_input) { $(".metal-env-box[id='metal-release-value']").val(curr_metal_release_input); prev_metal_release = curr_metal_release_input; }
-        else if (prev_metal_release != curr_metal_release_box) { $(".metal-release-input").val(curr_metal_release_box); prev_metal_release = curr_metal_release_box; }
+        else if (prev_crash_cymbal_base_freq != curr_crash_cymbal_freq_input) { $(".crash-cymbal-basefreq-box").val(curr_crash_cymbal_freq_input); prev_crash_cymbal_base_freq = curr_crash_cymbal_freq_input; prev_base_freq = curr_crash_cymbal_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_crash_cymbal_base_freq != curr_crash_cymbal_freq_box) { $(".crash-cymbal-basefreq-input").val(curr_crash_cymbal_freq_box); prev_crash_cymbal_base_freq = curr_crash_cymbal_freq_box; prev_base_freq = curr_crash_cymbal_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_crash_cymbal_harmonicity != curr_crash_cymbal_harmonicity_input) { $(".crash-cymbal-harmonicity-box").val(curr_crash_cymbal_harmonicity_input); prev_crash_cymbal_harmonicity = curr_crash_cymbal_harmonicity_input; }
+        else if (prev_crash_cymbal_harmonicity != curr_crash_cymbal_harmonicity_box) { $(".crash-cymbal-harmonicity-input").val(curr_crash_cymbal_harmonicity_box); prev_crash_cymbal_harmonicity = curr_crash_cymbal_harmonicity_box; }
+        else if (prev_crash_cymbal_modulation != curr_crash_cymbal_modulation_input) { $(".crash-cymbal-modulation-box").val(curr_crash_cymbal_modulation_input); prev_crash_cymbal_modulation = curr_crash_cymbal_modulation_input; }
+        else if (prev_crash_cymbal_modulation != curr_crash_cymbal_modulation_box) { $(".crash-cymbal-modulation-input").val(curr_crash_cymbal_modulation_box); prev_crash_cymbal_modulation = curr_crash_cymbal_modulation_box; }
+        else if (prev_crash_cymbal_resonance != curr_crash_cymbal_resonance_input) { $(".crash-cymbal-resonance-box").val(curr_crash_cymbal_resonance_input); prev_crash_cymbal_resonance = curr_crash_cymbal_resonance_input; }
+        else if (prev_crash_cymbal_resonance != curr_crash_cymbal_resonance_box) { $(".crash-cymbal-resonance-input").val(curr_crash_cymbal_resonance_box); prev_crash_cymbal_resonance = curr_crash_cymbal_resonance_box; }
+        else if (prev_crash_cymbal_octaves != curr_crash_cymbal_octaves_input) { $(".crash-cymbal-octaves-box").val(curr_crash_cymbal_octaves_input); prev_crash_cymbal_octaves = curr_crash_cymbal_octaves_input; }
+        else if (prev_crash_cymbal_octaves != curr_crash_cymbal_octaves_box) { $(".crash-cymbal-octaves-input").val(curr_crash_cymbal_octaves_box); prev_crash_cymbal_octaves = curr_crash_cymbal_octaves_box; }
+        else if (prev_crash_cymbal_attack != curr_crash_cymbal_attack_input) { $(".crash-cymbal-env-box[id='crash-cymbal-attack-value']").val(curr_crash_cymbal_attack_input); prev_crash_cymbal_attack = curr_crash_cymbal_attack_input; }
+        else if (prev_crash_cymbal_attack != curr_crash_cymbal_attack_box) { $(".crash-cymbal-attack-input").val(curr_crash_cymbal_attack_box); prev_crash_cymbal_attack = curr_crash_cymbal_attack_box; }
+        else if (prev_crash_cymbal_decay != curr_crash_cymbal_decay_input) { $(".crash-cymbal-env-box[id='crash-cymbal-decay-value']").val(curr_crash_cymbal_decay_input); prev_crash_cymbal_decay = curr_crash_cymbal_decay_input; }
+        else if (prev_crash_cymbal_decay != curr_crash_cymbal_decay_box) { $(".crash-cymbal-decay-input").val(curr_crash_cymbal_decay_box); prev_crash_cymbal_decay = curr_crash_cymbal_decay_box; }
+        else if (prev_crash_cymbal_release != curr_crash_cymbal_release_input) { $(".crash-cymbal-env-box[id='crash-cymbal-release-value']").val(curr_crash_cymbal_release_input); prev_crash_cymbal_release = curr_crash_cymbal_release_input; }
+        else if (prev_crash_cymbal_release != curr_crash_cymbal_release_box) { $(".crash-cymbal-release-input").val(curr_crash_cymbal_release_box); prev_crash_cymbal_release = curr_crash_cymbal_release_box; }
+        else if (prev_ride_cymbal_base_freq != curr_ride_cymbal_freq_input) { $(".ride-cymbal-basefreq-box").val(curr_ride_cymbal_freq_input); prev_ride_cymbal_base_freq = curr_ride_cymbal_freq_input; prev_base_freq = curr_ride_cymbal_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_ride_cymbal_base_freq != curr_ride_cymbal_freq_box) { $(".ride-cymbal-basefreq-input").val(curr_ride_cymbal_freq_box); prev_ride_cymbal_base_freq = curr_ride_cymbal_freq_box; prev_base_freq = curr_ride_cymbal_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_ride_cymbal_harmonicity != curr_ride_cymbal_harmonicity_input) { $(".ride-cymbal-harmonicity-box").val(curr_ride_cymbal_harmonicity_input); prev_ride_cymbal_harmonicity = curr_ride_cymbal_harmonicity_input; }
+        else if (prev_ride_cymbal_harmonicity != curr_ride_cymbal_harmonicity_box) { $(".ride-cymbal-harmonicity-input").val(curr_ride_cymbal_harmonicity_box); prev_ride_cymbal_harmonicity = curr_ride_cymbal_harmonicity_box; }
+        else if (prev_ride_cymbal_modulation != curr_ride_cymbal_modulation_input) { $(".ride-cymbal-modulation-box").val(curr_ride_cymbal_modulation_input); prev_ride_cymbal_modulation = curr_ride_cymbal_modulation_input; }
+        else if (prev_ride_cymbal_modulation != curr_ride_cymbal_modulation_box) { $(".ride-cymbal-modulation-input").val(curr_ride_cymbal_modulation_box); prev_ride_cymbal_modulation = curr_ride_cymbal_modulation_box; }
+        else if (prev_ride_cymbal_resonance != curr_ride_cymbal_resonance_input) { $(".ride-cymbal-resonance-box").val(curr_ride_cymbal_resonance_input); prev_ride_cymbal_resonance = curr_ride_cymbal_resonance_input; }
+        else if (prev_ride_cymbal_resonance != curr_ride_cymbal_resonance_box) { $(".ride-cymbal-resonance-input").val(curr_ride_cymbal_resonance_box); prev_ride_cymbal_resonance = curr_ride_cymbal_resonance_box; }
+        else if (prev_ride_cymbal_octaves != curr_ride_cymbal_octaves_input) { $(".ride-cymbal-octaves-box").val(curr_ride_cymbal_octaves_input); prev_ride_cymbal_octaves = curr_ride_cymbal_octaves_input; }
+        else if (prev_ride_cymbal_octaves != curr_ride_cymbal_octaves_box) { $(".ride-cymbal-octaves-input").val(curr_ride_cymbal_octaves_box); prev_ride_cymbal_octaves = curr_ride_cymbal_octaves_box; }
+        else if (prev_ride_cymbal_attack != curr_ride_cymbal_attack_input) { $(".ride-cymbal-env-box[id='ride-cymbal-attack-value']").val(curr_ride_cymbal_attack_input); prev_ride_cymbal_attack = curr_ride_cymbal_attack_input; }
+        else if (prev_ride_cymbal_attack != curr_ride_cymbal_attack_box) { $(".ride-cymbal-attack-input").val(curr_ride_cymbal_attack_box); prev_ride_cymbal_attack = curr_ride_cymbal_attack_box; }
+        else if (prev_ride_cymbal_decay != curr_ride_cymbal_decay_input) { $(".ride-cymbal-env-box[id='ride-cymbal-decay-value']").val(curr_ride_cymbal_decay_input); prev_ride_cymbal_decay = curr_ride_cymbal_decay_input; }
+        else if (prev_ride_cymbal_decay != curr_ride_cymbal_decay_box) { $(".ride-cymbal-decay-input").val(curr_ride_cymbal_decay_box); prev_ride_cymbal_decay = curr_ride_cymbal_decay_box; }
+        else if (prev_ride_cymbal_release != curr_ride_cymbal_release_input) { $(".ride-cymbal-env-box[id='ride-cymbal-release-value']").val(curr_ride_cymbal_release_input); prev_ride_cymbal_release = curr_ride_cymbal_release_input; }
+        else if (prev_ride_cymbal_release != curr_ride_cymbal_release_box) { $(".ride-cymbal-release-input").val(curr_ride_cymbal_release_box); prev_ride_cymbal_release = curr_ride_cymbal_release_box; }
         else if (prev_kick_base_freq != curr_kick_freq_input) { $(".kick-basefreq-box").val(curr_kick_freq_input); prev_kick_base_freq = curr_kick_freq_input; prev_base_freq = curr_kick_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
         else if (prev_kick_base_freq != curr_kick_freq_box) { $(".kick-basefreq-input").val(curr_kick_freq_box); prev_kick_base_freq = curr_kick_freq_box; prev_base_freq = curr_kick_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
         else if (prev_kick_pitch_decay != curr_kick_pitch_decay_input) { $(".kick-pitch-decay-box").val(curr_kick_pitch_decay_input); prev_kick_pitch_decay = curr_kick_pitch_decay_input; }
@@ -503,6 +675,48 @@ $(document).ready(function() {
         else if (prev_kick_sustain != curr_kick_sustain_box) { $(".kick-sustain-input").val(curr_kick_sustain_box); prev_kick_sustain = curr_kick_sustain_box; }
         else if (prev_kick_release != curr_kick_release_input) { $(".kick-env-box[id='kick-release-value']").val(curr_kick_release_input); prev_kick_release = curr_kick_release_input; }
         else if (prev_kick_release != curr_kick_release_box) { $(".kick-release-input").val(curr_kick_release_box); prev_kick_release = curr_kick_release_box; }
+        else if (prev_low_tom_base_freq != curr_low_tom_freq_input) { $(".low-tom-basefreq-box").val(curr_low_tom_freq_input); prev_low_tom_base_freq = curr_low_tom_freq_input; prev_base_freq = curr_low_tom_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_low_tom_base_freq != curr_low_tom_freq_box) { $(".low-tom-basefreq-input").val(curr_low_tom_freq_box); prev_low_tom_base_freq = curr_low_tom_freq_box; prev_base_freq = curr_low_tom_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_low_tom_pitch_decay != curr_low_tom_pitch_decay_input) { $(".low-tom-pitch-decay-box").val(curr_low_tom_pitch_decay_input); prev_low_tom_pitch_decay = curr_low_tom_pitch_decay_input; }
+        else if (prev_low_tom_pitch_decay != curr_low_tom_pitch_decay_box) { $(".low-tom-pitch-decay-input").val(curr_low_tom_pitch_decay_box); prev_low_tom_pitch_decay = curr_low_tom_pitch_decay_box; }
+        else if (prev_low_tom_octaves != curr_low_tom_octaves_input) { $(".low-tom-octaves-box").val(curr_low_tom_octaves_input); prev_low_tom_octaves = curr_low_tom_octaves_input; }
+        else if (prev_low_tom_octaves != curr_low_tom_octaves_box) { $(".low-tom-octaves-input").val(curr_low_tom_octaves_box); prev_low_tom_octaves = curr_low_tom_octaves_box; }
+        else if (prev_low_tom_attack != curr_low_tom_attack_input) { $(".low-tom-env-box[id='low-tom-attack-value']").val(curr_low_tom_attack_input); prev_low_tom_attack = curr_low_tom_attack_input; }
+        else if (prev_low_tom_attack != curr_low_tom_attack_box) { $(".low-tom-attack-input").val(curr_low_tom_attack_box); prev_low_tom_attack = curr_low_tom_attack_box; }
+        else if (prev_low_tom_decay != curr_low_tom_decay_input) { $(".low-tom-env-box[id='low-tom-decay-value']").val(curr_low_tom_decay_input); prev_low_tom_decay = curr_low_tom_decay_input; }
+        else if (prev_low_tom_decay != curr_low_tom_decay_box) { $(".low-tom-decay-input").val(curr_low_tom_decay_box); prev_low_tom_decay = curr_low_tom_decay_box; }
+        else if (prev_low_tom_sustain != curr_low_tom_sustain_input) { $(".low-tom-env-box[id='low-tom-sustain-value']").val(curr_low_tom_sustain_input); prev_low_tom_sustain = curr_low_tom_sustain_input; }
+        else if (prev_low_tom_sustain != curr_low_tom_sustain_box) { $(".low-tom-sustain-input").val(curr_low_tom_sustain_box); prev_low_tom_sustain = curr_low_tom_sustain_box; }
+        else if (prev_low_tom_release != curr_low_tom_release_input) { $(".low-tom-env-box[id='low-tom-release-value']").val(curr_low_tom_release_input); prev_low_tom_release = curr_low_tom_release_input; }
+        else if (prev_low_tom_release != curr_low_tom_release_box) { $(".low-tom-release-input").val(curr_low_tom_release_box); prev_low_tom_release = curr_low_tom_release_box; }
+        else if (prev_mid_tom_base_freq != curr_mid_tom_freq_input) { $(".mid-tom-basefreq-box").val(curr_mid_tom_freq_input); prev_mid_tom_base_freq = curr_mid_tom_freq_input; prev_base_freq = curr_mid_tom_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_mid_tom_base_freq != curr_mid_tom_freq_box) { $(".mid-tom-basefreq-input").val(curr_mid_tom_freq_box); prev_mid_tom_base_freq = curr_mid_tom_freq_box; prev_base_freq = curr_mid_tom_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_mid_tom_pitch_decay != curr_mid_tom_pitch_decay_input) { $(".mid-tom-pitch-decay-box").val(curr_mid_tom_pitch_decay_input); prev_mid_tom_pitch_decay = curr_mid_tom_pitch_decay_input; }
+        else if (prev_mid_tom_pitch_decay != curr_mid_tom_pitch_decay_box) { $(".mid-tom-pitch-decay-input").val(curr_mid_tom_pitch_decay_box); prev_mid_tom_pitch_decay = curr_mid_tom_pitch_decay_box; }
+        else if (prev_mid_tom_octaves != curr_mid_tom_octaves_input) { $(".mid-tom-octaves-box").val(curr_mid_tom_octaves_input); prev_mid_tom_octaves = curr_mid_tom_octaves_input; }
+        else if (prev_mid_tom_octaves != curr_mid_tom_octaves_box) { $(".mid-tom-octaves-input").val(curr_mid_tom_octaves_box); prev_mid_tom_octaves = curr_mid_tom_octaves_box; }
+        else if (prev_mid_tom_attack != curr_mid_tom_attack_input) { $(".mid-tom-env-box[id='mid-tom-attack-value']").val(curr_mid_tom_attack_input); prev_mid_tom_attack = curr_mid_tom_attack_input; }
+        else if (prev_mid_tom_attack != curr_mid_tom_attack_box) { $(".mid-tom-attack-input").val(curr_mid_tom_attack_box); prev_mid_tom_attack = curr_mid_tom_attack_box; }
+        else if (prev_mid_tom_decay != curr_mid_tom_decay_input) { $(".mid-tom-env-box[id='mid-tom-decay-value']").val(curr_mid_tom_decay_input); prev_mid_tom_decay = curr_mid_tom_decay_input; }
+        else if (prev_mid_tom_decay != curr_mid_tom_decay_box) { $(".mid-tom-decay-input").val(curr_mid_tom_decay_box); prev_mid_tom_decay = curr_mid_tom_decay_box; }
+        else if (prev_mid_tom_sustain != curr_mid_tom_sustain_input) { $(".mid-tom-env-box[id='mid-tom-sustain-value']").val(curr_mid_tom_sustain_input); prev_mid_tom_sustain = curr_mid_tom_sustain_input; }
+        else if (prev_mid_tom_sustain != curr_mid_tom_sustain_box) { $(".mid-tom-sustain-input").val(curr_mid_tom_sustain_box); prev_mid_tom_sustain = curr_mid_tom_sustain_box; }
+        else if (prev_mid_tom_release != curr_mid_tom_release_input) { $(".mid-tom-env-box[id='mid-tom-release-value']").val(curr_mid_tom_release_input); prev_mid_tom_release = curr_mid_tom_release_input; }
+        else if (prev_mid_tom_release != curr_mid_tom_release_box) { $(".mid-tom-release-input").val(curr_mid_tom_release_box); prev_mid_tom_release = curr_mid_tom_release_box; }
+        else if (prev_high_tom_base_freq != curr_high_tom_freq_input) { $(".high-tom-basefreq-box").val(curr_high_tom_freq_input); prev_high_tom_base_freq = curr_high_tom_freq_input; prev_base_freq = curr_high_tom_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_high_tom_base_freq != curr_high_tom_freq_box) { $(".high-tom-basefreq-input").val(curr_high_tom_freq_box); prev_high_tom_base_freq = curr_high_tom_freq_box; prev_base_freq = curr_high_tom_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_high_tom_pitch_decay != curr_high_tom_pitch_decay_input) { $(".high-tom-pitch-decay-box").val(curr_high_tom_pitch_decay_input); prev_high_tom_pitch_decay = curr_high_tom_pitch_decay_input; }
+        else if (prev_high_tom_pitch_decay != curr_high_tom_pitch_decay_box) { $(".high-tom-pitch-decay-input").val(curr_high_tom_pitch_decay_box); prev_high_tom_pitch_decay = curr_high_tom_pitch_decay_box; }
+        else if (prev_high_tom_octaves != curr_high_tom_octaves_input) { $(".high-tom-octaves-box").val(curr_high_tom_octaves_input); prev_high_tom_octaves = curr_high_tom_octaves_input; }
+        else if (prev_high_tom_octaves != curr_high_tom_octaves_box) { $(".high-tom-octaves-input").val(curr_high_tom_octaves_box); prev_high_tom_octaves = curr_high_tom_octaves_box; }
+        else if (prev_high_tom_attack != curr_high_tom_attack_input) { $(".high-tom-env-box[id='high-tom-attack-value']").val(curr_high_tom_attack_input); prev_high_tom_attack = curr_high_tom_attack_input; }
+        else if (prev_high_tom_attack != curr_high_tom_attack_box) { $(".high-tom-attack-input").val(curr_high_tom_attack_box); prev_high_tom_attack = curr_high_tom_attack_box; }
+        else if (prev_high_tom_decay != curr_high_tom_decay_input) { $(".high-tom-env-box[id='high-tom-decay-value']").val(curr_high_tom_decay_input); prev_high_tom_decay = curr_high_tom_decay_input; }
+        else if (prev_high_tom_decay != curr_high_tom_decay_box) { $(".high-tom-decay-input").val(curr_high_tom_decay_box); prev_high_tom_decay = curr_high_tom_decay_box; }
+        else if (prev_high_tom_sustain != curr_high_tom_sustain_input) { $(".high-tom-env-box[id='high-tom-sustain-value']").val(curr_high_tom_sustain_input); prev_high_tom_sustain = curr_high_tom_sustain_input; }
+        else if (prev_high_tom_sustain != curr_high_tom_sustain_box) { $(".high-tom-sustain-input").val(curr_high_tom_sustain_box); prev_high_tom_sustain = curr_high_tom_sustain_box; }
+        else if (prev_high_tom_release != curr_high_tom_release_input) { $(".high-tom-env-box[id='high-tom-release-value']").val(curr_high_tom_release_input); prev_high_tom_release = curr_high_tom_release_input; }
+        else if (prev_high_tom_release != curr_high_tom_release_box) { $(".high-tom-release-input").val(curr_high_tom_release_box); prev_high_tom_release = curr_high_tom_release_box; }
         
         defaultSynth = initSynth();
     });

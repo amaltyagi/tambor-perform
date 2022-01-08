@@ -112,12 +112,21 @@ nav a:hover, .curr {
 
 .instrument-div {
   /* padding-top: 20px; */
+  display: flex;
+  flex-direction: row;
+  /* width: 60px; */
+  font-size: medium;
   margin-top: -40px;
   text-align: center;
+  justify-content: center;
+  font-size: 36px;
 }
 
-.instrument {
+.instrument, .tet {
   font-size: medium;
+  width: 100px;
+  margin-left: 1px;
+  margin-right: 1px;
 }
 
 .qwerty {
@@ -142,6 +151,22 @@ nav a:hover, .curr {
 .qwerty-row, .bottom-row {
   display: flex;
   flex-direction: row;
+}
+
+#row0 {
+  margin-left: 0px;
+}
+
+#row1 {
+  margin-left: 25px;
+}
+
+#row2 {
+  margin-left: 50px;
+}
+
+#row3 {
+  margin-left: 75px;
 }
 
 .black-key:hover, .arrow-key:hover, .snare:hover, .daw-track-remove:hover, .daw-track-new:hover {
@@ -778,6 +803,41 @@ nav a:hover, .curr {
   margin-left: 7px;
 }
 
+.gg-crop {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  /* transform: scale(var(--ggs,1)); */
+  transform: scale(2);
+  width: 20px;
+  height: 20px;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+.gg-crop::after, .gg-crop::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 14px;
+  height: 14px;
+}
+
+.gg-crop::before {
+  border-right: 2px solid;
+  border-top: 2px solid;
+  left: 1px;
+  top: 5px;
+}
+
+.gg-crop::after {
+  border-left: 2px solid;
+  border-bottom: 2px solid;
+  top: 1px;
+  right: 1px;
+}
+
 .daw-track-record {
   margin-left: 12.5px;
   margin-top: 12.5px;
@@ -850,6 +910,7 @@ audio {
   }
 
   .daw-loop {
+    color: rgb(138, 21, 185);
     font-size: 40pt;
     font-weight: 50;
     margin-top: -10px;

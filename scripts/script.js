@@ -1,5 +1,13 @@
 $(document).ready(function() {
-    const qwerty_12 = ["q2w3er5t6y7ui9o0p[=]"];
+    var qwerty_tet = {
+        "12TET": ["q2w3er5t6y7ui9o0p[=]"],
+        "17TET": ["q2aw3ser5ft6gy7hui9ko0lp[=']"],
+        "19TET": ["1qaw3se4drft6gy7hu8jiko0lp-;[']"],
+        "22TET": ["q2azsexdr5cfvgy7bhunji9mk,lp.;[=/'"],
+        "29TET": ["zse45xdrtvgybhu89njio,lp-.;[=/"],
+        "41TET": ["1qaz2wsx3edc4rfv5tgb6yhn7ujm8ik,9ol.0p;/-="],
+        //"53tet": "",
+    };
     var synth_base_freq = 261.6;
     var pluck_base_freq = 40;
     var crash_cymbal_base_freq = 200;
@@ -9,9 +17,78 @@ $(document).ready(function() {
     var mid_tom_base_freq = 30;
     var high_tom_base_freq = 30;
     var base_freq = synth_base_freq;
-    var n = 12;
-    var keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
+    var n = $(".tet").val().replace("TET","");
+    var keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n);
     var sounds = [Tone.Synth, Tone.MonoSynth, Tone.AMSynth, Tone.FMSynth];
+
+    var qwerty_keys = ["1234567890-=","qwertyuiop[]","asdfghjkl;'","zxcvbnm,./"];
+    var non_alphanumeric_keys = {
+        "-": "minus",
+        "=": "equals",
+        "[": "left-square",
+        "]": "right-square",
+        ";": "semicolon",
+        "'": "apostrophe",
+        ",": "comma",
+        ".": "period",
+        "/": "slash"
+    };
+    var bottom_row_keys = ["opt-key-1","cmd-key-1","space-key","cmd-key-2","opt-key-2"];
+
+    var EDO_layouts = {
+        "12TET": [["2","3","5","6","7","9","0","="], ["q","w","e","r","t","y","u","i","o","p","[","]"]],
+        "17TET": [["2","3","5","6","7","9","0","=","a","s","f","g","h","k","l","'"],["q","w","e","r","t","y","u","i","o","p","[","]"]],
+        "19TET": [["1","3","4","6","7","8","0","-","q","w","e","r","t","y","u","i","o","p","[","]"], ["a","s","d","f","g","h","j","k","l",";","'"]],
+        "21TET": [["1","3","4","6","7","9","-","=","q","w","e","r","t","y","u","i","o","p","[","]"], ["a","s","d","f","g","h","j","k","l",";","'"]],
+        "22TET": [["2","5","7","9","=","q","e","r","y","u","i","p","[","a","s","d","f","g","h","j","k","l",";","'"], ["z","x","c","v","b","n","m",",",".","/"]],
+        "24TET": [["2","3","5","6","7","9","0","=","s","d","g","h","j","l",";"], ["q","w","e","r","t","y","u","i","o","p","[","]","z","x","c","v","b","n","m",",",".","/"]],       
+        "29TET": [["s","e","4","5","d","r","t","g","y","h","u","8","9","j","i","o","l","p","-","=",";","["], ["z","x","v","b","n",",",".","/"]],
+        "41TET": [["q","a","z","2","w","s","3","e","d","c","4","f","v","5","g","b","6","y","h","n","u","j","m","8","i",",","9","o","l",".","0",";","/","-"],
+                    ["1","x","r","t","7","k","p","="]],
+        // "53TET_to12": [["2","3","5","6","7","9","0","="], ["q","w","e","r","t","y","u","i","o","p","[","]"]],      
+    };
+    var edo = $(".tet").val();
+
+    function getKeyByName(name) {
+        if (!(name in non_alphanumeric_keys)) {
+            return $("#".concat(name));
+        };
+        return $("#".concat(non_alphanumeric_keys[name]));
+    }
+
+    function colorKeys() {
+        $(".qwerty-key").removeClass('white-key');
+        $(".qwerty-key").removeClass('black-key');
+        $(".qwerty-key").removeClass('disabled');
+        edo = $(".tet").val();
+        var blacks = EDO_layouts[edo][0];
+        var whites = EDO_layouts[edo][1];
+        qwerty_keys.forEach(qwerty_row => {
+            for (var i=0; i<qwerty_row.length; i++) {
+                var name = qwerty_row.charAt(i);
+                key = getKeyByName(name);
+                if (blacks.includes(name)) {
+                    key.addClass('black-key');
+                }
+                else if (whites.includes(name)) {
+                    key.addClass('white-key');
+                }
+                else {
+                    key.addClass('disabled');
+                }
+            };
+        });
+        bottom_row_keys.forEach(id => {
+            $("#".concat(id)).addClass('white-key');
+        });
+    }
+
+    colorKeys();
+    $(".tet").on("change", function() {
+        colorKeys();
+        n = $(".tet").val().replace("TET","");
+        bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n);
+    });
 
     // synth initializations
     $(".synth-vol-box").val(-24);
@@ -213,7 +290,7 @@ $(document).ready(function() {
 
     function initSynth(type=prev_type, vol=prev_vol, synth_base_freq=prev_synth_base_freq, sound=prev_sound, osc=prev_osc, partial=prev_partial, attack=prev_attack, attack_curve=prev_attack_curve, decay=prev_decay, decay_curve=prev_decay_curve, sustain=prev_sustain, release=prev_release, release_curve=prev_release_curve, pluck_base_freq=prev_pluck_base_freq, attack_noise=prev_attack_noise, dampening=prev_dampening, pluck_resonance=prev_pluck_resonance, crash_cymbal_base_freq=prev_crash_cymbal_base_freq, crash_cymbal_harmonicity=prev_crash_cymbal_harmonicity, crash_cymbal_modulation=prev_crash_cymbal_modulation, crash_cymbal_resonance=prev_crash_cymbal_resonance, crash_cymbal_octaves=prev_crash_cymbal_octaves, crash_cymbal_attack=prev_crash_cymbal_attack, crash_cymbal_decay=prev_crash_cymbal_decay, crash_cymbal_release=prev_crash_cymbal_release, ride_cymbal_base_freq=prev_ride_cymbal_base_freq, ride_cymbal_harmonicity=prev_ride_cymbal_harmonicity, ride_cymbal_modulation=prev_ride_cymbal_modulation, ride_cymbal_resonance=prev_ride_cymbal_resonance, ride_cymbal_octaves=prev_ride_cymbal_octaves, ride_cymbal_attack=prev_ride_cymbal_attack, ride_cymbal_decay=prev_ride_cymbal_decay, ride_cymbal_release=prev_ride_cymbal_release, kick_base_freq=prev_kick_base_freq, kick_pitch_decay=prev_kick_pitch_decay, kick_octaves=prev_kick_octaves, kick_attack=prev_kick_attack, kick_decay=prev_kick_decay, kick_sustain=prev_kick_sustain, kick_release=prev_kick_release, low_tom_base_freq=prev_low_tom_base_freq, low_tom_pitch_decay=prev_low_tom_pitch_decay, low_tom_octaves=prev_low_tom_octaves, low_tom_attack=prev_low_tom_attack, low_tom_decay=prev_low_tom_decay, low_tom_sustain=prev_low_tom_sustain, low_tom_release=prev_low_tom_release, mid_tom_base_freq=prev_mid_tom_base_freq, mid_tom_pitch_decay=prev_mid_tom_pitch_decay, mid_tom_octaves=prev_mid_tom_octaves, mid_tom_attack=prev_mid_tom_attack, mid_tom_decay=prev_mid_tom_decay, mid_tom_sustain=prev_mid_tom_sustain, mid_tom_release=prev_mid_tom_release, high_tom_base_freq=prev_high_tom_base_freq, high_tom_pitch_decay=prev_high_tom_pitch_decay, high_tom_octaves=prev_high_tom_octaves, high_tom_attack=prev_high_tom_attack, high_tom_decay=prev_high_tom_decay, high_tom_sustain=prev_high_tom_sustain, high_tom_release=prev_high_tom_release) {
         if (type == "Keyboard") {
-            bindToFreqs(qwerty_12, base_freq, n);
+            // bindToFreqs(qwerty_tet[$(".tet").val())], base_freq, n);
             $(".qwerty").show();
             $(".synth-vol").show();
             $(".synth-basefreq").show();
@@ -223,7 +300,8 @@ $(document).ready(function() {
             $(".pluck-env").hide();
             $(".drumkit-div").hide();
             base_freq = synth_base_freq;
-            keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
+            n = $(".tet").val().replace("TET","");
+            bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n);
             var synth = new Tone.PolySynth(6, sounds[sound], {
                 volume: vol,
                 oscillator: {
@@ -242,7 +320,6 @@ $(document).ready(function() {
         }
 
         else if (type == "String") {
-            bindToFreqs(qwerty_12, base_freq, n);
             $(".qwerty").show();
             $(".synth-vol").hide();
             $(".synth-basefreq").hide();
@@ -252,67 +329,14 @@ $(document).ready(function() {
             $(".pluck-env").show();
             $(".drumkit-div").hide();
             base_freq = pluck_base_freq;
-            keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
+            n = $(".tet").val().replace("TET","");
+            bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n);
             var synth = new Tone.PluckSynth({ // freq range: 20-130Hz
                 attackNoise: attack_noise,
                 dampening: dampening,
                 resonance: pluck_resonance,
             }).toMaster();
         }
-
-        // else if (type == "Cymbal") {
-        //     bindToFreqs(qwerty_12, base_freq, n);
-        //     $(".qwerty").show();
-        //     $(".synth-env").hide();
-        //     $(".synth-basefreq").hide();
-        //     $(".pluck-env").hide();
-        //     $(".pluck-basefreq").hide();
-        //     $(".metal-basefreq").show();
-        //     $(".metal-env").show();
-        //     $(".kick-env").hide();
-        //     $(".drumkit-div").hide();
-        //     base_freq = metal_base_freq;
-        //     keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
-        //     var synth = new Tone.MetalSynth({
-        //         volume: vol,
-        //         envelope: {
-        //             attack: metal_attack,
-        //             decay: metal_attack + metal_decay,
-        //             release: metal_attack + metal_decay + metal_release,
-        //         },
-        //         harmonicity: metal_harmonicity,
-        //         modulationIndex: metal_modulation,
-        //         resonance: metal_resonance,
-        //         octaves: metal_octaves,
-        //     }).toMaster();
-        // }
-
-        // else if (type == "Kick") {
-        //     bindToFreqs(qwerty_12, base_freq, n);
-        //     $(".qwerty").show();
-        //     $(".synth-env").hide();
-        //     $(".synth-basefreq").hide();
-        //     $(".pluck-env").hide();
-        //     $(".pluck-basefreq").hide();
-        //     $(".metal-basefreq").hide();
-        //     $(".metal-env").hide();
-        //     $(".kick-basefreq").show();
-        //     $(".kick-env").show();
-        //     $(".drumkit-div").hide();
-        //     base_freq = kick_base_freq;
-        //     keyFreqs = bindToFreqs(qwerty_12, base_freq, n);
-        //     var synth = new Tone.MembraneSynth({
-        //         volume: vol,
-        //         envelope: {
-        //             attack: kick_attack,
-        //             decay: kick_attack + kick_decay,
-        //             sustain: kick_attack + kick_decay + kick_sustain,
-        //             release: kick_attack + kick_decay + kick_sustain + kick_release,
-        //         },
-        //         pitchDecay: kick_pitch_decay,
-        //         octaves: kick_octaves,
-        //     }).toMaster();
-        // }
 
         else if (type == "Drumkit") {
             // bindToDrums(qwerty_drumkit);
@@ -607,8 +631,8 @@ $(document).ready(function() {
         if (prev_type != curr_type) { prev_type = curr_type; }
         else if (prev_vol != curr_vol_input) { $(".synth-vol-box").val(curr_vol_input); prev_vol = curr_vol_input; }
         else if (prev_vol != curr_vol_box) { $(".synth-vol-input").val(curr_vol_box); prev_vol = curr_vol_box; }
-        else if (prev_synth_base_freq != curr_synth_freq_input) { $(".synth-basefreq-box").val(curr_synth_freq_input); prev_synth_base_freq = curr_synth_freq_input; prev_base_freq = curr_synth_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
-        else if (prev_synth_base_freq != curr_synth_freq_box) { $(".synth-basefreq-input").val(curr_synth_freq_box); prev_synth_base_freq = curr_synth_freq_box; prev_base_freq = curr_synth_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_synth_base_freq != curr_synth_freq_input) { $(".synth-basefreq-box").val(curr_synth_freq_input); prev_synth_base_freq = curr_synth_freq_input; prev_base_freq = curr_synth_freq_input; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
+        else if (prev_synth_base_freq != curr_synth_freq_box) { $(".synth-basefreq-input").val(curr_synth_freq_box); prev_synth_base_freq = curr_synth_freq_box; prev_base_freq = curr_synth_freq_box; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
         else if (prev_sound != curr_sound) { prev_sound = curr_sound; }
         else if (prev_osc != curr_osc) { prev_osc = curr_osc; }
         else if (prev_partial != curr_partial_input) { $(".partial-box").val(curr_partial_input); prev_partial = curr_partial_input; }
@@ -621,16 +645,16 @@ $(document).ready(function() {
         else if (prev_sustain != curr_sustain_box) { $(".sustain-input").val(curr_sustain_box); prev_sustain = curr_sustain_box; }
         else if (prev_release != curr_release_input) { $(".env-box[id='release-value']").val(curr_release_input); prev_release = curr_release_input; }
         else if (prev_release != curr_release_box) { $(".release-input").val(curr_release_box); prev_release = curr_release_box; }
-        else if (prev_pluck_base_freq != curr_pluck_freq_input) { $(".pluck-basefreq-box").val(curr_pluck_freq_input); prev_pluck_base_freq = curr_pluck_freq_input; prev_base_freq = curr_pluck_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
-        else if (prev_pluck_base_freq != curr_pluck_freq_box) { $(".pluck-basefreq-input").val(curr_pluck_freq_box); prev_pluck_base_freq = curr_pluck_freq_box; prev_base_freq = curr_pluck_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_pluck_base_freq != curr_pluck_freq_input) { $(".pluck-basefreq-box").val(curr_pluck_freq_input); prev_pluck_base_freq = curr_pluck_freq_input; prev_base_freq = curr_pluck_freq_input; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
+        else if (prev_pluck_base_freq != curr_pluck_freq_box) { $(".pluck-basefreq-input").val(curr_pluck_freq_box); prev_pluck_base_freq = curr_pluck_freq_box; prev_base_freq = curr_pluck_freq_box; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
         else if (prev_attack_noise != curr_attack_noise_input) { $(".attack-noise-box").val(curr_attack_noise_input); prev_attack_noise = curr_attack_noise_input; }
         else if (prev_dampening != curr_dampening_input) { $(".dampening-box").val(curr_dampening_input); prev_dampening = curr_dampening_input; }
         else if (prev_pluck_resonance != curr_pluck_resonance_input) { $(".pluck-resonance-box").val(curr_pluck_resonance_input); prev_pluck_resonance = curr_pluck_resonance_input; }
         else if (prev_attack_noise != curr_attack_noise_box) { $(".attack-noise-input").val(curr_attack_noise_box); prev_attack_noise = curr_attack_noise_box; }
         else if (prev_dampening != curr_dampening_box) { $(".dampening-input").val(curr_dampening_box); prev_dampening = curr_dampening_box; }
         else if (prev_pluck_resonance != curr_pluck_resonance_box) { $(".pluck-resonance-input").val(curr_pluck_resonance_box); prev_pluck_resonance = curr_pluck_resonance_box; }
-        else if (prev_crash_cymbal_base_freq != curr_crash_cymbal_freq_input) { $(".crash-cymbal-basefreq-box").val(curr_crash_cymbal_freq_input); prev_crash_cymbal_base_freq = curr_crash_cymbal_freq_input; prev_base_freq = curr_crash_cymbal_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
-        else if (prev_crash_cymbal_base_freq != curr_crash_cymbal_freq_box) { $(".crash-cymbal-basefreq-input").val(curr_crash_cymbal_freq_box); prev_crash_cymbal_base_freq = curr_crash_cymbal_freq_box; prev_base_freq = curr_crash_cymbal_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_crash_cymbal_base_freq != curr_crash_cymbal_freq_input) { $(".crash-cymbal-basefreq-box").val(curr_crash_cymbal_freq_input); prev_crash_cymbal_base_freq = curr_crash_cymbal_freq_input; prev_base_freq = curr_crash_cymbal_freq_input; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
+        else if (prev_crash_cymbal_base_freq != curr_crash_cymbal_freq_box) { $(".crash-cymbal-basefreq-input").val(curr_crash_cymbal_freq_box); prev_crash_cymbal_base_freq = curr_crash_cymbal_freq_box; prev_base_freq = curr_crash_cymbal_freq_box; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
         else if (prev_crash_cymbal_harmonicity != curr_crash_cymbal_harmonicity_input) { $(".crash-cymbal-harmonicity-box").val(curr_crash_cymbal_harmonicity_input); prev_crash_cymbal_harmonicity = curr_crash_cymbal_harmonicity_input; }
         else if (prev_crash_cymbal_harmonicity != curr_crash_cymbal_harmonicity_box) { $(".crash-cymbal-harmonicity-input").val(curr_crash_cymbal_harmonicity_box); prev_crash_cymbal_harmonicity = curr_crash_cymbal_harmonicity_box; }
         else if (prev_crash_cymbal_modulation != curr_crash_cymbal_modulation_input) { $(".crash-cymbal-modulation-box").val(curr_crash_cymbal_modulation_input); prev_crash_cymbal_modulation = curr_crash_cymbal_modulation_input; }
@@ -645,8 +669,8 @@ $(document).ready(function() {
         else if (prev_crash_cymbal_decay != curr_crash_cymbal_decay_box) { $(".crash-cymbal-decay-input").val(curr_crash_cymbal_decay_box); prev_crash_cymbal_decay = curr_crash_cymbal_decay_box; }
         else if (prev_crash_cymbal_release != curr_crash_cymbal_release_input) { $(".crash-cymbal-env-box[id='crash-cymbal-release-value']").val(curr_crash_cymbal_release_input); prev_crash_cymbal_release = curr_crash_cymbal_release_input; }
         else if (prev_crash_cymbal_release != curr_crash_cymbal_release_box) { $(".crash-cymbal-release-input").val(curr_crash_cymbal_release_box); prev_crash_cymbal_release = curr_crash_cymbal_release_box; }
-        else if (prev_ride_cymbal_base_freq != curr_ride_cymbal_freq_input) { $(".ride-cymbal-basefreq-box").val(curr_ride_cymbal_freq_input); prev_ride_cymbal_base_freq = curr_ride_cymbal_freq_input; prev_base_freq = curr_ride_cymbal_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
-        else if (prev_ride_cymbal_base_freq != curr_ride_cymbal_freq_box) { $(".ride-cymbal-basefreq-input").val(curr_ride_cymbal_freq_box); prev_ride_cymbal_base_freq = curr_ride_cymbal_freq_box; prev_base_freq = curr_ride_cymbal_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_ride_cymbal_base_freq != curr_ride_cymbal_freq_input) { $(".ride-cymbal-basefreq-box").val(curr_ride_cymbal_freq_input); prev_ride_cymbal_base_freq = curr_ride_cymbal_freq_input; prev_base_freq = curr_ride_cymbal_freq_input; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
+        else if (prev_ride_cymbal_base_freq != curr_ride_cymbal_freq_box) { $(".ride-cymbal-basefreq-input").val(curr_ride_cymbal_freq_box); prev_ride_cymbal_base_freq = curr_ride_cymbal_freq_box; prev_base_freq = curr_ride_cymbal_freq_box; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
         else if (prev_ride_cymbal_harmonicity != curr_ride_cymbal_harmonicity_input) { $(".ride-cymbal-harmonicity-box").val(curr_ride_cymbal_harmonicity_input); prev_ride_cymbal_harmonicity = curr_ride_cymbal_harmonicity_input; }
         else if (prev_ride_cymbal_harmonicity != curr_ride_cymbal_harmonicity_box) { $(".ride-cymbal-harmonicity-input").val(curr_ride_cymbal_harmonicity_box); prev_ride_cymbal_harmonicity = curr_ride_cymbal_harmonicity_box; }
         else if (prev_ride_cymbal_modulation != curr_ride_cymbal_modulation_input) { $(".ride-cymbal-modulation-box").val(curr_ride_cymbal_modulation_input); prev_ride_cymbal_modulation = curr_ride_cymbal_modulation_input; }
@@ -661,8 +685,8 @@ $(document).ready(function() {
         else if (prev_ride_cymbal_decay != curr_ride_cymbal_decay_box) { $(".ride-cymbal-decay-input").val(curr_ride_cymbal_decay_box); prev_ride_cymbal_decay = curr_ride_cymbal_decay_box; }
         else if (prev_ride_cymbal_release != curr_ride_cymbal_release_input) { $(".ride-cymbal-env-box[id='ride-cymbal-release-value']").val(curr_ride_cymbal_release_input); prev_ride_cymbal_release = curr_ride_cymbal_release_input; }
         else if (prev_ride_cymbal_release != curr_ride_cymbal_release_box) { $(".ride-cymbal-release-input").val(curr_ride_cymbal_release_box); prev_ride_cymbal_release = curr_ride_cymbal_release_box; }
-        else if (prev_kick_base_freq != curr_kick_freq_input) { $(".kick-basefreq-box").val(curr_kick_freq_input); prev_kick_base_freq = curr_kick_freq_input; prev_base_freq = curr_kick_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
-        else if (prev_kick_base_freq != curr_kick_freq_box) { $(".kick-basefreq-input").val(curr_kick_freq_box); prev_kick_base_freq = curr_kick_freq_box; prev_base_freq = curr_kick_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_kick_base_freq != curr_kick_freq_input) { $(".kick-basefreq-box").val(curr_kick_freq_input); prev_kick_base_freq = curr_kick_freq_input; prev_base_freq = curr_kick_freq_input; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
+        else if (prev_kick_base_freq != curr_kick_freq_box) { $(".kick-basefreq-input").val(curr_kick_freq_box); prev_kick_base_freq = curr_kick_freq_box; prev_base_freq = curr_kick_freq_box; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
         else if (prev_kick_pitch_decay != curr_kick_pitch_decay_input) { $(".kick-pitch-decay-box").val(curr_kick_pitch_decay_input); prev_kick_pitch_decay = curr_kick_pitch_decay_input; }
         else if (prev_kick_pitch_decay != curr_kick_pitch_decay_box) { $(".kick-pitch-decay-input").val(curr_kick_pitch_decay_box); prev_kick_pitch_decay = curr_kick_pitch_decay_box; }
         else if (prev_kick_octaves != curr_kick_octaves_input) { $(".kick-octaves-box").val(curr_kick_octaves_input); prev_kick_octaves = curr_kick_octaves_input; }
@@ -675,8 +699,8 @@ $(document).ready(function() {
         else if (prev_kick_sustain != curr_kick_sustain_box) { $(".kick-sustain-input").val(curr_kick_sustain_box); prev_kick_sustain = curr_kick_sustain_box; }
         else if (prev_kick_release != curr_kick_release_input) { $(".kick-env-box[id='kick-release-value']").val(curr_kick_release_input); prev_kick_release = curr_kick_release_input; }
         else if (prev_kick_release != curr_kick_release_box) { $(".kick-release-input").val(curr_kick_release_box); prev_kick_release = curr_kick_release_box; }
-        else if (prev_low_tom_base_freq != curr_low_tom_freq_input) { $(".low-tom-basefreq-box").val(curr_low_tom_freq_input); prev_low_tom_base_freq = curr_low_tom_freq_input; prev_base_freq = curr_low_tom_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
-        else if (prev_low_tom_base_freq != curr_low_tom_freq_box) { $(".low-tom-basefreq-input").val(curr_low_tom_freq_box); prev_low_tom_base_freq = curr_low_tom_freq_box; prev_base_freq = curr_low_tom_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_low_tom_base_freq != curr_low_tom_freq_input) { $(".low-tom-basefreq-box").val(curr_low_tom_freq_input); prev_low_tom_base_freq = curr_low_tom_freq_input; prev_base_freq = curr_low_tom_freq_input; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
+        else if (prev_low_tom_base_freq != curr_low_tom_freq_box) { $(".low-tom-basefreq-input").val(curr_low_tom_freq_box); prev_low_tom_base_freq = curr_low_tom_freq_box; prev_base_freq = curr_low_tom_freq_box; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
         else if (prev_low_tom_pitch_decay != curr_low_tom_pitch_decay_input) { $(".low-tom-pitch-decay-box").val(curr_low_tom_pitch_decay_input); prev_low_tom_pitch_decay = curr_low_tom_pitch_decay_input; }
         else if (prev_low_tom_pitch_decay != curr_low_tom_pitch_decay_box) { $(".low-tom-pitch-decay-input").val(curr_low_tom_pitch_decay_box); prev_low_tom_pitch_decay = curr_low_tom_pitch_decay_box; }
         else if (prev_low_tom_octaves != curr_low_tom_octaves_input) { $(".low-tom-octaves-box").val(curr_low_tom_octaves_input); prev_low_tom_octaves = curr_low_tom_octaves_input; }
@@ -689,8 +713,8 @@ $(document).ready(function() {
         else if (prev_low_tom_sustain != curr_low_tom_sustain_box) { $(".low-tom-sustain-input").val(curr_low_tom_sustain_box); prev_low_tom_sustain = curr_low_tom_sustain_box; }
         else if (prev_low_tom_release != curr_low_tom_release_input) { $(".low-tom-env-box[id='low-tom-release-value']").val(curr_low_tom_release_input); prev_low_tom_release = curr_low_tom_release_input; }
         else if (prev_low_tom_release != curr_low_tom_release_box) { $(".low-tom-release-input").val(curr_low_tom_release_box); prev_low_tom_release = curr_low_tom_release_box; }
-        else if (prev_mid_tom_base_freq != curr_mid_tom_freq_input) { $(".mid-tom-basefreq-box").val(curr_mid_tom_freq_input); prev_mid_tom_base_freq = curr_mid_tom_freq_input; prev_base_freq = curr_mid_tom_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
-        else if (prev_mid_tom_base_freq != curr_mid_tom_freq_box) { $(".mid-tom-basefreq-input").val(curr_mid_tom_freq_box); prev_mid_tom_base_freq = curr_mid_tom_freq_box; prev_base_freq = curr_mid_tom_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_mid_tom_base_freq != curr_mid_tom_freq_input) { $(".mid-tom-basefreq-box").val(curr_mid_tom_freq_input); prev_mid_tom_base_freq = curr_mid_tom_freq_input; prev_base_freq = curr_mid_tom_freq_input; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
+        else if (prev_mid_tom_base_freq != curr_mid_tom_freq_box) { $(".mid-tom-basefreq-input").val(curr_mid_tom_freq_box); prev_mid_tom_base_freq = curr_mid_tom_freq_box; prev_base_freq = curr_mid_tom_freq_box; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
         else if (prev_mid_tom_pitch_decay != curr_mid_tom_pitch_decay_input) { $(".mid-tom-pitch-decay-box").val(curr_mid_tom_pitch_decay_input); prev_mid_tom_pitch_decay = curr_mid_tom_pitch_decay_input; }
         else if (prev_mid_tom_pitch_decay != curr_mid_tom_pitch_decay_box) { $(".mid-tom-pitch-decay-input").val(curr_mid_tom_pitch_decay_box); prev_mid_tom_pitch_decay = curr_mid_tom_pitch_decay_box; }
         else if (prev_mid_tom_octaves != curr_mid_tom_octaves_input) { $(".mid-tom-octaves-box").val(curr_mid_tom_octaves_input); prev_mid_tom_octaves = curr_mid_tom_octaves_input; }
@@ -703,8 +727,8 @@ $(document).ready(function() {
         else if (prev_mid_tom_sustain != curr_mid_tom_sustain_box) { $(".mid-tom-sustain-input").val(curr_mid_tom_sustain_box); prev_mid_tom_sustain = curr_mid_tom_sustain_box; }
         else if (prev_mid_tom_release != curr_mid_tom_release_input) { $(".mid-tom-env-box[id='mid-tom-release-value']").val(curr_mid_tom_release_input); prev_mid_tom_release = curr_mid_tom_release_input; }
         else if (prev_mid_tom_release != curr_mid_tom_release_box) { $(".mid-tom-release-input").val(curr_mid_tom_release_box); prev_mid_tom_release = curr_mid_tom_release_box; }
-        else if (prev_high_tom_base_freq != curr_high_tom_freq_input) { $(".high-tom-basefreq-box").val(curr_high_tom_freq_input); prev_high_tom_base_freq = curr_high_tom_freq_input; prev_base_freq = curr_high_tom_freq_input; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
-        else if (prev_high_tom_base_freq != curr_high_tom_freq_box) { $(".high-tom-basefreq-input").val(curr_high_tom_freq_box); prev_high_tom_base_freq = curr_high_tom_freq_box; prev_base_freq = curr_high_tom_freq_box; keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n); }
+        else if (prev_high_tom_base_freq != curr_high_tom_freq_input) { $(".high-tom-basefreq-box").val(curr_high_tom_freq_input); prev_high_tom_base_freq = curr_high_tom_freq_input; prev_base_freq = curr_high_tom_freq_input; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
+        else if (prev_high_tom_base_freq != curr_high_tom_freq_box) { $(".high-tom-basefreq-input").val(curr_high_tom_freq_box); prev_high_tom_base_freq = curr_high_tom_freq_box; prev_base_freq = curr_high_tom_freq_box; keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n); }
         else if (prev_high_tom_pitch_decay != curr_high_tom_pitch_decay_input) { $(".high-tom-pitch-decay-box").val(curr_high_tom_pitch_decay_input); prev_high_tom_pitch_decay = curr_high_tom_pitch_decay_input; }
         else if (prev_high_tom_pitch_decay != curr_high_tom_pitch_decay_box) { $(".high-tom-pitch-decay-input").val(curr_high_tom_pitch_decay_box); prev_high_tom_pitch_decay = curr_high_tom_pitch_decay_box; }
         else if (prev_high_tom_octaves != curr_high_tom_octaves_input) { $(".high-tom-octaves-box").val(curr_high_tom_octaves_input); prev_high_tom_octaves = curr_high_tom_octaves_input; }
@@ -724,11 +748,25 @@ $(document).ready(function() {
     function bindToFreqs(qwerty_keys, f, n) {
         keyFreqs = {};
         freqs = [];
+        var non_alphanumeric_keys = {
+            "-": "minus",
+            "=": "equals",
+            "[": "left-square",
+            "]": "right-square",
+            ";": "semicolon",
+            "'": "apostrophe",
+            ",": "comma",
+            ".": "period",
+            "/": "slash"
+        };
         for (i=0; i<qwerty_keys.length; i++) {
           keyFreqs[i] = [];
           var keyboard = qwerty_keys[i];
           for (j=0; j<keyboard.length; j++) {
             var k = keyboard[j];
+            if (k in non_alphanumeric_keys) {
+                k = non_alphanumeric_keys[k];
+            }
             var freq = Math.pow(2, j/n)*f;
             keyFreqs[k] = freq.toFixed(1);
             freqs.push(freq);
@@ -768,7 +806,10 @@ $(document).ready(function() {
     }
 
     function playDefaultEvent(e) {
-        const key = document.querySelector(`.qwerty-key[id="${e.key}"]`);
+        var key = document.querySelector(`.qwerty-key[id="${e.key}"]`);
+        if (e.key in non_alphanumeric_keys) {
+            key = document.querySelector(`.qwerty-key[id="${non_alphanumeric_keys[e.key]}"]`);
+        }
         playDefaultKey(key);
     }
 
@@ -794,7 +835,7 @@ $(document).ready(function() {
     function transposeKeys(semitones) {
         new_base_freq = Math.pow(2, semitones/n)*prev_base_freq;
         prev_base_freq = new_base_freq.toFixed(1);
-        keyFreqs = bindToFreqs(qwerty_12, prev_base_freq, n);
+        keyFreqs = bindToFreqs(qwerty_tet[$(".tet").val()], base_freq, n);;
         $(".synth-basefreq-input").val(prev_base_freq);
         $(".synth-basefreq-box").val(prev_base_freq);
     }
@@ -1036,6 +1077,7 @@ $(document).ready(function() {
             audio.classList.add("replaced");
             $(".full-play-btn").removeClass("disabled");
             $(".full-loop-btn").removeClass("disabled");
+            $(".full-crop-btn").removeClass("disabled");
             $(".floating-record-btn").removeClass("disabled");
             $(".floating-stop-btn").addClass("disabled");
             $(".floating-play-btn").removeClass("disabled");
@@ -1060,6 +1102,7 @@ $(document).ready(function() {
                         audioContext: new AudioContext()
                     }
                 };
+
                 Peaks.init(options, function(err, peaks) {
                     // Do something when the waveform is displayed and ready
                 });
@@ -1080,6 +1123,7 @@ $(document).ready(function() {
     $(document).on("click", ".full-play-btn", function() {
         $('.full-play-btn').addClass('disabled');
         $('.full-pause-btn').removeClass('disabled');
+        $('.full-crop-btn').addClass('disabled');
         $('.floating-play-btn').addClass('disabled');
         $('.floating-pause-btn').removeClass('disabled');
         const audios = document.querySelectorAll(".replaced");
@@ -1091,6 +1135,7 @@ $(document).ready(function() {
     $(document).on("click", ".full-pause-btn", function() {
         $('.full-pause-btn').addClass('disabled');
         $('.full-play-btn').removeClass('disabled');
+        $('.full-crop-btn').removeClass('disabled');
         $('.floating-pause-btn').addClass('disabled');
         $('.floating-play-btn').removeClass('disabled');
         const audios = document.querySelectorAll(".replaced");
@@ -1107,14 +1152,33 @@ $(document).ready(function() {
             audios.forEach(audio => {
                 audio.loop = false; 
             });
-        }
-        else {
+        } else {
             $('.full-loop-btn').addClass('toggled');
             $('.floating-loop-btn').addClass('toggled');
             const audios = document.querySelectorAll(".replaced");
             audios.forEach(audio => {
                 audio.loop = true; 
             });
+        }
+    });
+
+    $(document).on("click", ".full-crop-btn", function() {
+        if (!document.querySelector('.full-crop-btn').classList.contains('toggled')) {
+            $('.full-crop-btn').addClass('toggled');
+            $('.full-pause-btn').addClass('disabled');
+            $('.full-play-btn').addClass('disabled');
+            $('.full-loop-btn').addClass('disabled');
+            $('.floating-record-btn').addClass('disabled');
+            $('.floating-pause-btn').addClass('disabled');
+            $('.floating-play-btn').addClass('disabled');
+            $('.floating-loop-btn').addClass('disabled');
+        } else {
+            $('.full-crop-btn').removeClass('toggled');
+            $('.full-play-btn').removeClass('disabled');
+            $('.full-loop-btn').removeClass('disabled');
+            $('.floating-record-btn').removeClass('disabled');
+            $('.floating-play-btn').removeClass('disabled');
+            $('.floating-loop-btn').removeClass('disabled');
         }
     });
 
@@ -1129,6 +1193,10 @@ $(document).ready(function() {
     $(document).on("click", ".daw-track-remove", function() {
         $(this).closest('.daw-track').remove();
     });
+
+    $(document).on("dblclick", ".zoomview-container", function() {
+        $(this).css("background-color", "gray");
+    })
 });
 
 function getKeyByFreq(object, freq) {
@@ -1143,7 +1211,13 @@ $(document).on("click", ".dark-mode-checkbox", function() {
         $(".white-key, .space-key").css("background-color", "black");
         $(".white-key").css("color", "white");
         $(".white-key, .space-key").css("border", "1px solid rgba(21, 185, 87, .7)");
+        $(".white-key:hover, .space-key:hover").css("background-color", "rgba(200,200,200,1)");
         $(".qwerty-key.disabled").css("opacity", ".2");
+        $(".cymbal").css("background-color", "rgba(21, 185, 87, .9)");
+        $(".cymbal").css("color", "black");
+        $(".drum").css("background-color", "black");
+        $(".drum").css("color", "white");
+        $(".drum").css("border", "2px solid rgba(21, 185, 87, .7)");
         $(".tambor-perform-logo").css("filter", "invert(100%)");
         $(".env-curve").css("filter", "invert(100%)");
         $(".curr-curve").css("box-shadow", "0 0 15px #0039ff");
@@ -1161,7 +1235,13 @@ $(document).on("click", ".dark-mode-checkbox", function() {
         $(".white-key, .space-key").css("background-color", "white");
         $(".white-key").css("color", "black");
         $(".white-key, .space-key").css("border", "1px solid black");
+        $(".white-key:hover, .space-key:hover").css("background-color", "rgba(200,200,200,1)");
         $(".qwerty-key.disabled").css("opacity", ".3");
+        $(".cymbal").css("background-color", "rgb(240, 200, 110)");
+        $(".cymbal").css("color", "black");
+        $(".drum").css("background-color", "white");
+        $(".drum").css("color", "black");
+        $(".drum").css("border", "1px solid black");
         $(".tambor-perform-logo").css("filter", "invert(0%)");
         $(".env-curve").css("filter", "invert(0%)");
         $(".curr-curve").css("box-shadow", "0 0 10px #ffc600");

@@ -10,6 +10,7 @@
   <script src="scripts/script.js"></script>
   <!-- <link rel="stylesheet" type="text/css" href="styles/logo_style.css"> -->
   <link rel="stylesheet" type="text/css" href="styles/keyboard_style.css" />
+  <!-- <link href='https://css.gg/crop.css' rel='stylesheet'> -->
 </head>
 
 <body class="no-select">
@@ -18,41 +19,36 @@
     </div>
     <?php 
         $qwerty_keys = ["1234567890-=","qwertyuiop[]","asdfghjkl;'","zxcvbnm,./"];
-        $EDO_layouts = array(
-            "12TET" => [["2","3","5","6","7","9","0","="], ["q","w","e","r","t","y","u","i","o","p","[","]"]],
-            "17TET" => [["2","3","5","6","7","9","0","=","a","s","f","g","h","k","l","'"],["q","w","e","r","t","y","u","i","o","p","[","]"]],
-            "19TET" => [["1","3","4","6","7","8","0","-","q","w","e","r","t","y","u","i","o","p","[","]"], ["a","s","d","f","g","h","j","k","l",";","'"]],
-            "21TET" => [["1","3","4","6","7","9","-","=","q","w","e","r","t","y","u","i","o","p","[","]"], ["a","s","d","f","g","h","j","k","l",";","'"]],
-            "22TET" => [["2","5","7","9","=","q","e","r","y","u","i","p","[","a","s","d","f","g","h","j","k","l",";","'"], ["z","x","c","v","b","n","m",",",".","/"]],
-            "24TET" => [["2","3","5","6","7","9","0","=","s","d","g","h","j","l",";"], ["q","w","e","r","t","y","u","i","o","p","[","]","z","x","c","v","b","n","m",",",".","/"]],       
-            "29TET" => [["s","e","4","5","d","r","t","g","y","h","u","8","9","j","i","o","l","p","-","=",";","["], ["z","x","v","b","n",",",".","/"]],
-            "41TET" => [["q","a","z","2","w","s","3","e","d","c","4","f","v","5","g","b","6","y","h","n","u","j","m","8","i",",","9","o","l",".","0",";","/","-"],
-                       ["1","x","r","t","7","k","p","="]],
-            "53TET_to12" => [["2","3","5","6","7","9","0","="], ["q","w","e","r","t","y","u","i","o","p","[","]"]],      
-        );
-        $edo = '12TET';
-
-        $blacks = $EDO_layouts[$edo][0];
-        $whites = $EDO_layouts[$edo][1];
+        $non_alphanumeric_keys = [
+            "-" => "minus",
+            "=" => "equals",
+            "[" => "left-square",
+            "]" => "right-square",
+            ";" => "semicolon",
+            "'" => "apostrophe",
+            "," => "comma",
+            "." => "period",
+            "/" => "slash"
+        ];
     ?>
-    <!-- <nav>
-        <a class="curr" href="index.php">12TET</a>
-        <a href="keyboard17.php">17TET</a>
-        <a href="keyboard22.php">22TET</a>
-        <a href="keyboard29.php">29TET</a>
-        <a href="keyboard41.php">41TET</a>
-        <a href="keyboard53.php">53TET</a>
-    </nav><br /> -->
     
     <div class="instrument-div">
         <select class="instrument">
             <option class="keyboard">Keyboard</option>
             <option class="pluck">String</option>
-            <!-- <option class="metal">Cymbal</option>
-            <option class="membrane">Kick</option> -->
             <option class="drumkit">Drumkit</option>
         </select>
+        <select class="tet">
+            <option class="12tet">12TET</option>
+            <option class="17tet">17TET</option>
+            <option class="17tet">19TET</option>
+            <option class="22tet">22TET</option>
+            <option class="29tet">29TET</option>
+            <option class="41tet">41TET</option>
+            <!-- <option class="53tet">53TET</option> -->
+        </select>
     </div>
+
     <div class="floating-controls">
         <div class="display-controls">
             <!-- <div class="color-picker-div">
@@ -81,16 +77,10 @@
     </div>
     <div class="qwerty">
     <?php for ($i=0; $i<=3; $i++) { ?>
-        <div class="qwerty-row" id="<?php echo 'row'.strval($i)?>" style="margin-left: <?php if ($edo != '12TET') {echo strval(45*$i).'px';} else {echo strval(25*$i).'px';} ?>" >
-            <?php foreach (str_split($qwerty_keys[$i]) as $key) { ?>
-                <div class="<?php 
-                    $c = "qwerty-key";
-                    if (in_array($key, $blacks)) { $c .= " black-key"; } 
-                    elseif (in_array($key, $whites)) { $c .= " white-key"; } 
-                    else { $c .= " disabled"; }
-                    echo $c; 
-                ?>" id="<?php echo $key ?>"><?php echo strtoupper($key) ?></div>
-            <?php } ?>
+        <div class="qwerty-row" id="<?php echo 'row'.strval($i)?>">
+        <?php foreach (str_split($qwerty_keys[$i]) as $key) { ?>
+            <div class="qwerty-key" id="<?php if (!in_array($key, array_keys($non_alphanumeric_keys))) { echo $key; } else { echo $non_alphanumeric_keys[$key]; } ?>"><?php echo strtoupper($key) ?></div>
+        <?php } ?>
         </div>
     <?php } ?>
         <div class="bottom-row">
@@ -597,6 +587,9 @@
             </div>
             <div class="daw-circle-btn full-loop-btn disabled">
                 <div class="daw-loop">↻</div>
+            </div>
+            <div class="daw-circle-btn full-crop-btn disabled">
+                <div class="daw-crop"><i class="gg-crop"></i></div>
             </div>
         </div>
         <div class="daw-track track-selected" id="track-0">

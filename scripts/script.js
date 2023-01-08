@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var qwerty_tet = {
         "12TET": ["q2w3er5t6y7ui9o0p[=]"],
-        "17TET": ["q2aw3ser5ft6gy7hui9ko0lp[=']"],
+        "17TET": ["qa2ws3erf5tg6yh7uik9ol0p['="],
         "19TET": ["1qaw3se4drft6gy7hu8jiko0lp-;[']"],
         "22TET": ["q2azsexdr5cfvgy7bhunji9mk,lp.;[=/'"],
         "29TET": ["zse45xdrtvgybhu89njio,lp-.;[=/"],
